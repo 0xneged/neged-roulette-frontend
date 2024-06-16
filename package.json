@@ -1,5 +1,5 @@
 {
-  "name": "frontend-starter",
+  "name": "neged-roulette-frontend",
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
@@ -11,8 +11,12 @@
     "preview": "yarn build && yarn vite preview"
   },
   "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.1.2",
+    "@tanstack/react-query": "^5.45.1",
     "jotai": "^2.8.2",
-    "preact": "^10.22.0"
+    "preact": "^10.22.0",
+    "viem": "2.x",
+    "wagmi": "^2.10.2"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
@@ -23,7 +27,6 @@
     "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
-    "daisyui": "^4.11.1",
     "eslint": "^9.3.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
