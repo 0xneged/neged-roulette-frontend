@@ -14,8 +14,8 @@ export default function () {
     <WagmiProvider config={walletConfig}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
-          <div className="container mx-auto max-w-prose p-1 prose">
-            <Header />
+          <Header />
+          <div className="container mx-auto max-w-prose p-4 prose min-h-screen">
             <Roulette />
             <TotalBets />
             <RoundStats />
