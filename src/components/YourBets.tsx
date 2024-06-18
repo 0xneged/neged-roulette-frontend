@@ -1,4 +1,4 @@
-import BigButton from './BigButton'
+import BigButton from 'components/BigButton'
 import { useAccount } from 'wagmi'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useCallback } from 'preact/hooks'

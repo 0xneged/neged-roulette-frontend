@@ -1,4 +1,6 @@
 # Local launch
 
 1. Install dependencies with `yarn`
-2. Run the server with `yarn start`
+2. Setup the `.env` file in project root (check `.env.sample`)
+3. Run the server with `yarn start`
+4. Build production via `yarn build`, it builds into `/dist`

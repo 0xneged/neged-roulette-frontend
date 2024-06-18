@@ -16,5 +16,8 @@
   },
   "editor.quickSuggestions": {
     "strings": true
+  },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }
