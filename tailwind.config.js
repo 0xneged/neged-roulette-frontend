@@ -14,6 +14,7 @@ module.exports = {
         'primary-dark': '#5B38E7',
         'primary-bg': '#180431',
         neged: '#8B5CF6',
+        secondary: '#F4B862',
         'roulette-box': '#211741',
         participant1: '#60F0F94D',
         participant2: '#F9BC604D',

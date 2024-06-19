@@ -15,7 +15,7 @@ export default function () {
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider>
           <Header />
-          <div className="container mx-auto max-w-prose p-4 prose min-h-screen">
+          <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
             <Roulette />
             <TotalBets />
             <RoundStats />

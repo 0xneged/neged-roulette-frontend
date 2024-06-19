@@ -7249,6 +7249,7 @@ __metadata:
     prettier: "npm:^3.2.5"
     react-promise-suspense: "npm:^0.3.4"
     rollup-plugin-visualizer: "npm:^5.12.0"
+    socket.io-client: "npm:^4.7.5"
     tailwindcss: "npm:^3.4.3"
     ts-node: "npm:^10.9.2"
     typescript: "npm:^5.4.5"
@@ -8890,7 +8891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io-client@npm:^4.5.1":
+"socket.io-client@npm:^4.5.1, socket.io-client@npm:^4.7.5":
   version: 4.7.5
   resolution: "socket.io-client@npm:4.7.5"
   dependencies:
