@@ -47,7 +47,10 @@ export default function () {
 
               return (
                 <Button onClick={openAccountModal}>
-                  {account.displayName}
+                  <div className="hidden md:block">{account.displayName}</div>
+                  <div className="md:hidden">
+                    <WalletIcon />
+                  </div>
                 </Button>
               )
             })()}

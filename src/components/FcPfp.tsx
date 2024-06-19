@@ -4,10 +4,11 @@ export default function () {
   const fcUser = useFcAccount()
 
   return (
-    <img
-      className="aspect-square"
-      width={44}
-      src={fcUser ? fcUser.pfp_url : ''}
-    />
+    <div>
+      <img
+        className="object-cover max-w-11 "
+        src={fcUser ? fcUser.pfp_url : ''}
+      />
+    </div>
   )
 }
