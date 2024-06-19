@@ -2,7 +2,6 @@ import { Suspense } from 'preact/compat'
 import CustomConnectButton from './CustomConnectButton'
 import FcPfp from './FcPfp'
 import HatsCounterButton from './HatsCounterButton'
-import useFcAccount from 'helpers/useFcAccount'
 
 export default function () {
   return (

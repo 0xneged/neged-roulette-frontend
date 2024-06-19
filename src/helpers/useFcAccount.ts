@@ -6,7 +6,5 @@ export default function () {
   const { address } = useAccount()
   const data = usePromise(farcaster, [address])
 
-  console.log(address, data)
-
-  return data
+  return { data, address }
 }
