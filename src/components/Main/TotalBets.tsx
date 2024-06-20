@@ -1,5 +1,5 @@
-import Button from './Button'
-import HatIcon from './icons/HatIcon'
+import Button from '../Button'
+import HatIcon from '../icons/HatIcon'
 
 export default function () {
   return (

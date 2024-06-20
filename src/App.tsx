@@ -1,13 +1,12 @@
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { QueryClientProvider } from '@tanstack/react-query'
 import Header from 'components/Header'
-import Roulette from 'components/Roulette'
-import RoundStats from 'components/RoundStats'
-import TotalBets from 'components/TotalBets'
-import YourBets from 'components/YourBets'
 import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
+import Convert from 'pages/Convert'
+import Main from 'pages/Main'
 import { WagmiProvider } from 'wagmi'
+import { Link, Route, Switch } from 'wouter-preact'
 
 export default function () {
   return (
@@ -16,10 +15,10 @@ export default function () {
         <RainbowKitProvider>
           <Header />
           <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
-            <Roulette />
-            <TotalBets />
-            <RoundStats />
-            <YourBets />
+            <Switch>
+              <Route path="/convert" component={Convert} />
+              <Route path="/" component={Main} />
+            </Switch>
           </div>
         </RainbowKitProvider>
       </QueryClientProvider>

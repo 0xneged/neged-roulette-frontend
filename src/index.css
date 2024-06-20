@@ -6,5 +6,16 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: radial-gradient(ellipse at bottom, #ff6ddf30, transparent 50%);
+  background: radial-gradient(circle at bottom, #ff6ddf30, transparent 50%);
+}
+
+input[type='string'] {
+  background: transparent;
+  border: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

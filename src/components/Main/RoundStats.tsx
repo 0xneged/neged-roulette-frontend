@@ -1,4 +1,4 @@
-import BiPeople from './BiPeople'
+import BiPeople from '../BiPeople'
 
 export default function () {
   return (

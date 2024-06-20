@@ -4,7 +4,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import socket from 'helpers/api/socket'
 import DashedCard from './DashedCard'
-import HatInCircle from './icons/HatInCircle'
+import HatInCircle from '../icons/HatInCircle'
 
 export default function () {
   const [currentRound, setCurrentRound] = useState(null)

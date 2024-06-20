@@ -1,5 +1,5 @@
 import RouletteParticipant from './RouletteParticipant'
-import Triangle from './Triangle'
+import Triangle from '../Triangle'
 
 export default function () {
   return (
