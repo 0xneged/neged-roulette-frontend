@@ -1,6 +1,9 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Button from './Button'
 import WalletIcon from './icons/WalletIcon'
+import { Suspense } from 'preact/compat'
+import FcPfp from './FcPfp'
+import EmojiAvatar from './EmojiAvatar'
 
 export default function () {
   return (
@@ -45,13 +48,20 @@ export default function () {
                 return <Button onClick={openChainModal}>Wrong network</Button>
               }
 
+              const { address } = account
+
               return (
-                <Button onClick={openAccountModal}>
-                  <div className="hidden md:block">{account.displayName}</div>
-                  <div className="md:hidden">
-                    <WalletIcon />
+                <div
+                  className="flex flex-row items-center gap-x-2 cursor-pointer text-white"
+                  onClick={openAccountModal}
+                >
+                  <Suspense fallback={<EmojiAvatar address={address} />}>
+                    <FcPfp address={address} />
+                  </Suspense>
+                  <div className="hidden md:block opacity-70">
+                    {account.displayName}
                   </div>
-                </Button>
+                </div>
               )
             })()}
           </div>

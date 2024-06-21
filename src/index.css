@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #7f60f9 transparent;
+  scrollbar-width: thin;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -18,4 +24,11 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+::selection {
+  background-color: #ac60f94d;
+}
+::moz-selection {
+  background-color: #ac60f94d;
 }

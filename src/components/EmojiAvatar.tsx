@@ -1,7 +1,6 @@
 import { emojiAvatarForAddress } from 'helpers/emojiAvatarForAddress'
-import EthAddress from 'types/EthAddress'
 
-export default function ({ address }: { address: EthAddress | undefined }) {
+export default function ({ address }: { address: string | undefined }) {
   const { color, emoji } = emojiAvatarForAddress(address)
 
   return (
