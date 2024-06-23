@@ -1,15 +1,30 @@
 import axios from 'axios'
 import env from 'helpers/env'
-import { FcUser } from 'types/FcUser'
+import LoginBody from 'types/LoginBody'
 
-const backendEndpoint = `${env.VITE_BACKEND_URL}/token/convert`
+const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
-export default async function (address: string) {
+export async function swapTokens(loginBody: LoginBody) {
   try {
-    if (!address) return Promise.resolve()
-    const result = await axios.post<FcUser>(backendEndpoint, { address })
-    return result.data
+    const result = await axios.post<{ success: boolean }>(
+      `${backendEndpoint}/convert`,
+      loginBody
+    )
+    return result.data.success
   } catch (e) {
     console.error('Failed to swap tokens', e)
+    return false
+  }
+}
+
+export async function getTokensForUser(address: string) {
+  try {
+    const { data } = await axios.get<number>(backendEndpoint, {
+      params: { address },
+    })
+    return data
+  } catch (e) {
+    console.error(e)
+    return 0
   }
 }

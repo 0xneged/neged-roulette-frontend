@@ -32,3 +32,47 @@ input[type='number']::-webkit-outer-spin-button {
 ::moz-selection {
   background-color: #ac60f94d;
 }
+
+.rotate-animation {
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.dots-loader::before {
+  animation: dots 3s linear infinite;
+  content: '.';
+}
+
+@keyframes dots {
+  0%,
+  30% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  90% {
+    content: '...';
+  }
+}
+
+.hats-bg {
+  background-image: url('/img/hats-bg.svg');
+  background-position: 20%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+.mask-hat {
+  mask-image: url('/img/neged-hat.png');
+  mask-size: cover;
+}
