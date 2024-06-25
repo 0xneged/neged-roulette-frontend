@@ -1,3 +1,4 @@
+import AllBetters from 'components/Main/AllBetters'
 import Roulette from 'components/Main/Roulette'
 import RoundStats from 'components/Main/RoundStats'
 import TotalBets from 'components/Main/TotalBets'
@@ -9,6 +10,7 @@ import { useAccount } from 'wagmi'
 
 export default function () {
   const { address } = useAccount()
+  const [showAllBetter, setShowAllBetters] = useState(false)
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []
   const totalDeposits =
@@ -16,7 +18,6 @@ export default function () {
 
   useEffect(() => {
     socket.on('updateRound', (data: { currentRound: Round }) => {
-      console.log(data)
       setCurrentRound(data.currentRound)
     })
 
@@ -28,9 +29,15 @@ export default function () {
   return (
     <>
       <Roulette deposits={safeDeposits} totalDeposits={totalDeposits} />
-      <TotalBets totalDeposits={totalDeposits} />
+      <TotalBets
+        totalDeposits={totalDeposits}
+        setShowAllBetters={setShowAllBetters}
+      />
       <RoundStats round={currentRound} />
       <YourBets deposits={safeDeposits} totalDeposits={totalDeposits} />
+      {showAllBetter ? (
+        <AllBetters deposits={safeDeposits} totalDeposits={totalDeposits} />
+      ) : null}
     </>
   )
 }

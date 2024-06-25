@@ -4,8 +4,9 @@ import { FcUser } from 'types/FcUser'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/farcaster/getUser`
 
-export default async function (address?: string) {
+export default async function (address?: string, pfpUrl?: string) {
   try {
+    if (pfpUrl) return Promise.resolve({ pfp_url: pfpUrl })
     if (!address) return Promise.resolve()
     const result = await axios.post<FcUser>(backendEndpoint, { address })
     return result.data

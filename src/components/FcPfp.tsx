@@ -1,16 +1,27 @@
 import useFcAccount from 'helpers/useFcAccount'
 import EmojiAvatar from './EmojiAvatar'
 
-export default function ({ address }: { address?: string }) {
-  const { data } = useFcAccount(address)
+const imageStyles = 'w-11 h-11 rounded-3xl'
 
-  const pfpUrl = data ? data.pfp_url : ''
+export default function ({
+  address,
+  pfpUrl,
+}: {
+  address?: string
+  pfpUrl?: string | undefined
+}) {
+  const { data } = useFcAccount(address, pfpUrl)
 
-  if (!address) return null
+  if (!address && !pfpUrl) return null
+
+  const pfp = data ? data.pfp_url : ''
 
   return (
-    <div className="flex w-11 h-11 rounded-3xl">
-      {pfpUrl ? <img src={pfpUrl} /> : <EmojiAvatar address={address} />}
+    <div className={`relative flex ${imageStyles}`}>
+      <div className={`absolute ${imageStyles}`}>
+        <EmojiAvatar address={address} />
+      </div>
+      <img src={pfp} className={`absolute mt-0 mb-0 ${imageStyles}`} />
     </div>
   )
 }

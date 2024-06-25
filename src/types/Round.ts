@@ -1,4 +1,9 @@
-export type Deposit = { address: string; amount: number }
+export type Deposit = {
+  address: string
+  amount: number
+  fcPfpLink?: string
+  fcUsername?: string
+}
 export enum RoundStatus {
   ongoing,
   ended,

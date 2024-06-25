@@ -2,20 +2,14 @@ import RouletteParticipant from './RouletteParticipant'
 import Triangle from '../Triangle'
 import { Deposit } from 'types/Round'
 import HatsBg from 'components/icons/HatsBg'
+import DarkCard from 'components/DarkCard'
+import BetsProps from 'types/BetsProps'
 
-export default function ({
-  deposits,
-  totalDeposits,
-}: {
-  deposits: Deposit[]
-  totalDeposits: number
-}) {
+export default function ({ deposits, totalDeposits }: BetsProps) {
   const hasDeposits = !!deposits.length
 
   return (
-    <div
-      className={`relative flex flex-1 flex-row rounded-lg bg-roulette-box py-3 overflow-hidden w-full gap-x-2 ${hasDeposits ? '' : 'hats-bg'}`}
-    >
+    <DarkCard hasDeposits={hasDeposits}>
       {hasDeposits ? (
         <>
           <Triangle />
@@ -34,6 +28,6 @@ export default function ({
           </span>
         </div>
       )}
-    </div>
+    </DarkCard>
   )
 }

@@ -1,11 +1,18 @@
+import { Dispatch, StateUpdater } from 'preact/hooks'
 import Button from '../Button'
 import HatIcon from '../icons/HatIcon'
 import { roundNumber } from 'helpers/roundNumber'
 
-export default function ({ totalDeposits }: { totalDeposits: number }) {
+export default function ({
+  totalDeposits,
+  setShowAllBetters,
+}: {
+  totalDeposits: number
+  setShowAllBetters: Dispatch<StateUpdater<boolean>>
+}) {
   return (
     <Button
-      onClick={() => console.log('expand player bets')}
+      onClick={() => setShowAllBetters((prev) => !prev)}
       styles="bg-primary"
     >
       <span className="font-bold text-2xl pr-1">

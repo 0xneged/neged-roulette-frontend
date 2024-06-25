@@ -4,6 +4,7 @@ import HatIcon from 'components/icons/HatIcon'
 import useCountDown from 'helpers/hooks/useCountDown'
 import getPercentFromTime from 'helpers/getPercentFromTime'
 import padZeros from 'helpers/padZeros'
+import { useEffect, useState } from 'preact/hooks'
 
 function InnerComponent({ round }: { round: Round }) {
   const { minutes, seconds } = useCountDown(round.endTime)
@@ -23,10 +24,18 @@ function InnerComponent({ round }: { round: Round }) {
 }
 
 export default function ({ round }: { round: Round | null }) {
+  const [roundProgress, setRoundProgress] = useState(0)
+
   const isRoundStarted = !!round
-  const roundProgress = isRoundStarted
-    ? getPercentFromTime(round.startTime, round.endTime)
-    : 0
+  useEffect(() => {
+    if (!isRoundStarted) return
+
+    setInterval(
+      () =>
+        setRoundProgress(getPercentFromTime(round.startTime, round.endTime)),
+      1000
+    )
+  }, [round?.startTime, round?.endTime])
 
   return (
     <div className="relative">
