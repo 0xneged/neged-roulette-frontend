@@ -1,5 +1,6 @@
 import FcPfp from 'components/FcPfp'
 import Username from 'components/Username'
+import { emojiAvatarForAddress } from 'helpers/emojiAvatarForAddress'
 import getAccountLink from 'helpers/getAccountLink'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
 import { roundNumber } from 'helpers/roundNumber'
@@ -14,8 +15,13 @@ export default function ({
 }: {
   totalDeposits: number
 } & Deposit) {
+  const { color } = emojiAvatarForAddress(address)
+
   return (
-    <div className="bg-participant2 rounded-lg flex flex-col p-3 w-32 gap-y-2">
+    <div
+      className="rounded-lg flex flex-col p-3 w-32 gap-y-2"
+      style={{ backgroundColor: `${color}30` }}
+    >
       <a
         href={getAccountLink(address, fcUsername)}
         target="_blank"
