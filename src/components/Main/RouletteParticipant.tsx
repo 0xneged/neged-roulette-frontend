@@ -19,7 +19,7 @@ export default function ({
 
   return (
     <div
-      className="rounded-lg flex flex-col p-3 w-32 gap-y-2"
+      className="rounded-lg flex flex-col p-3 w-34 gap-y-2"
       style={{ backgroundColor: `${color}30` }}
     >
       <a

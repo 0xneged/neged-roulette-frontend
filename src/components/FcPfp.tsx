@@ -20,7 +20,7 @@ export default function ({
 
   if (!pfp || imgLoadError)
     return (
-      <div className={`absolute ${imageStyles}`}>
+      <div className={imageStyles}>
         <EmojiAvatar address={address} />
       </div>
     )
