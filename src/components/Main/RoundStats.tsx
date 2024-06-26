@@ -10,6 +10,8 @@ function InnerComponent({ round }: { round: Round }) {
   const { minutes, seconds } = useCountDown(round.endTime)
   const participants = new Set(round.deposits.map(({ address }) => address))
 
+  if (minutes < 0 && seconds < 0) return <p>Winner!</p>
+
   return (
     <>
       <span className="opacity-25 text-white">start of the round</span>
@@ -27,14 +29,19 @@ export default function ({ round }: { round: Round | null }) {
   const [roundProgress, setRoundProgress] = useState(0)
 
   const isRoundStarted = !!round
+
   useEffect(() => {
     if (!isRoundStarted) return
 
-    setInterval(
-      () =>
-        setRoundProgress(getPercentFromTime(round.startTime, round.endTime)),
-      1000
-    )
+    const interval = setInterval(() => {
+      const percent = getPercentFromTime(round.startTime, round.endTime)
+      if (percent <= 100) setRoundProgress(percent)
+      else clearInterval(interval)
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
   }, [round?.startTime, round?.endTime])
 
   return (

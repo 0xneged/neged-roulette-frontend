@@ -3,18 +3,22 @@ import HatInCircle from 'components/icons/HatInCircle'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
 import BetsProps from 'types/BetsProps'
 
-export default function ({ deposits, totalDeposits }: BetsProps) {
-  if (!deposits?.length || !totalDeposits) return null
+export default function ({
+  deposits,
+  totalDeposits,
+  showAllBetter,
+}: BetsProps & { showAllBetter: boolean }) {
+  if (!showAllBetter || !deposits?.length || !totalDeposits) return null
 
   return (
-    <div className="flex flex-col py-6 px-3 bg-primary-bg rounded-3xl my-8">
+    <div className="flex flex-col py-6 px-3 bg-primary-bg rounded-3xl my-8 gap-y-2">
       <p className="text-lg text-center font-bold">Player bets</p>
       {deposits.map(({ address, amount, fcPfpLink, fcUsername }) => (
         <div
           className="bg-roulette-box flex flex-row justify-between items-center rounded-2xl p-3"
           key={address + amount}
         >
-          <div className="flex flex-col gap-y-1 items-center">
+          <div className="flex flex-col items-center">
             <FcPfp address={address} pfpUrl={fcPfpLink} />
             <span className="truncate opacity-80">{fcUsername || address}</span>
           </div>

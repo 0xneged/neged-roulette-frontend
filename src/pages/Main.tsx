@@ -37,9 +37,11 @@ export default function () {
       />
       <RoundStats round={currentRound} />
       <YourBets deposits={safeDeposits} totalDeposits={totalDeposits} />
-      {showAllBetter ? (
-        <AllBetters deposits={safeDeposits} totalDeposits={totalDeposits} />
-      ) : null}
+      <AllBetters
+        deposits={safeDeposits}
+        totalDeposits={totalDeposits}
+        showAllBetter={showAllBetter}
+      />
     </>
   )
 }

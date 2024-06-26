@@ -1,8 +1,8 @@
 export type Deposit = {
   address: string
   amount: number
-  fcPfpLink?: string
-  fcUsername?: string
+  fcPfpLink: string | undefined
+  fcUsername: string | undefined
 }
 export enum RoundStatus {
   ongoing,

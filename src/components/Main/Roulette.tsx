@@ -13,6 +13,8 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
           <Triangle />
           {deposits.map(({ address, amount, fcPfpLink, fcUsername }) => (
             <RouletteParticipant
+              fcPfpLink={fcPfpLink}
+              fcUsername={fcUsername}
               address={address}
               amount={amount}
               totalDeposits={totalDeposits}
