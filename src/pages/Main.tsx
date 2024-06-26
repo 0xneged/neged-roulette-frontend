@@ -28,8 +28,13 @@ export default function () {
       setCurrentRound(data.currentRound)
     })
 
+    socket.on('roundEnd', () => {
+      setCurrentRound(null)
+    })
+
     return () => {
       socket.off('updateRound')
+      socket.off('roundEnd')
     }
   }, [address])
 

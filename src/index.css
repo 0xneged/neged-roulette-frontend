@@ -69,12 +69,14 @@ a {
   }
 }
 
-.hats-bg {
-  background-image: url('/img/hats-bg.svg');
-  background-position: 20%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-origin: content-box;
+.hats-animation {
+  animation: hats-bg-slide 10s linear infinite;
+}
+
+@keyframes hats-bg-slide {
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .mask-hat {
