@@ -1,7 +1,8 @@
 import useFcAccount from 'helpers/useFcAccount'
 import EmojiAvatar from './EmojiAvatar'
+import { useState } from 'preact/hooks'
 
-const imageStyles = 'w-11 h-11 rounded-3xl'
+const imageStyles = 'w-10 h-10 rounded-3xl'
 
 export default function ({
   address,
@@ -10,22 +11,27 @@ export default function ({
   address?: string
   pfpUrl?: string | undefined
 }) {
+  const [imgLoadError, setImgLoadError] = useState(false)
   const { data } = useFcAccount(address, pfpUrl)
 
   if (!address && !pfpUrl) return null
 
   const pfp = data ? data.pfp_url : ''
 
-  return (
-    <div className={`relative flex ${imageStyles}`}>
+  if (!pfp || imgLoadError)
+    return (
       <div className={`absolute ${imageStyles}`}>
         <EmojiAvatar address={address} />
       </div>
-      <img
-        src={pfp}
-        className={`absolute mt-0 mb-0 ${imageStyles}`}
-        onError={(e) => (e.currentTarget.hidden = true)}
-      />
-    </div>
+    )
+
+  return (
+    <img
+      src={pfp}
+      className={`my-0 ${imageStyles}`}
+      onError={() => {
+        setImgLoadError(true)
+      }}
+    />
   )
 }

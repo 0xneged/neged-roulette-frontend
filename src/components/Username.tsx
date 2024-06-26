@@ -1,15 +1,14 @@
 export default function ({
   address,
   fcUsername,
-  textCenter,
+  truncate,
 }: {
   address: string
   fcUsername: string | undefined
-  textCenter?: boolean
+  truncate?: boolean
 }) {
-  const styles =
-    'double-rows-break font-semibold opacity-70 text-xs leading-tight'
-  const center = textCenter ? ' text-center' : ''
+  const styles = 'font-semibold opacity-70 text-xs leading-tight '
+  const truncation = truncate ? 'truncate' : 'double-rows-break'
 
-  return <span className={styles + center}>{fcUsername || address}</span>
+  return <span className={styles + truncation}>{fcUsername || address}</span>
 }

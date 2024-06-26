@@ -23,7 +23,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
         </>
       ) : (
         <div className="flex-1 my-3 h-full w-full flex items-center justify-center">
-          <span className="text-xl md:text-3xl font-medium">
+          <span className="text-xl md:text-3xl font-medium text-center">
             Round will start with first deposit
           </span>
         </div>

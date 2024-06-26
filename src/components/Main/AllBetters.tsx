@@ -17,7 +17,7 @@ export default function ({
       <p className="text-lg text-center font-bold">Player bets</p>
       {deposits.map(({ address, amount, fcPfpLink, fcUsername }) => (
         <div
-          className="bg-roulette-box flex flex-row justify-between items-center rounded-2xl p-3"
+          className="bg-roulette-box flex flex-row justify-between items-center rounded-2xl p-3 gap-x-1"
           key={address + amount}
         >
           <a
@@ -26,7 +26,7 @@ export default function ({
             target="_blank"
           >
             <FcPfp address={address} pfpUrl={fcPfpLink} />
-            <Username address={address} fcUsername={fcUsername} textCenter />
+            <Username address={address} fcUsername={fcUsername} truncate />
           </a>
 
           <div className="flex flex-row items-center gap-x-1">
