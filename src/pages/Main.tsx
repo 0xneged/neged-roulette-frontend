@@ -13,8 +13,10 @@ export default function () {
   const [showAllBetter, setShowAllBetters] = useState(false)
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []
-  const totalDeposits =
-    safeDeposits.reduce((prev, { amount }) => prev + amount, 0) || 1
+  const totalDeposits = safeDeposits.reduce(
+    (prev, { amount }) => prev + amount,
+    0
+  )
 
   useEffect(() => {
     socket.on('updateRound', (data: { currentRound: Round }) => {

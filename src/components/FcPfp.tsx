@@ -21,7 +21,11 @@ export default function ({
       <div className={`absolute ${imageStyles}`}>
         <EmojiAvatar address={address} />
       </div>
-      <img src={pfp} className={`absolute mt-0 mb-0 ${imageStyles}`} />
+      <img
+        src={pfp}
+        className={`absolute mt-0 mb-0 ${imageStyles}`}
+        onError={(e) => (e.currentTarget.hidden = true)}
+      />
     </div>
   )
 }

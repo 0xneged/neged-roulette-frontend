@@ -11,10 +11,7 @@ export default function ({
   setShowAllBetters: Dispatch<StateUpdater<boolean>>
 }) {
   return (
-    <Button
-      onClick={() => setShowAllBetters((prev) => !prev)}
-      styles="bg-primary"
-    >
+    <Button onClick={() => setShowAllBetters((prev) => !prev)} styles="!bg-hat">
       <span className="font-bold text-2xl pr-1">
         {roundNumber(totalDeposits)}
       </span>

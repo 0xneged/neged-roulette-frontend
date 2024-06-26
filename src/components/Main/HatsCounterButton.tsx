@@ -14,7 +14,7 @@ export default function ({ address }: { address: string }) {
   return (
     <Button
       onClick={() => navigate('/convert')}
-      styles="bg-primary rounded-full !h-11"
+      styles="!bg-hat rounded-full !h-11"
       disabled={!hasData}
     >
       <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(amount)}

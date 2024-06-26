@@ -1,7 +1,5 @@
 import RouletteParticipant from './RouletteParticipant'
 import Triangle from '../Triangle'
-import { Deposit } from 'types/Round'
-import HatsBg from 'components/icons/HatsBg'
 import DarkCard from 'components/DarkCard'
 import BetsProps from 'types/BetsProps'
 
@@ -13,7 +11,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
       {hasDeposits ? (
         <>
           <Triangle />
-          {deposits.map(({ address, amount }) => (
+          {deposits.map(({ address, amount, fcPfpLink, fcUsername }) => (
             <RouletteParticipant
               address={address}
               amount={amount}
