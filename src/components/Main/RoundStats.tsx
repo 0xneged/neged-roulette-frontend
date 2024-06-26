@@ -5,12 +5,14 @@ import useCountDown from 'helpers/hooks/useCountDown'
 import getPercentFromTime from 'helpers/getPercentFromTime'
 import padZeros from 'helpers/padZeros'
 import { useEffect, useState } from 'preact/hooks'
+import { Suspense } from 'preact/compat'
+import PreviousRoundResult from './PreviousRoundResult'
 
 function InnerComponent({ round }: { round: Round }) {
   const { minutes, seconds } = useCountDown(round.endTime)
   const participants = new Set(round.deposits.map(({ address }) => address))
 
-  if (minutes < 0 && seconds < 0) return <p>Winner!</p>
+  if (minutes < 0 && seconds < 0) return <PreviousRoundResult />
 
   return (
     <>
@@ -36,7 +38,10 @@ export default function ({ round }: { round: Round | null }) {
     const interval = setInterval(() => {
       const percent = getPercentFromTime(round.startTime, round.endTime)
       if (percent <= 100) setRoundProgress(percent)
-      else clearInterval(interval)
+      else {
+        setRoundProgress(100)
+        clearInterval(interval)
+      }
     }, 1000)
 
     return () => {
@@ -70,7 +75,9 @@ export default function ({ round }: { round: Round | null }) {
         {isRoundStarted ? (
           <InnerComponent round={round} />
         ) : (
-          <HatIcon rotateAnimation />
+          <Suspense fallback={<HatIcon rotateAnimation />}>
+            <PreviousRoundResult />
+          </Suspense>
         )}
       </div>
     </div>

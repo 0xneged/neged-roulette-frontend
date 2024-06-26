@@ -30,8 +30,8 @@ export default function ({
           </a>
 
           <div className="flex flex-row items-center gap-x-1">
-            <div className="flex flex-row bg-primary p-2 font-bold font-sm rounded-xl gap-x-1 items-center">
-              <span>{amount}</span> <HatInCircle />
+            <div className="flex flex-row bg-primary-dark p-2 font-bold font-sm rounded-xl gap-x-1 items-center">
+              <span>{amount}</span> <HatInCircle small />
             </div>
             <div className="p-3 bg-pale-purple rounded-xl h-full">
               <span>{getPercentFromTotal(amount, totalDeposits)}%</span>

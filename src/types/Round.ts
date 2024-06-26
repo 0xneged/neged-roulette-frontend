@@ -1,8 +1,14 @@
-export type Deposit = {
+type ShortUser = {
   address: string
-  amount: number
   fcPfpLink: string | undefined
   fcUsername: string | undefined
+}
+
+export type Deposit = ShortUser & {
+  amount: number
+}
+export type Winner = ShortUser & {
+  winnerAmount: number
 }
 export enum RoundStatus {
   ongoing,
