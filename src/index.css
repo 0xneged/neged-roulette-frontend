@@ -33,6 +33,11 @@ input[type='number']::-webkit-outer-spin-button {
   background-color: #ac60f94d;
 }
 
+a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
 .rotate-animation {
   animation: rotate 3s linear infinite;
 }

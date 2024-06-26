@@ -1,5 +1,7 @@
 import FcPfp from 'components/FcPfp'
+import Username from 'components/Username'
 import HatInCircle from 'components/icons/HatInCircle'
+import getAccountLink from 'helpers/getAccountLink'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
 import BetsProps from 'types/BetsProps'
 
@@ -18,10 +20,14 @@ export default function ({
           className="bg-roulette-box flex flex-row justify-between items-center rounded-2xl p-3"
           key={address + amount}
         >
-          <div className="flex flex-col items-center">
+          <a
+            href={getAccountLink(address, fcUsername)}
+            className="flex flex-row items-center gap-x-2"
+            target="_blank"
+          >
             <FcPfp address={address} pfpUrl={fcPfpLink} />
-            <span className="truncate opacity-80">{fcUsername || address}</span>
-          </div>
+            <Username address={address} fcUsername={fcUsername} textCenter />
+          </a>
 
           <div className="flex flex-row items-center gap-x-1">
             <div className="flex flex-row bg-primary p-2 font-bold font-sm rounded-xl gap-x-1 items-center">

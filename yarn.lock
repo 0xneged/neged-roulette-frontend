@@ -921,6 +921,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formkit/auto-animate@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "@formkit/auto-animate@npm:0.8.2"
+  checksum: 10c0/0b24af241c229f37643cd62ea78fd7fddf621c06516cf62452035ea0bf489b6b53068eea47abb40b6bb3653bb91c1efad8b7257014a3559d26ad77b47b5337cb
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1":
   version: 1.1.2
   resolution: "@gar/promisify@npm:1.1.2"
@@ -7230,6 +7237,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "neged-roulette-frontend@workspace:."
   dependencies:
+    "@formkit/auto-animate": "npm:^0.8.2"
     "@preact/preset-vite": "npm:^2.8.2"
     "@rainbow-me/rainbowkit": "npm:^2.1.2"
     "@tailwindcss/typography": "npm:^0.5.13"
