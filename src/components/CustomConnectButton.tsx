@@ -57,7 +57,7 @@ export default function () {
                     <HatsCounterButton address={address} />
                   </Suspense>
                   <div
-                    className="flex flex-row items-center gap-x-2 cursor-pointer text-white"
+                    className="flex flex-row items-center gap-x-1 cursor-pointer text-white"
                     onClick={openAccountModal}
                   >
                     <div className="flex w-11 h-11 rounded-3xl">
