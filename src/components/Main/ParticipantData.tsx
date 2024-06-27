@@ -17,7 +17,7 @@ export default function ({
       target="_blank"
       className="flex flex-row gap-x-2 items-center justify-between"
     >
-      <div className="w-16">
+      <div className="w-16 hover:underline">
         <Username address={address} fcUsername={fcUsername} />
       </div>
       <FcPfp address={address} pfpUrl={fcPfpLink} />

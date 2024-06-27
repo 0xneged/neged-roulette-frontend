@@ -7,7 +7,7 @@ interface ButtonProps extends PropsWithChildren, OnClick {
 }
 
 const basicButtonStyles =
-  'flex-row flex cursor-pointer items-center justify-center gap-x-2 text-lg text-white font-medium px-4 py-2 bg-primary rounded-md bg-opacity-20 '
+  'flex-row flex cursor-pointer items-center justify-center gap-x-2 text-lg text-white font-medium px-4 py-2 bg-primary rounded-md bg-opacity-20 active:scale-105 transition-all hover:hue-rotate-15 '
 
 export default function ({
   children,
