@@ -6,10 +6,12 @@ export default function ({
   address,
   fcPfpLink,
   fcUsername,
+  limitWidth,
 }: {
   address: string
   fcPfpLink: string | undefined
   fcUsername: string | undefined
+  limitWidth?: boolean
 }) {
   return (
     <a
@@ -17,7 +19,11 @@ export default function ({
       target="_blank"
       className="flex flex-row gap-x-2 items-center justify-between"
     >
-      <Username address={address} fcUsername={fcUsername} />
+      <Username
+        address={address}
+        fcUsername={fcUsername}
+        limitWidth={limitWidth}
+      />
       <FcPfp address={address} pfpUrl={fcPfpLink} />
     </a>
   )

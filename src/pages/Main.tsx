@@ -10,6 +10,7 @@ import { useEffect, useState } from 'preact/hooks'
 import Round from 'types/Round'
 import { useAccount } from 'wagmi'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
+import queryClient from 'helpers/queryClient'
 
 export default function () {
   const [parent] = useAutoAnimate()
@@ -28,9 +29,26 @@ export default function () {
       setCurrentRound(data.currentRound)
     })
 
-    socket.on('roundEnd', () => {
-      setCurrentRound(null)
-    })
+    socket.on(
+      'roundEnd',
+      ({
+        round,
+        nextRoundTimeout,
+      }: {
+        nextRoundTimeout: number
+        round: Round
+      }) => {
+        setCurrentRound(round)
+        document.documentElement.style.setProperty(
+          '--round-timeout',
+          nextRoundTimeout - 500 + 'ms'
+        )
+        queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
+        setTimeout(() => {
+          setCurrentRound(null)
+        }, nextRoundTimeout)
+      }
+    )
 
     return () => {
       socket.off('updateRound')
@@ -41,7 +59,7 @@ export default function () {
   return (
     <Suspense fallback={<HatIcon rotateAnimation />}>
       <div ref={parent}>
-        <Roulette deposits={safeDeposits} totalDeposits={totalDeposits} />
+        <Roulette round={currentRound} totalDeposits={totalDeposits} />
         <TotalBets
           totalDeposits={totalDeposits}
           setShowAllBetters={setShowAllBetters}

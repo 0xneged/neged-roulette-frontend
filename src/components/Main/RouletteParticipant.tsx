@@ -12,22 +12,24 @@ export default function ({
   totalDeposits,
   fcPfpLink,
   fcUsername,
+  width = 136,
 }: {
   totalDeposits: number
+  width?: number
 } & Deposit) {
   const { color } = emojiAvatarForAddress(address)
 
   return (
     <div
-      className="rounded-lg flex flex-col p-3 w-34 gap-y-2"
-      style={{ backgroundColor: `${color}30` }}
+      className="rounded-lg flex flex-col p-3 gap-y-2"
+      style={{ backgroundColor: `${color}30`, width }}
     >
       <a
         href={getAccountLink(address, fcUsername)}
         target="_blank"
         className="flex flex-row gap-x-2 items-center justify-between"
       >
-        <Username address={address} fcUsername={fcUsername} />
+        <Username address={address} fcUsername={fcUsername} limitWidth />
         <FcPfp address={address} pfpUrl={fcPfpLink} />
       </a>
       <div className="flex flex-row justify-between items-center text-white">

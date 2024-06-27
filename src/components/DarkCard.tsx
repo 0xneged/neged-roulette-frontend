@@ -1,6 +1,8 @@
 import { PropsWithChildren } from 'preact/compat'
 import HatsBg from './icons/HatsBg'
 
+export const darkCardStyles = `relative flex flex-1 flex-row rounded-lg bg-roulette-box py-3 overflow-hidden w-full gap-x-2`
+
 interface DarkCardProps extends PropsWithChildren {
   hasDeposits?: boolean
   extStyle?: string
@@ -8,9 +10,7 @@ interface DarkCardProps extends PropsWithChildren {
 
 export default function ({ children, hasDeposits }: DarkCardProps) {
   return (
-    <div
-      className={`relative flex flex-1 flex-row rounded-lg bg-roulette-box py-3 overflow-hidden w-full gap-x-2`}
-    >
+    <div className={darkCardStyles}>
       {hasDeposits ? (
         children
       ) : (

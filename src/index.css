@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --round-timeout: 5000ms;
+}
+
 html {
   scroll-behavior: smooth;
   scrollbar-color: #7f60f9 transparent;
@@ -77,6 +81,11 @@ a {
   100% {
     transform: translateX(-100%);
   }
+}
+
+.spin-box {
+  will-change: transform;
+  transition: all var(--round-timeout) cubic-bezier(0.0125, 0.1, 0.1, 1) 0s;
 }
 
 .mask-hat {

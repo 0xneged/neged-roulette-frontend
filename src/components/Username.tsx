@@ -2,13 +2,16 @@ export default function ({
   address,
   fcUsername,
   truncate,
+  limitWidth,
 }: {
   address: string
   fcUsername: string | undefined
   truncate?: boolean
+  limitWidth?: boolean
 }) {
+  const width = limitWidth ? 'w-18 md:w-20' : 'w-40'
   const styles =
-    'w-16 hover:underline font-semibold opacity-70 text-xs leading-tight '
+    width + ' hover:underline font-semibold opacity-70 text-xs leading-tight '
   const truncation = truncate ? 'truncate' : 'double-rows-break'
 
   return <span className={styles + truncation}>{fcUsername || address}</span>

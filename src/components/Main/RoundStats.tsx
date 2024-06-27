@@ -30,7 +30,7 @@ function InnerComponent({ round }: { round: Round }) {
 export default function ({ round }: { round: Round | null }) {
   const [roundProgress, setRoundProgress] = useState(0)
 
-  const isRoundStarted = !!round
+  const isRoundStarted = !!round && !round.winner
 
   useEffect(() => {
     if (!isRoundStarted) return
@@ -71,6 +71,7 @@ export default function ({ round }: { round: Round | null }) {
           />
         </>
       ) : null}
+
       <div className="absolute top-1/2 flex flex-col justify-center w-full items-center">
         {isRoundStarted ? (
           <InnerComponent round={round} />
