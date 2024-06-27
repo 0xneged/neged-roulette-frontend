@@ -27,9 +27,7 @@ export default function ({
         target="_blank"
         className="flex flex-row gap-x-2 items-center justify-between"
       >
-        <div className="w-16">
-          <Username address={address} fcUsername={fcUsername} />
-        </div>
+        <Username address={address} fcUsername={fcUsername} />
         <FcPfp address={address} pfpUrl={fcPfpLink} />
       </a>
       <div className="flex flex-row justify-between items-center text-white">

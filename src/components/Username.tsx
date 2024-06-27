@@ -7,7 +7,8 @@ export default function ({
   fcUsername: string | undefined
   truncate?: boolean
 }) {
-  const styles = 'font-semibold opacity-70 text-xs leading-tight '
+  const styles =
+    'w-16 hover:underline font-semibold opacity-70 text-xs leading-tight '
   const truncation = truncate ? 'truncate' : 'double-rows-break'
 
   return <span className={styles + truncation}>{fcUsername || address}</span>
