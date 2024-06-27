@@ -3,6 +3,9 @@
 const flowbite = require('flowbite-react/tailwind')
 
 module.exports = {
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   content: [
     './index.html',
     './src/**/!(tailwind).{ts,tsx}',
