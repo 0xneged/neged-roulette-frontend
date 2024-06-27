@@ -1,7 +1,14 @@
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
+
+const flowbite = require('flowbite-react/tailwind')
+
 module.exports = {
-  content: ['./index.html', './src/**/!(tailwind).{ts,tsx}'],
-  plugins: [require('@tailwindcss/typography')],
+  content: [
+    './index.html',
+    './src/**/!(tailwind).{ts,tsx}',
+    flowbite.content(),
+  ],
+  plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
   theme: {
     extend: {
       fontFamily: {
@@ -14,6 +21,7 @@ module.exports = {
         'primary-dark': '#5B38E7',
         'primary-bg': '#180431',
         hat: '#8B5CF6',
+        'hat-alt': '#4B3294',
         'pale-purple': '#3E2865',
         neged: '#1E293B',
         secondary: '#F4B862',

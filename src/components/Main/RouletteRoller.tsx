@@ -28,7 +28,6 @@ export default function ({
       deposits.length * 2
 
     const wrapperMiddle = parentBox.current.getBoundingClientRect().width / 2
-    console.log(wrapperMiddle)
 
     const offset = indexSpinTo * (participantBoxWidth + gapX) - wrapperMiddle
     spinBox.current.style.transform = `translateX(${-Math.abs(offset)}px)`

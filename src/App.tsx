@@ -1,4 +1,4 @@
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
 import { QueryClientProvider } from '@tanstack/react-query'
 import Header from 'components/Header'
 import queryClient from 'helpers/queryClient'
@@ -16,7 +16,7 @@ export default function () {
   return (
     <WagmiProvider config={walletConfig}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider theme={darkTheme()}>
           <Header />
           <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
             <Switch>

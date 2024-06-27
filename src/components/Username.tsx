@@ -5,9 +5,9 @@ export default function ({
   limitWidth,
 }: {
   address: string
-  fcUsername: string | undefined
-  truncate?: boolean
-  limitWidth?: boolean
+  fcUsername?: string | undefined
+  truncate?: boolean | undefined
+  limitWidth?: boolean | undefined
 }) {
   const width = limitWidth ? 'w-18 md:w-20' : 'w-40'
   const styles =
