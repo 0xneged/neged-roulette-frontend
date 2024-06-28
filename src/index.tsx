@@ -1,5 +1,5 @@
 import 'index.css'
-import '@rainbow-me/rainbowkit/styles.css'
+// import '@rainbow-me/rainbowkit/styles.css'
 import { render } from 'preact'
 import App from 'App'
 

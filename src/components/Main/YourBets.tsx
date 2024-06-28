@@ -6,11 +6,13 @@ import DashedCard from './DashedCard'
 import HatInCircle from '../icons/HatInCircle'
 import BetsProps from 'types/BetsProps'
 import BetModal from './BetModal'
+import { usePrivy } from '@privy-io/react-auth'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {
   const { openConnectModal } = useConnectModal()
-  const { address } = useAccount()
-  const { isConnected } = useAccount()
+  const { user, authenticated } = usePrivy()
+  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
+
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -23,12 +25,12 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
   }, [totalDeposits, deposits, address])
 
   const onClick = useCallback(() => {
-    if (isConnected) {
+    if (authenticated) {
       setModalOpen(true)
       return
     }
     if (openConnectModal) openConnectModal()
-  }, [isConnected, openConnectModal, address])
+  }, [authenticated, openConnectModal, address])
 
   if (userDeposit.amount > 0)
     return (

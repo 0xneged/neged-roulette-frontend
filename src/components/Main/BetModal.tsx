@@ -8,7 +8,7 @@ export default function ({
   modalOpen,
   setModalOpen,
 }: {
-  address: EthAddress | undefined
+  address: EthAddress | string | undefined
   modalOpen: boolean
   setModalOpen: (is: boolean) => void
 }) {

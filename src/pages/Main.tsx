@@ -8,14 +8,15 @@ import socket from 'helpers/api/socket'
 import { Suspense } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
 import Round from 'types/Round'
-import { useAccount } from 'wagmi'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import queryClient from 'helpers/queryClient'
+import { usePrivy } from '@privy-io/react-auth'
 
 export default function () {
   const [parent] = useAutoAnimate()
 
-  const { address } = useAccount()
+  const { user } = usePrivy()
+  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
   const [showAllBetter, setShowAllBetters] = useState(false)
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []

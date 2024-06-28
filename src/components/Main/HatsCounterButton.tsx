@@ -5,7 +5,7 @@ import { roundNumber } from 'helpers/roundNumber'
 import usePromise from 'react-promise-suspense'
 import { getTokensForUser } from 'helpers/api/token'
 
-export default function ({ address }: { address: string }) {
+export default function ({ address }: { address?: string | undefined }) {
   const amount = usePromise(getTokensForUser, [address])
   const [, navigate] = useLocation()
 
