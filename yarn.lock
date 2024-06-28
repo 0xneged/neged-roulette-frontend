@@ -2492,6 +2492,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@privy-io/wagmi@npm:^0.2.10":
+  version: 0.2.10
+  resolution: "@privy-io/wagmi@npm:0.2.10"
+  peerDependencies:
+    "@privy-io/react-auth": ^1.64.1
+    react: ^18
+    react-dom: ^18
+    viem: ^2
+    wagmi: ^2
+  checksum: 10c0/72ddddf71c143e313d38aecd419dc8195641bd7b6196ed6469050d9724562dc22cf540d22ab989aee9e5e136a00b8d6318ab0f6a3bcd5aed3fabd60eb613c65d
+  languageName: node
+  linkType: hard
+
 "@rollup/plugin-inject@npm:^5.0.5":
   version: 5.0.5
   resolution: "@rollup/plugin-inject@npm:5.0.5"
@@ -8932,6 +8945,7 @@ __metadata:
     "@formkit/auto-animate": "npm:^0.8.2"
     "@preact/preset-vite": "npm:^2.8.2"
     "@privy-io/react-auth": "npm:^1.73.0"
+    "@privy-io/wagmi": "npm:^0.2.10"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@tanstack/react-query": "npm:^5.48.0"
     "@types/node": "npm:^20.14.7"

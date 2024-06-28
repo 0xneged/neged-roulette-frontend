@@ -6,27 +6,27 @@ import walletConfig from 'helpers/walletConfig'
 import Convert from 'pages/Convert'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
-import { WagmiProvider } from 'wagmi'
 import { Route, Switch } from 'wouter-preact'
 import { PrivyProvider } from '@privy-io/react-auth'
 import env from 'helpers/env'
+import { WagmiProvider } from '@privy-io/wagmi'
 
 export default function () {
   useSocket()
 
   return (
-    <WagmiProvider config={walletConfig}>
+    <PrivyProvider
+      config={{
+        appearance: {
+          accentColor: '#B66DFF',
+          landingHeader: "Let's a roll",
+          theme: 'dark',
+        },
+      }}
+      appId={env.VITE_PRIVY_APP_ID}
+    >
       <QueryClientProvider client={queryClient}>
-        <PrivyProvider
-          config={{
-            appearance: {
-              accentColor: '#B66DFF',
-              landingHeader: "Let's a roll",
-              theme: 'dark',
-            },
-          }}
-          appId={env.VITE_PRIVY_APP_ID}
-        >
+        <WagmiProvider config={walletConfig}>
           <Header />
           <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
             <Switch>
@@ -35,8 +35,8 @@ export default function () {
               <Route component={NotFound} />
             </Switch>
           </div>
-        </PrivyProvider>
+        </WagmiProvider>
       </QueryClientProvider>
-    </WagmiProvider>
+    </PrivyProvider>
   )
 }
