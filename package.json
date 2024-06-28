@@ -20,6 +20,7 @@
     "jotai": "^2.8.3",
     "preact": "^10.22.0",
     "react-promise-suspense": "^0.3.4",
+    "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5",
     "viem": "^2.16.0",
     "wagmi": "^2.10.4",

@@ -10,6 +10,7 @@ import { Route, Switch } from 'wouter-preact'
 import { PrivyProvider } from '@privy-io/react-auth'
 import env from 'helpers/env'
 import { WagmiProvider } from '@privy-io/wagmi'
+import { ToastContainer } from 'react-toastify'
 
 export default function () {
   useSocket()
@@ -35,6 +36,13 @@ export default function () {
               <Route component={NotFound} />
             </Switch>
           </div>
+          <ToastContainer
+            draggable
+            position="bottom-right"
+            pauseOnHover
+            stacked
+            theme="dark"
+          />
         </WagmiProvider>
       </QueryClientProvider>
     </PrivyProvider>

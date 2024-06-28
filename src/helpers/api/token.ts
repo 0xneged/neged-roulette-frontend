@@ -1,16 +1,17 @@
 import axios from 'axios'
 import env from 'helpers/env'
-import LoginBody from 'types/LoginBody'
-import { Deposit, Winner } from 'types/Round'
+import { Winner } from 'types/Round'
 import { getAccessToken } from '@privy-io/react-auth'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
-export async function swapTokens(loginBody: LoginBody) {
+export async function convertToHat(amount: number) {
+  if (amount <= 0) return false
+
   try {
     const result = await axios.post<{ success: boolean }>(
-      `${backendEndpoint}/convert`,
-      {},
+      `${backendEndpoint}/convertToHat`,
+      { amount },
       { headers: { Authorization: `Bearer ${await getAccessToken()}` } }
     )
     return result.data.success
