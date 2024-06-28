@@ -1,6 +1,5 @@
 import BigButton from 'components/BigButton'
 import { useAccount } from 'wagmi'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import DashedCard from './DashedCard'
 import HatInCircle from '../icons/HatInCircle'
@@ -9,8 +8,7 @@ import BetModal from './BetModal'
 import { usePrivy } from '@privy-io/react-auth'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {
-  const { openConnectModal } = useConnectModal()
-  const { user, authenticated } = usePrivy()
+  const { user, authenticated, login, ready } = usePrivy()
   const address = user?.farcaster?.ownerAddress || user?.wallet?.address
 
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
@@ -29,8 +27,8 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
       setModalOpen(true)
       return
     }
-    if (openConnectModal) openConnectModal()
-  }, [authenticated, openConnectModal, address])
+    if (ready) login()
+  }, [authenticated, ready, login, address])
 
   if (userDeposit.amount > 0)
     return (

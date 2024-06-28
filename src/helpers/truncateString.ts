@@ -1,6 +1,6 @@
 export default function truncateString({
   fullString,
-  strLen = 8,
+  strLen = 15,
   separator = '...',
   frontChars = 9,
   backChars = 3,

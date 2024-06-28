@@ -1,4 +1,3 @@
-// import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
 import { QueryClientProvider } from '@tanstack/react-query'
 import Header from 'components/Header'
 import queryClient from 'helpers/queryClient'
@@ -10,6 +9,7 @@ import NotFound from 'pages/NotFound'
 import { WagmiProvider } from 'wagmi'
 import { Route, Switch } from 'wouter-preact'
 import { PrivyProvider } from '@privy-io/react-auth'
+import env from 'helpers/env'
 
 export default function () {
   useSocket()
@@ -18,10 +18,14 @@ export default function () {
     <WagmiProvider config={walletConfig}>
       <QueryClientProvider client={queryClient}>
         <PrivyProvider
-          appId="clxj7y7gw0079nqx4jwrp79ug"
-          onSuccess={(user) =>
-            console.log(`User ${user.farcaster?.ownerAddress} logged in!`)
-          }
+          config={{
+            appearance: {
+              accentColor: '#B66DFF',
+              landingHeader: "Let's a roll",
+              theme: 'dark',
+            },
+          }}
+          appId={env.VITE_PRIVY_APP_ID}
         >
           <Header />
           <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
