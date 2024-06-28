@@ -37,7 +37,7 @@ export default function ({
     <div className={darkCardStyles} ref={parentBox}>
       <Triangle />
       <div
-        className={`flex flex-1 flex-row spin-box gap-x-${gapX / 4}`}
+        className={`flex flex-1 flex-row reveal-winner gap-x-${gapX / 4}`}
         ref={spinBox}
       >
         {spinArray.map(({ address, amount, fcPfpLink, fcUsername }, index) => (

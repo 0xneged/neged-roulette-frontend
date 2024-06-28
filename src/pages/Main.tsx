@@ -40,10 +40,13 @@ export default function () {
         round: Round
       }) => {
         setCurrentRound(round)
+
+        // Round ends, we spin a bit and wait for next round for 1000ms
         document.documentElement.style.setProperty(
           '--round-timeout',
-          nextRoundTimeout - 500 + 'ms'
+          nextRoundTimeout - 1000 + 'ms'
         )
+
         queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
         setTimeout(() => {
           setCurrentRound(null)

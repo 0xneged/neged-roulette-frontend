@@ -87,7 +87,7 @@ a {
   }
 }
 
-.spin-box {
+.reveal-winner {
   will-change: transform;
   transition: all var(--round-timeout) cubic-bezier(0.0125, 0.1, 0.1, 1) 0s;
 }

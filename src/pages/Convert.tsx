@@ -2,9 +2,8 @@ import BigButton from 'components/BigButton'
 import CoinToHats from 'components/Convert/CoinToHats'
 import ExchangerBlock from 'components/Convert/ExchangerBlock'
 import HatsQuantity from 'components/Convert/HatsQuantity'
-import { convertToHat } from 'helpers/api/token'
+import { convertTokensHats } from 'helpers/api/token'
 import { useCallback, useState } from 'preact/hooks'
-import { useAccount } from 'wagmi'
 import { readContract, writeContract } from '@wagmi/core'
 import EthAddress from 'types/EthAddress'
 import env from 'helpers/env'
@@ -17,10 +16,12 @@ import { bep20abi } from 'helpers/bep20abi'
 const decimals = 18
 
 export default function () {
-  const { address } = useAccount()
-  const { login, authenticated } = usePrivy()
+  const { login, authenticated, user } = usePrivy()
   const [amount, setAmount] = useState(1000)
   const [loading, setLoading] = useState(false)
+  const [isReversed, setIsReversed] = useState(false)
+
+  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
 
   const processExchange = useCallback(async () => {
     if (!authenticated) {
@@ -32,25 +33,27 @@ export default function () {
 
     try {
       setLoading(true)
-      const res = await readContract(walletConfig, {
-        address: env.VITE_TOKEN_ADDRESS as EthAddress,
-        abi: bep20abi,
-        functionName: 'allowance',
-        args: [address, env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress],
-      })
-
-      if (Number(res) < convertedAmount)
-        await writeContract(walletConfig, {
+      if (!isReversed) {
+        const res = await readContract(walletConfig, {
           address: env.VITE_TOKEN_ADDRESS as EthAddress,
           abi: bep20abi,
-          functionName: 'increaseAllowance',
-          args: [
-            env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress,
-            BigInt(convertedAmount),
-          ],
+          functionName: 'allowance',
+          args: [address, env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress],
         })
 
-      await convertToHat(amount)
+        if (Number(res) < convertedAmount)
+          await writeContract(walletConfig, {
+            address: env.VITE_TOKEN_ADDRESS as EthAddress,
+            abi: bep20abi,
+            functionName: 'increaseAllowance',
+            args: [
+              env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress,
+              BigInt(convertedAmount),
+            ],
+          })
+      }
+
+      await convertTokensHats(amount, isReversed)
 
       queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       toast.success('Converted 🎉')
@@ -60,7 +63,7 @@ export default function () {
     } finally {
       setLoading(false)
     }
-  }, [loading, address, amount, authenticated])
+  }, [loading, address, amount, authenticated, isReversed])
 
   return (
     <div className="flex flex-col items-center gap-y-7">
@@ -77,13 +80,13 @@ export default function () {
           max={10000}
           min={0}
         />
-        <span> negeD</span>
+        <span>{isReversed ? 'Hats' : 'negeD'}</span>
       </div>
       <ExchangerBlock label="You Receive">
-        <HatsQuantity quantity={amount} />
+        <HatsQuantity quantity={amount} isReversed={isReversed} />
       </ExchangerBlock>
       <ExchangerBlock label="Exchange">
-        <CoinToHats />
+        <CoinToHats isReversed={isReversed} setIsReversed={setIsReversed} />
       </ExchangerBlock>
       <BigButton onClick={processExchange} disabled={!amount} loading={loading}>
         CONVERT

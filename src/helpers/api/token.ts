@@ -5,16 +5,16 @@ import { getAccessToken } from '@privy-io/react-auth'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
-export async function convertToHat(amount: number) {
+export async function convertTokensHats(amount: number, withdraw: boolean) {
   if (amount <= 0) return false
 
   try {
-    const result = await axios.post<{ success: boolean }>(
-      `${backendEndpoint}/convertToHat`,
-      { amount },
+    const result = await axios.post<{ balance: number | undefined }>(
+      `${backendEndpoint}/convert`,
+      { amount, withdraw: Number(withdraw) },
       { headers: { Authorization: `Bearer ${await getAccessToken()}` } }
     )
-    return result.data.success
+    return result.data.balance
   } catch (e) {
     console.error('Failed to swap tokens', e)
     return false

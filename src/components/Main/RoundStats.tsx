@@ -12,13 +12,15 @@ function InnerComponent({ round }: { round: Round }) {
   const { minutes, seconds } = useCountDown(round.endTime)
   const participants = new Set(round.deposits.map(({ address }) => address))
 
-  if (minutes < 0 && seconds < 0) return <PreviousRoundResult />
+  const itSpins = minutes < 0 && seconds < 0
 
   return (
     <>
-      <span className="opacity-25 text-white">start of the round</span>
+      <span className={itSpins ? 'font-bold' : 'opacity-25'}>
+        {itSpins ? "Let's roll 🤟" : 'Start of the round'}
+      </span>
       <span className="font-bold text-white text-3xl">
-        {padZeros(minutes)}:{padZeros(seconds)}
+        {itSpins ? '' : padZeros(minutes) + ':' + padZeros(seconds)}
       </span>
       <div className="flex flex-row text-white items-center">
         <BiPeople /> {participants.size}
@@ -30,7 +32,7 @@ function InnerComponent({ round }: { round: Round }) {
 export default function ({ round }: { round: Round | null }) {
   const [roundProgress, setRoundProgress] = useState(0)
 
-  const isRoundStarted = !!round && !round.winner
+  const isRoundStarted = !!round
 
   useEffect(() => {
     if (!isRoundStarted) return

@@ -3,7 +3,7 @@ import OnClick from 'types/OnClick'
 export default function ({ onClick }: OnClick) {
   return (
     <div
-      className="rounded-3xl cursor-pointer p-2 bg-opacity-30 bg-primary"
+      className="rounded-3xl cursor-pointer p-2 bg-opacity-30 bg-primary hover:animate-pulse active:scale-105 transition-transform"
       onClick={onClick}
     >
       <svg

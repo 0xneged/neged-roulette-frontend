@@ -14,7 +14,7 @@ export default function ({
   modalOpen: boolean
   setModalOpen: (is: boolean) => void
 }) {
-  const [betValue, setBetValue] = useState(500)
+  const [betValue, setBetValue] = useState(1)
   const mode = useThemeMode()
   const userHats = useHatsCounter(address)
 
@@ -72,7 +72,9 @@ export default function ({
         </div>
       </Modal.Body>
       <Modal.Footer className="bg-primary-bg rounded-b-2xl justify-between">
-        <span className="text-gray-400">{betValue} Hat</span>
+        <span className="text-gray-400">
+          {betValue} Hat{betValue > 1 ? 's' : ''}
+        </span>
         <Button onClick={placeBet} color="purple">
           Accept
         </Button>
