@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import queryClient from 'helpers/queryClient'
 import { usePrivy } from '@privy-io/react-auth'
 import { bep20abi } from 'helpers/bep20abi'
+import sleep from 'helpers/sleep'
 
 const decimals = 18
 
@@ -51,9 +52,12 @@ export default function () {
               BigInt(convertedAmount),
             ],
           })
+        // Required for blockchain to process the tx
+        await sleep(10)
       }
 
-      await convertTokensHats(amount, isReversed)
+      const res = await convertTokensHats(amount, isReversed)
+      if (typeof res !== 'number') return
 
       queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       toast.success('Converted 🎉')
