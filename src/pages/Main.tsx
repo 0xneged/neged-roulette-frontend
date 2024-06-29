@@ -45,7 +45,7 @@ export default function () {
         // Round ends, we spin a bit and wait for next round for 1000ms
         document.documentElement.style.setProperty(
           '--round-timeout',
-          nextRoundTimeout - 1000 + 'ms'
+          nextRoundTimeout - 750 + 'ms'
         )
 
         queryClient.invalidateQueries({ queryKey: ['prevWinner'] })

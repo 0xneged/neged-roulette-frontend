@@ -7,7 +7,7 @@ import { darkCardStyles } from 'components/DarkCard'
 
 const participantBoxWidth = 136
 const gapX = 4
-const multiplier = 200
+const multiplier = 25
 
 export default function ({
   round,
