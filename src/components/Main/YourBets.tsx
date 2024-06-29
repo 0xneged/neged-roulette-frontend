@@ -27,6 +27,11 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
   }, [totalDeposits, deposits, address])
 
   const onClick = useCallback(() => {
+    if (!ready) return
+    if (!authenticated) {
+      login()
+      return
+    }
     if (!hats || hats < 1) {
       toast.warn('Please top up your balance 🪙', {
         onClick: () => navigate('/convert'),
@@ -34,11 +39,8 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
       navigate('/convert')
       return
     }
-    if (authenticated) {
-      setModalOpen(true)
-      return
-    }
-    if (ready) login()
+
+    setModalOpen(true)
   }, [hats, authenticated, ready, login, address])
 
   if (userDeposit.amount > 0)
@@ -58,7 +60,9 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
 
   return (
     <>
-      <BigButton onClick={onClick}>TRY YOUR LUCK</BigButton>
+      <BigButton onClick={onClick} loading={!ready}>
+        TRY YOUR LUCK
+      </BigButton>
       <BetModal
         address={address}
         modalOpen={modalOpen}

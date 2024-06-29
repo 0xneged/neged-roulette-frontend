@@ -61,7 +61,7 @@ a {
 }
 
 .dots-loader::before {
-  animation: dots 3s linear infinite;
+  animation: dots 1s linear infinite;
   content: '.';
 }
 

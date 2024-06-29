@@ -1,3 +1,3 @@
-type OnClick = { onClick: () => void }
+type OnClick = { onClick?: () => void }
 
 export default OnClick

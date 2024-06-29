@@ -1,7 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import Header from 'components/Header'
 import queryClient from 'helpers/queryClient'
-import useSocket from 'helpers/useSocket'
 import walletConfig from 'helpers/walletConfig'
 import Convert from 'pages/Convert'
 import Main from 'pages/Main'
@@ -13,8 +12,6 @@ import { WagmiProvider } from '@privy-io/wagmi'
 import { ToastContainer } from 'react-toastify'
 
 export default function () {
-  useSocket()
-
   return (
     <PrivyProvider
       config={{

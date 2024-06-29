@@ -36,7 +36,7 @@ export default function ({
     closeModal()
   }, [address, betValue, socket])
 
-  const max = userHats?.toFixed(4) || 1000
+  const max = userHats?.toFixed(0) || 1000
 
   return (
     <Modal

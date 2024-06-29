@@ -17,7 +17,7 @@ import sleep from 'helpers/sleep'
 const decimals = 18
 
 export default function () {
-  const { login, authenticated, user } = usePrivy()
+  const { login, authenticated, user, ready } = usePrivy()
   const [amount, setAmount] = useState(1000)
   const [loading, setLoading] = useState(false)
   const [isReversed, setIsReversed] = useState(false)
@@ -25,6 +25,7 @@ export default function () {
   const address = user?.farcaster?.ownerAddress || user?.wallet?.address
 
   const processExchange = useCallback(async () => {
+    if (!ready) return
     if (!authenticated) {
       login()
       return
@@ -67,7 +68,7 @@ export default function () {
     } finally {
       setLoading(false)
     }
-  }, [loading, address, amount, authenticated, isReversed])
+  }, [ready, loading, address, amount, authenticated, isReversed])
 
   return (
     <div className="flex flex-col items-center gap-y-7">

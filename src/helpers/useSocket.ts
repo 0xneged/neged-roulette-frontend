@@ -4,10 +4,12 @@ import { Socket, io } from 'socket.io-client'
 import env from './env'
 
 export default function () {
-  const { getAccessToken } = usePrivy()
+  const { getAccessToken, ready } = usePrivy()
   const [socket, setSocket] = useState<Socket>()
 
   useEffect(() => {
+    if (!ready) return
+
     const connect = async () => {
       setSocket(
         io(env.VITE_BACKEND_URL, {
@@ -21,7 +23,7 @@ export default function () {
 
   useEffect(() => {
     socket?.connect()
-  }, [])
+  }, [socket])
 
   return socket
 }

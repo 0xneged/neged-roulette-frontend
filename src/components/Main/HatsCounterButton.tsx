@@ -3,8 +3,13 @@ import HatIcon from '../icons/HatIcon'
 import { useLocation } from 'wouter-preact'
 import { roundNumber } from 'helpers/roundNumber'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
+import { Suspense } from 'preact/compat'
 
-export default function ({ address }: { address?: string | undefined }) {
+interface HatsCounterProps {
+  address?: string | undefined
+}
+
+function SuspendedHatsCounter({ address }: HatsCounterProps) {
   const hats = useHatsCounter(address)
   const [, navigate] = useLocation()
 
@@ -18,5 +23,13 @@ export default function ({ address }: { address?: string | undefined }) {
     >
       <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(hats)}
     </Button>
+  )
+}
+
+export default function (props: HatsCounterProps) {
+  return (
+    <Suspense fallback={<HatIcon rotateAnimation />}>
+      <SuspendedHatsCounter {...props} />
+    </Suspense>
   )
 }
