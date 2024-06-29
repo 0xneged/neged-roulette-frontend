@@ -93,7 +93,11 @@ export default function () {
       <ExchangerBlock label="Exchange">
         <CoinToHats isReversed={isReversed} setIsReversed={setIsReversed} />
       </ExchangerBlock>
-      <BigButton onClick={processExchange} disabled={!amount} loading={loading}>
+      <BigButton
+        onClick={processExchange}
+        disabled={!amount}
+        loading={loading || !ready}
+      >
         CONVERT
       </BigButton>
     </div>

@@ -2,6 +2,7 @@ import axios from 'axios'
 import env from 'helpers/env'
 import { Winner } from 'types/Round'
 import { getAccessToken } from '@privy-io/react-auth'
+import { toast } from 'react-toastify'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
@@ -16,7 +17,7 @@ export async function convertTokensHats(amount: number, withdraw: boolean) {
     )
     return result.data.balance
   } catch (e) {
-    console.error('Failed to swap tokens', e)
+    toast.error('Failed to swap tokens', e)
     return false
   }
 }
