@@ -5,7 +5,7 @@ export default function ({
 }: {
   rotate?: number
   rotateAnimation?: boolean
-  small?: boolean
+  small?: boolean | undefined
 }) {
   const className = `${rotateAnimation && 'rotate-animation'}`
 

@@ -4,15 +4,16 @@ import RoundStats from 'components/Main/RoundStats'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import HatIcon from 'components/icons/HatIcon'
-import socket from 'helpers/api/socket'
 import { Suspense } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
 import Round from 'types/Round'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import queryClient from 'helpers/queryClient'
 import { usePrivy } from '@privy-io/react-auth'
+import useSocket from 'helpers/useSocket'
 
 export default function () {
+  const socket = useSocket()
   const [parent] = useAutoAnimate()
 
   const { user } = usePrivy()
@@ -26,11 +27,11 @@ export default function () {
   )
 
   useEffect(() => {
-    socket.on('updateRound', (data: { currentRound: Round }) => {
+    socket?.on('updateRound', (data: { currentRound: Round }) => {
       setCurrentRound(data.currentRound)
     })
 
-    socket.on(
+    socket?.on(
       'roundEnd',
       ({
         round,
@@ -55,10 +56,10 @@ export default function () {
     )
 
     return () => {
-      socket.off('updateRound')
-      socket.off('roundEnd')
+      socket?.off('updateRound')
+      socket?.off('roundEnd')
     }
-  }, [address])
+  }, [socket, address])
 
   return (
     <Suspense fallback={<HatIcon rotateAnimation />}>
