@@ -8,8 +8,8 @@ export default function ({
   address,
   pfpUrl,
 }: {
-  address?: string
-  pfpUrl?: string | undefined
+  address?: string | undefined
+  pfpUrl?: string | null | undefined
 }) {
   const [imgLoadError, setImgLoadError] = useState(false)
   const { data } = useFcAccount(address, pfpUrl)

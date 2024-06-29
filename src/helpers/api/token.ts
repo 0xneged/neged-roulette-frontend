@@ -1,24 +1,29 @@
 import axios from 'axios'
 import env from 'helpers/env'
-import LoginBody from 'types/LoginBody'
-import { Deposit, Winner } from 'types/Round'
+import { Winner } from 'types/Round'
+import { getAccessToken } from '@privy-io/react-auth'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
-export async function swapTokens(loginBody: LoginBody) {
+export async function convertTokensHats(amount: number, withdraw: boolean) {
+  if (amount <= 0) return false
+
   try {
-    const result = await axios.post<{ success: boolean }>(
+    const result = await axios.post<{ balance: number | undefined }>(
       `${backendEndpoint}/convert`,
-      loginBody
+      { amount, withdraw: Number(withdraw) },
+      { headers: { Authorization: `Bearer ${await getAccessToken()}` } }
     )
-    return result.data.success
+    return result.data.balance
   } catch (e) {
     console.error('Failed to swap tokens', e)
     return false
   }
 }
 
-export async function getTokensForUser(address: string) {
+export async function getTokensForUser(address?: string) {
+  if (!address) return 0
+
   try {
     const { data } = await axios.get<number>(backendEndpoint, {
       params: { address },

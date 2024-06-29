@@ -1,3 +1,3 @@
-type EthAddress = `0${string}`
+type EthAddress = `0x${string}`
 
 export default EthAddress

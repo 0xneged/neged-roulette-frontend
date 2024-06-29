@@ -2,14 +2,13 @@ import Button from '../Button'
 import HatIcon from '../icons/HatIcon'
 import { useLocation } from 'wouter-preact'
 import { roundNumber } from 'helpers/roundNumber'
-import usePromise from 'react-promise-suspense'
-import { getTokensForUser } from 'helpers/api/token'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
-export default function ({ address }: { address: string }) {
-  const amount = usePromise(getTokensForUser, [address])
+export default function ({ address }: { address?: string | undefined }) {
+  const hats = useHatsCounter(address)
   const [, navigate] = useLocation()
 
-  const hasData = typeof amount === 'number'
+  const hasData = typeof hats === 'number'
 
   return (
     <Button
@@ -17,7 +16,7 @@ export default function ({ address }: { address: string }) {
       styles="!bg-hat rounded-full !h-11"
       disabled={!hasData}
     >
-      <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(amount)}
+      <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(hats)}
     </Button>
   )
 }

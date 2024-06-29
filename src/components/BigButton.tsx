@@ -4,14 +4,25 @@ import HatIcon from './icons/HatIcon'
 
 interface BigButtonProps extends PropsWithChildren, OnClick {
   loading?: boolean
+  disabled?: boolean
 }
 
-export default function ({ children, onClick, loading }: BigButtonProps) {
+const commonStyles =
+  'text-2xl text-center text-white px-16 py-6 font-bold rounded-2xl flex items-center justify-center transition-all '
+
+export default function ({
+  children,
+  onClick,
+  loading,
+  disabled,
+}: BigButtonProps) {
+  const styles = disabled
+    ? commonStyles + 'bg-pale-purple cursor-not-allowed'
+    : commonStyles +
+      'bg-gradient-to-r from-primary-bright to-primary-dark cursor-pointer active:scale-105 hover:hue-rotate-15'
+
   return (
-    <div
-      onClick={onClick}
-      className="text-2xl text-center text-white bg-gradient-to-r from-primary-bright to-primary-dark cursor-pointer px-16 py-6 font-bold rounded-2xl flex items-center justify-center active:scale-105 transition-all hover:hue-rotate-15"
-    >
+    <div onClick={onClick} disabled={disabled} className={styles}>
       {loading ? <HatIcon rotateAnimation /> : children}
     </div>
   )

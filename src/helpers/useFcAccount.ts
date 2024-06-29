@@ -1,7 +1,7 @@
 import usePromise from 'react-promise-suspense'
 import farcaster from './api/farcaster'
 
-export default function (address?: string, pfpUrl?: string) {
+export default function (address?: string, pfpUrl?: string | null) {
   const data = usePromise(farcaster, [address, pfpUrl])
 
   return { data, address }
