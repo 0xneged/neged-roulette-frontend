@@ -1,4 +1,4 @@
-import { Button, Modal, useThemeMode } from 'flowbite-react'
+import { Button as FlowBitButton, Modal, useThemeMode } from 'flowbite-react'
 import socket from 'helpers/api/socket'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import queryClient from 'helpers/queryClient'
@@ -75,9 +75,11 @@ export default function ({
         <span className="text-gray-400">
           {betValue} Hat{betValue > 1 ? 's' : ''}
         </span>
-        <Button onClick={placeBet} color="purple">
-          Accept
-        </Button>
+        {FlowBitButton({
+          onClick: placeBet,
+          color: 'purple',
+          children: 'Accept',
+        })}
       </Modal.Footer>
     </Modal>
   )
