@@ -2,10 +2,10 @@ import usePromise from 'react-promise-suspense'
 import farcaster from './api/farcaster'
 import { useQuery } from '@tanstack/react-query'
 
-export default function (address?: string, pfpUrl?: string | null) {
+export default function (address?: string) {
   const { data } = useQuery({
-    queryKey: ['prevWinner'],
-    queryFn: () => farcaster(address, pfpUrl),
+    queryKey: ['fcUser'],
+    queryFn: () => farcaster(address),
   })
 
   return { data, address }
