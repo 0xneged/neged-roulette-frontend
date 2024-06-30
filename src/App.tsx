@@ -24,6 +24,7 @@ export default function () {
         },
         supportedChains: [base as any],
         defaultChain: base as any,
+        loginMethods: ['farcaster', 'wallet'],
       }}
       appId={env.VITE_PRIVY_APP_ID}
       clientId={env.DEV ? env.VITE_DEV_CLIENT_ID : env.VITE_PROD_CLIENT_ID}

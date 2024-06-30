@@ -11,9 +11,11 @@ export default function () {
     if (!ready) return
 
     const connect = async () => {
+      const authToken = await getAccessToken()
+
       setSocket(
         io(env.VITE_BACKEND_URL, {
-          extraHeaders: { Authorization: `Bearer ${await getAccessToken()}` },
+          extraHeaders: { Authorization: `Bearer ${authToken}` },
         })
       )
     }

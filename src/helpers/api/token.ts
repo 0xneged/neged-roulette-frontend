@@ -10,10 +10,14 @@ export async function convertTokensHats(amount: number, withdraw: boolean) {
   if (amount <= 0) return false
 
   try {
+    const authToken = await getAccessToken()
+
+    if (!authToken) return
+
     const result = await axios.post<{ balance: number | undefined }>(
       `${backendEndpoint}/convert`,
       { amount, withdraw: Number(withdraw) },
-      { headers: { Authorization: `Bearer ${await getAccessToken()}` } }
+      { headers: { Authorization: `Bearer ${authToken}` } }
     )
     return result.data.balance
   } catch (e) {
