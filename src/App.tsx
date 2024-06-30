@@ -16,12 +16,14 @@ export default function () {
     <PrivyProvider
       config={{
         appearance: {
+          logo: '/logo.jpeg',
           accentColor: '#B66DFF',
           landingHeader: "Let's a roll",
           theme: 'dark',
         },
       }}
       appId={env.VITE_PRIVY_APP_ID}
+      clientId={env.DEV ? env.VITE_DEV_CLIENT_ID : env.VITE_PROD_CLIENT_ID}
     >
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={walletConfig}>
