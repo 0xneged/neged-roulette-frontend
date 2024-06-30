@@ -10,7 +10,8 @@ import env from 'helpers/env'
 import walletConfig from 'helpers/walletConfig'
 import { toast } from 'react-toastify'
 import queryClient from 'helpers/queryClient'
-import { usePrivy, useSendTransaction, useWallets } from '@privy-io/react-auth'
+import { usePrivy, useWallets } from '@privy-io/react-auth'
+import { waitForTransactionReceipt } from '@wagmi/core'
 import { bep20abi } from 'helpers/bep20abi'
 import sleep from 'helpers/sleep'
 import { base } from 'viem/chains'
@@ -50,8 +51,8 @@ export default function () {
           chainId: base.id,
         })
 
-        if (Number(res) < convertedAmount)
-          await writeContract(walletConfig, {
+        if (Number(res) < convertedAmount) {
+          const hash = await writeContract(walletConfig, {
             address: env.VITE_TOKEN_ADDRESS as EthAddress,
             abi: bep20abi,
             functionName: 'increaseAllowance',
@@ -61,8 +62,11 @@ export default function () {
             ],
             chainId: base.id,
           })
-        // Required for blockchain to process the tx
-        await sleep(10)
+          await waitForTransactionReceipt(walletConfig, {
+            hash,
+            confirmations: 2,
+          })
+        }
       }
 
       const res = await convertTokensHats(amount, isReversed)
