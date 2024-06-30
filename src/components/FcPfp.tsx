@@ -16,7 +16,7 @@ function SuspendedFcPfp({ address, pfpUrl }: FcPfpProps) {
 
   if (!address && !pfpUrl) return null
 
-  const pfp = data ? data.pfp_url : ''
+  const pfp = data ? data.fcPfpLink : ''
 
   if (!pfp || imgLoadError)
     return (

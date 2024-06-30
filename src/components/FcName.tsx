@@ -9,32 +9,28 @@ interface FcNameProps {
   address?: string | undefined
 }
 
-function FcName({
-  displayName,
-  address,
-  pfp,
-}: {
-  displayName?: string | undefined | null
-  address?: string | undefined
-  pfp?: string | undefined | null
-}) {
-  const { data } = useFcAccount(address, pfp)
+function Name({ name }: { name?: string | undefined }) {
+  return <div className="hidden md:block opacity-70">{name}</div>
+}
+
+function FcName({ address }: { address?: string | undefined }) {
+  const { data } = useFcAccount(address)
 
   const name = truncateString({
-    fullString: displayName || data?.username || address,
+    fullString: data?.fcUsername || address,
     backChars: 5,
   })
 
-  return <div className="hidden md:block opacity-70">{name}</div>
+  return <Name name={name} />
 }
 
 export default function ({ user, address }: FcNameProps) {
   const displayName = user?.farcaster?.displayName
-  const pfp = user?.farcaster?.pfp
+  if (displayName) return <Name name={displayName} />
 
   return (
     <Suspense fallback={<DotsLoader />}>
-      <FcName displayName={displayName} pfp={pfp} address={address} />
+      <FcName address={address} />
     </Suspense>
   )
 }

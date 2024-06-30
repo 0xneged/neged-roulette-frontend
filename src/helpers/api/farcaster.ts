@@ -9,7 +9,7 @@ export default async function (
   pfpUrl?: string | null
 ): Promise<Partial<FcUser>> {
   try {
-    if (pfpUrl) return Promise.resolve({ pfp_url: pfpUrl })
+    if (pfpUrl) return Promise.resolve({ fcPfpLink: pfpUrl })
     if (!address) return Promise.resolve({})
     const result = await axios.post<FcUser>(backendEndpoint, { address })
     return result.data

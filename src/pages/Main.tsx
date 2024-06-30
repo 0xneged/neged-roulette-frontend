@@ -15,7 +15,6 @@ import useSocket from 'helpers/useSocket'
 export default function () {
   const socket = useSocket()
   const [parent] = useAutoAnimate()
-
   const { user } = usePrivy()
   const address = user?.farcaster?.ownerAddress || user?.wallet?.address
   const [showAllBetter, setShowAllBetters] = useState(false)

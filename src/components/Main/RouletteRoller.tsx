@@ -2,8 +2,11 @@ import Triangle from 'components/Triangle'
 import RouletteParticipant from './RouletteParticipant'
 import Round, { Deposit } from 'types/Round'
 import repeatArray from 'helpers/repeatArray'
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { darkCardStyles } from 'components/DarkCard'
+import getPercentFromTotal from 'helpers/getPercentFromTotal'
+
+type DepositWithChance = Deposit & { winChance: number }
 
 const participantBoxWidth = 136
 const gapX = 4
@@ -18,8 +21,16 @@ export default function ({
 }) {
   const parentBox = useRef<HTMLDivElement>(null)
   const spinBox = useRef<HTMLDivElement>(null)
+
   const { winner, deposits } = round
-  const spinArray = repeatArray<Deposit>(deposits, multiplier * 1.2)
+  const depositsWithChances = deposits.map((val) => ({
+    ...val,
+    winChance: getPercentFromTotal(val.amount, totalDeposits),
+  }))
+  const spinArray = repeatArray<DepositWithChance>(
+    depositsWithChances,
+    multiplier * 1.2
+  )
 
   useEffect(() => {
     if (!winner || !parentBox.current || !spinBox.current) return
@@ -31,7 +42,7 @@ export default function ({
 
     const offset = indexSpinTo * (participantBoxWidth + gapX) - wrapperMiddle
     spinBox.current.style.transform = `translateX(${-Math.abs(offset)}px)`
-  }, [winner, parentBox])
+  }, [winner, parentBox, spinArray, deposits])
 
   return (
     <div className={darkCardStyles} ref={parentBox}>
@@ -40,17 +51,19 @@ export default function ({
         className={`flex flex-1 flex-row reveal-winner gap-x-${gapX / 4}`}
         ref={spinBox}
       >
-        {spinArray.map(({ address, amount, fcPfpLink, fcUsername }, index) => (
-          <RouletteParticipant
-            fcPfpLink={fcPfpLink}
-            fcUsername={fcUsername}
-            address={address}
-            amount={amount}
-            totalDeposits={totalDeposits}
-            key={address + index}
-            width={participantBoxWidth}
-          />
-        ))}
+        {spinArray.map(
+          ({ address, amount, fcPfpLink, fcUsername, winChance }, index) => (
+            <RouletteParticipant
+              fcPfpLink={fcPfpLink}
+              fcUsername={fcUsername}
+              address={address}
+              amount={amount}
+              key={address + index}
+              width={participantBoxWidth}
+              winChance={winChance}
+            />
+          )
+        )}
       </div>
     </div>
   )

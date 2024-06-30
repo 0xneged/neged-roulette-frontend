@@ -2,19 +2,18 @@ import FcPfp from 'components/FcPfp'
 import Username from 'components/Username'
 import { emojiAvatarForAddress } from 'helpers/emojiAvatarForAddress'
 import getAccountLink from 'helpers/getAccountLink'
-import getPercentFromTotal from 'helpers/getPercentFromTotal'
 import { roundNumber } from 'helpers/roundNumber'
 import { Deposit } from 'types/Round'
 
 export default function ({
   address,
   amount,
-  totalDeposits,
+  winChance,
   fcPfpLink,
   fcUsername,
   width = 136,
 }: {
-  totalDeposits: number
+  winChance: number
   width?: number
 } & Deposit) {
   const { color } = emojiAvatarForAddress(address)
@@ -34,9 +33,7 @@ export default function ({
       </a>
       <div className="flex flex-row justify-between items-center text-white">
         <span className="font-bold text-sm">{roundNumber(amount)}</span>
-        <span className="font-medium text-xs">
-          {getPercentFromTotal(amount, totalDeposits)}%
-        </span>
+        <span className="font-medium text-xs">{winChance}%</span>
       </div>
     </div>
   )

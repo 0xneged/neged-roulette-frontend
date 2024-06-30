@@ -28,8 +28,8 @@ export default function ({
   }, [])
 
   const placeBet = useCallback(() => {
-    if (address && betValue > 0) {
-      socket?.emit('placeBet', { address, amount: betValue })
+    if (socket && address && betValue > 0) {
+      socket.emit('placeBet', { address, amount: betValue })
       queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
     }
 
