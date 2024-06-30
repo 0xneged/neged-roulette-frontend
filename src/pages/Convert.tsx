@@ -10,14 +10,16 @@ import env from 'helpers/env'
 import walletConfig from 'helpers/walletConfig'
 import { toast } from 'react-toastify'
 import queryClient from 'helpers/queryClient'
-import { usePrivy } from '@privy-io/react-auth'
+import { usePrivy, useWallets } from '@privy-io/react-auth'
 import { bep20abi } from 'helpers/bep20abi'
 import sleep from 'helpers/sleep'
+import { base } from 'viem/chains'
 
 const decimals = 18
 
 export default function () {
   const { login, authenticated, user, ready } = usePrivy()
+  const { wallets } = useWallets()
   const [amount, setAmount] = useState(1000)
   const [loading, setLoading] = useState(false)
   const [isReversed, setIsReversed] = useState(false)
@@ -30,17 +32,22 @@ export default function () {
       login()
       return
     }
-    if (!address || amount <= 0 || loading) return
+    if (!address || !wallets.length || amount <= 0 || loading) return
+
     const convertedAmount = amount * 10 ** decimals
 
     try {
       setLoading(true)
+
+      wallets[0].switchChain(base.id)
+
       if (!isReversed) {
         const res = await readContract(walletConfig, {
           address: env.VITE_TOKEN_ADDRESS as EthAddress,
           abi: bep20abi,
           functionName: 'allowance',
           args: [address, env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress],
+          chainId: base.id,
         })
 
         if (Number(res) < convertedAmount)
@@ -52,6 +59,7 @@ export default function () {
               env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress,
               BigInt(convertedAmount),
             ],
+            chainId: base.id,
           })
         // Required for blockchain to process the tx
         await sleep(10)
@@ -68,7 +76,7 @@ export default function () {
     } finally {
       setLoading(false)
     }
-  }, [ready, loading, address, amount, authenticated, isReversed])
+  }, [wallets, ready, loading, address, amount, authenticated, isReversed])
 
   return (
     <div className="flex flex-col items-center gap-y-7">

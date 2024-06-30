@@ -6,10 +6,11 @@ import Convert from 'pages/Convert'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
 import { Route, Switch } from 'wouter-preact'
-import { PrivyProvider } from '@privy-io/react-auth'
+import { PrivyProvider, SUPPORTED_CHAINS } from '@privy-io/react-auth'
 import env from 'helpers/env'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { ToastContainer } from 'react-toastify'
+import { base } from 'viem/chains'
 
 export default function () {
   return (
@@ -21,6 +22,8 @@ export default function () {
           landingHeader: "Let's a roll",
           theme: 'dark',
         },
+        supportedChains: [base as any],
+        defaultChain: base as any,
       }}
       appId={env.VITE_PRIVY_APP_ID}
       clientId={env.DEV ? env.VITE_DEV_CLIENT_ID : env.VITE_PROD_CLIENT_ID}
