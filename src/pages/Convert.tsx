@@ -1,20 +1,19 @@
-import BigButton from 'components/BigButton'
-import CoinToHats from 'components/Convert/CoinToHats'
-import ExchangerBlock from 'components/Convert/ExchangerBlock'
-import HatsQuantity from 'components/Convert/HatsQuantity'
+import { base } from 'viem/chains'
 import { convertTokensHats } from 'helpers/api/token'
-import { useCallback, useState } from 'preact/hooks'
 import { readContract, writeContract } from '@wagmi/core'
-import EthAddress from 'types/EthAddress'
-import env from 'helpers/env'
-import walletConfig from 'helpers/walletConfig'
 import { toast } from 'react-toastify'
-import queryClient from 'helpers/queryClient'
+import { useCallback, useState } from 'preact/hooks'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
 import { waitForTransactionReceipt } from '@wagmi/core'
-import { bep20abi } from 'helpers/bep20abi'
-import sleep from 'helpers/sleep'
-import { base } from 'viem/chains'
+import BigButton from 'components/BigButton'
+import CoinToHats from 'components/Convert/CoinToHats'
+import EthAddress from 'types/EthAddress'
+import ExchangerBlock from 'components/Convert/ExchangerBlock'
+import HatsQuantity from 'components/Convert/HatsQuantity'
+import bep20abi from 'helpers/bep20abi'
+import env from 'helpers/env'
+import queryClient from 'helpers/queryClient'
+import walletConfig from 'helpers/walletConfig'
 
 const decimals = 18
 
@@ -40,7 +39,7 @@ export default function () {
     try {
       setLoading(true)
 
-      wallets[0].switchChain(base.id)
+      await wallets[0].switchChain(base.id)
 
       if (!isReversed) {
         const res = await readContract(walletConfig, {
@@ -72,7 +71,7 @@ export default function () {
       const res = await convertTokensHats(amount, isReversed)
       if (typeof res !== 'number') return
 
-      queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       toast.success('Converted 🎉')
     } catch (e) {
       console.error(e)
@@ -80,7 +79,16 @@ export default function () {
     } finally {
       setLoading(false)
     }
-  }, [wallets, ready, loading, address, amount, authenticated, isReversed])
+  }, [
+    ready,
+    authenticated,
+    address,
+    wallets,
+    amount,
+    loading,
+    login,
+    isReversed,
+  ])
 
   return (
     <div className="flex flex-col items-center gap-y-7">

@@ -1,4 +1,4 @@
-import HatIcon from './HatIcon'
+import HatIcon from 'components/icons/HatIcon'
 
 export default function ({
   darkBg,

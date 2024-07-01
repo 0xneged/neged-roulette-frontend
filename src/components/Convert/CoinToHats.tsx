@@ -1,6 +1,6 @@
+import { Dispatch, StateUpdater } from 'preact/hooks'
 import HatInCircle from 'components/icons/HatInCircle'
 import ReverseArrow from 'components/icons/ReverseArrow'
-import { Dispatch, StateUpdater } from 'preact/hooks'
 
 export default function ({
   isReversed,

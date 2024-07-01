@@ -1,15 +1,15 @@
+import { Suspense } from 'preact/compat'
+import { useAutoAnimate } from '@formkit/auto-animate/preact'
+import { useEffect, useState } from 'preact/hooks'
+import { usePrivy } from '@privy-io/react-auth'
 import AllBetters from 'components/Main/AllBetters'
+import HatIcon from 'components/icons/HatIcon'
 import Roulette from 'components/Main/Roulette'
+import Round from 'types/Round'
 import RoundStats from 'components/Main/RoundStats'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
-import HatIcon from 'components/icons/HatIcon'
-import { Suspense } from 'preact/compat'
-import { useEffect, useState } from 'preact/hooks'
-import Round from 'types/Round'
-import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import queryClient from 'helpers/queryClient'
-import { usePrivy } from '@privy-io/react-auth'
 import useSocket from 'helpers/useSocket'
 
 export default function () {
@@ -32,7 +32,7 @@ export default function () {
 
     socket?.on(
       'roundEnd',
-      ({
+      async ({
         round,
         nextRoundTimeout,
       }: {
@@ -47,7 +47,7 @@ export default function () {
           nextRoundTimeout - 750 + 'ms'
         )
 
-        queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
+        await queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
         setTimeout(() => {
           setCurrentRound(null)
         }, nextRoundTimeout)

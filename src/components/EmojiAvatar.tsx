@@ -1,4 +1,4 @@
-import { emojiAvatarForAddress } from 'helpers/emojiAvatarForAddress'
+import emojiAvatarForAddress from 'helpers/emojiAvatarForAddress'
 
 export default function ({ address }: { address: string | undefined }) {
   const { color, emoji } = emojiAvatarForAddress(address)

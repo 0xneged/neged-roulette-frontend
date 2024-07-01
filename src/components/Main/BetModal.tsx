@@ -1,9 +1,9 @@
 import { Button as FlowBitButton, Modal, useThemeMode } from 'flowbite-react'
-import useHatsCounter from 'helpers/hooks/useHatsCounter'
-import queryClient from 'helpers/queryClient'
-import useSocket from 'helpers/useSocket'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import EthAddress from 'types/EthAddress'
+import queryClient from 'helpers/queryClient'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
+import useSocket from 'helpers/useSocket'
 
 export default function ({
   address,
@@ -25,16 +25,16 @@ export default function ({
 
   const closeModal = useCallback(() => {
     setModalOpen(false)
-  }, [])
+  }, [setModalOpen])
 
   const placeBet = useCallback(() => {
     if (socket && address && betValue > 0) {
       socket.emit('placeBet', { address, amount: betValue })
-      queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+      void queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
     }
 
     closeModal()
-  }, [address, betValue, socket])
+  }, [address, betValue, closeModal, socket])
 
   const max = userHats?.toFixed(0) || 1000
 

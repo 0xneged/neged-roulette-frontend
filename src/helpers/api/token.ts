@@ -1,8 +1,8 @@
-import axios from 'axios'
-import env from 'helpers/env'
 import { Winner } from 'types/Round'
 import { getAccessToken } from '@privy-io/react-auth'
 import { toast } from 'react-toastify'
+import axios from 'axios'
+import env from 'helpers/env'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 

@@ -75,7 +75,7 @@ function hashCode(text: string) {
   return hash
 }
 
-export function emojiAvatarForAddress(address?: string) {
+export default function (address?: string) {
   const resolvedAddress = typeof address === 'string' ? address : ''
   const avatarIndex = Math.abs(
     hashCode(resolvedAddress.toLowerCase()) % avatars.length

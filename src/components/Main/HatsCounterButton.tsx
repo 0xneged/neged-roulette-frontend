@@ -1,9 +1,9 @@
-import Button from '../Button'
-import HatIcon from '../icons/HatIcon'
-import { useLocation } from 'wouter-preact'
-import { roundNumber } from 'helpers/roundNumber'
-import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import { Suspense } from 'preact/compat'
+import { useLocation } from 'wouter-preact'
+import Button from 'components/Button'
+import HatIcon from 'components/icons/HatIcon'
+import roundNumber from 'helpers/roundNumber'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 interface HatsCounterProps {
   address?: string | undefined

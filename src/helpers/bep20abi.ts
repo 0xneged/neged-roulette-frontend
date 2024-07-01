@@ -1,4 +1,4 @@
-export const bep20abi = [
+export default [
   {
     inputs: [],
     payable: false,

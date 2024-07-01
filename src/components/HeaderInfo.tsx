@@ -1,8 +1,8 @@
 import { Suspense } from 'preact/compat'
-import FcPfp from './FcPfp'
-import HatsCounterButton from './Main/HatsCounterButton'
 import { usePrivy } from '@privy-io/react-auth'
-import FcName from './FcName'
+import FcName from 'components/FcName'
+import FcPfp from 'components/FcPfp'
+import HatsCounterButton from 'components/Main/HatsCounterButton'
 
 export default function () {
   const { user, logout } = usePrivy()

@@ -23,7 +23,7 @@ export default function (endTime: string) {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [endTime])
 
   return time
 }

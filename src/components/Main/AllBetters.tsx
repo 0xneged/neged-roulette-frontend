@@ -1,9 +1,9 @@
+import BetsProps from 'types/BetsProps'
 import FcPfp from 'components/FcPfp'
-import Username from 'components/Username'
 import HatInCircle from 'components/icons/HatInCircle'
+import Username from 'components/Username'
 import getAccountLink from 'helpers/getAccountLink'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
-import BetsProps from 'types/BetsProps'
 
 export default function ({
   deposits,

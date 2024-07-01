@@ -1,13 +1,13 @@
-import BigButton from 'components/BigButton'
-import { useCallback, useEffect, useState } from 'preact/hooks'
-import DashedCard from './DashedCard'
-import HatInCircle from '../icons/HatInCircle'
-import BetsProps from 'types/BetsProps'
-import BetModal from './BetModal'
-import { usePrivy } from '@privy-io/react-auth'
-import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import { toast } from 'react-toastify'
+import { useCallback, useEffect, useState } from 'preact/hooks'
 import { useLocation } from 'wouter-preact'
+import { usePrivy } from '@privy-io/react-auth'
+import BetModal from 'components/Main/BetModal'
+import BetsProps from 'types/BetsProps'
+import BigButton from 'components/BigButton'
+import DashedCard from 'components/Main/DashedCard'
+import HatInCircle from 'components/icons/HatInCircle'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {
   const [, navigate] = useLocation()
@@ -41,7 +41,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
     }
 
     setModalOpen(true)
-  }, [hats, authenticated, ready, login, address])
+  }, [ready, authenticated, hats, login, navigate])
 
   if (userDeposit.amount > 0)
     return (

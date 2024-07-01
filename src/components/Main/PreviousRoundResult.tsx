@@ -1,6 +1,6 @@
 import { getPreviousWinner } from 'helpers/api/token'
-import ParticipantData from './ParticipantData'
 import { useQuery } from '@tanstack/react-query'
+import ParticipantData from 'components/Main/ParticipantData'
 
 export default function () {
   const { data } = useQuery({

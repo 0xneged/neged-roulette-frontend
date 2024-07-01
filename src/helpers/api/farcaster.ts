@@ -1,6 +1,6 @@
+import { FcUser } from 'types/FcUser'
 import axios from 'axios'
 import env from 'helpers/env'
-import { FcUser } from 'types/FcUser'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/farcaster/getUser`
 

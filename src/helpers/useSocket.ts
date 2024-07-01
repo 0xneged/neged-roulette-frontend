@@ -1,7 +1,7 @@
+import { Socket, io } from 'socket.io-client'
 import { useEffect, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
-import { Socket, io } from 'socket.io-client'
-import env from './env'
+import env from 'helpers/env'
 
 export default function () {
   const { getAccessToken, ready } = usePrivy()
@@ -21,7 +21,7 @@ export default function () {
     }
 
     void connect()
-  }, [getAccessToken])
+  }, [ready, getAccessToken])
 
   useEffect(() => {
     socket?.connect()

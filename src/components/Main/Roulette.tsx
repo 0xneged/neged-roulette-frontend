@@ -1,5 +1,5 @@
 import DarkCard from 'components/DarkCard'
-import RouletteRoller from './RouletteRoller'
+import RouletteRoller from 'components/Main/RouletteRoller'
 import Round from 'types/Round'
 
 type RouletteProps = {

@@ -1,8 +1,8 @@
+import { Suspense } from 'preact/compat'
 import { User } from '@privy-io/react-auth'
+import DotsLoader from 'components/icons/DotsLoader'
 import truncateString from 'helpers/truncateString'
 import useFcAccount from 'helpers/useFcAccount'
-import { Suspense } from 'preact/compat'
-import DotsLoader from './icons/DotsLoader'
 
 interface FcNameProps {
   user: User | null

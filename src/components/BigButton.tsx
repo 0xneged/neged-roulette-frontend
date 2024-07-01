@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'preact/compat'
+import HatIcon from 'components/icons/HatIcon'
 import OnClick from 'types/OnClick'
-import HatIcon from './icons/HatIcon'
 
 interface BigButtonProps extends PropsWithChildren, OnClick {
   loading?: boolean

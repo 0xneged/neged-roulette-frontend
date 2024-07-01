@@ -1,12 +1,12 @@
-import Round from 'types/Round'
-import BiPeople from '../BiPeople'
+import { Suspense } from 'preact/compat'
+import { useEffect, useState } from 'preact/hooks'
+import BiPeople from 'components/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
-import useCountDown from 'helpers/hooks/useCountDown'
+import PreviousRoundResult from 'components/Main/PreviousRoundResult'
+import Round from 'types/Round'
 import getPercentFromTime from 'helpers/getPercentFromTime'
 import padZeros from 'helpers/padZeros'
-import { useEffect, useState } from 'preact/hooks'
-import { Suspense } from 'preact/compat'
-import PreviousRoundResult from './PreviousRoundResult'
+import useCountDown from 'helpers/hooks/useCountDown'
 
 function InnerComponent({ round }: { round: Round }) {
   const { minutes, seconds } = useCountDown(round.endTime)
@@ -49,7 +49,7 @@ export default function ({ round }: { round: Round | null }) {
     return () => {
       clearInterval(interval)
     }
-  }, [round?.startTime, round?.endTime])
+  }, [round?.startTime, round?.endTime, isRoundStarted])
 
   return (
     <div className="relative">

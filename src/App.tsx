@@ -1,16 +1,16 @@
+import { PrivyProvider } from '@privy-io/react-auth'
 import { QueryClientProvider } from '@tanstack/react-query'
-import Header from 'components/Header'
-import queryClient from 'helpers/queryClient'
-import walletConfig from 'helpers/walletConfig'
+import { Route, Switch } from 'wouter-preact'
+import { ToastContainer } from 'react-toastify'
+import { WagmiProvider } from '@privy-io/wagmi'
+import { base } from 'viem/chains'
 import Convert from 'pages/Convert'
+import Header from 'components/Header'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
-import { Route, Switch } from 'wouter-preact'
-import { PrivyProvider, SUPPORTED_CHAINS } from '@privy-io/react-auth'
 import env from 'helpers/env'
-import { WagmiProvider } from '@privy-io/wagmi'
-import { ToastContainer } from 'react-toastify'
-import { base } from 'viem/chains'
+import queryClient from 'helpers/queryClient'
+import walletConfig from 'helpers/walletConfig'
 
 export default function () {
   return (
@@ -22,8 +22,8 @@ export default function () {
           landingHeader: "Let's a roll",
           theme: 'dark',
         },
-        supportedChains: [base as any],
-        defaultChain: base as any,
+        supportedChains: [base as never],
+        defaultChain: base as never,
         loginMethods: ['farcaster', 'wallet'],
       }}
       appId={env.VITE_PRIVY_APP_ID}

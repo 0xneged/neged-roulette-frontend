@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import EmojiAvatar from './EmojiAvatar'
+import EmojiAvatar from 'components/EmojiAvatar'
 
 const imageStyles = 'w-10 h-10 rounded-3xl'
 

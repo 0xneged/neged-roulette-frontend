@@ -1,9 +1,9 @@
+import { Deposit } from 'types/Round'
 import FcPfp from 'components/FcPfp'
 import Username from 'components/Username'
-import { emojiAvatarForAddress } from 'helpers/emojiAvatarForAddress'
+import emojiAvatarForAddress from 'helpers/emojiAvatarForAddress'
 import getAccountLink from 'helpers/getAccountLink'
-import { roundNumber } from 'helpers/roundNumber'
-import { Deposit } from 'types/Round'
+import roundNumber from 'helpers/roundNumber'
 
 export default function ({
   address,

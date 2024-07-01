@@ -1,10 +1,10 @@
-import Triangle from 'components/Triangle'
-import RouletteParticipant from './RouletteParticipant'
-import Round, { Deposit } from 'types/Round'
-import repeatArray from 'helpers/repeatArray'
-import { useEffect, useRef, useState } from 'preact/hooks'
 import { darkCardStyles } from 'components/DarkCard'
+import { useEffect, useRef } from 'preact/hooks'
+import RouletteParticipant from 'components/Main/RouletteParticipant'
+import Round, { Deposit } from 'types/Round'
+import Triangle from 'components/Triangle'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
+import repeatArray from 'helpers/repeatArray'
 
 type DepositWithChance = Deposit & { winChance: number }
 

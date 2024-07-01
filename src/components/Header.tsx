@@ -1,6 +1,6 @@
 import { Suspense } from 'preact/compat'
-import CustomConnectButton from './CustomConnectButton'
-import Logo from './Logo'
+import CustomConnectButton from 'components/CustomConnectButton'
+import Logo from 'components/Logo'
 
 export default function () {
   return (

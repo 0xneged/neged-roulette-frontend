@@ -1,8 +1,8 @@
-import Button from './Button'
-import WalletIcon from './icons/WalletIcon'
 import { usePrivy } from '@privy-io/react-auth'
-import HatIcon from './icons/HatIcon'
-import HeaderInfo from './HeaderInfo'
+import Button from 'components/Button'
+import HatIcon from 'components/icons/HatIcon'
+import HeaderInfo from 'components/HeaderInfo'
+import WalletIcon from 'components/icons/WalletIcon'
 
 export default function () {
   const { authenticated, login, ready } = usePrivy()

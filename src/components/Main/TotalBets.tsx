@@ -1,7 +1,7 @@
 import { Dispatch, StateUpdater } from 'preact/hooks'
-import Button from '../Button'
-import HatIcon from '../icons/HatIcon'
-import { roundNumber } from 'helpers/roundNumber'
+import Button from 'components/Button'
+import HatIcon from 'components/icons/HatIcon'
+import roundNumber from 'helpers/roundNumber'
 
 export default function ({
   totalDeposits,

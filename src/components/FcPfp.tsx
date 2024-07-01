@@ -1,8 +1,7 @@
-import useFcAccount from 'helpers/useFcAccount'
-import EmojiAvatar from './EmojiAvatar'
-import { useState } from 'preact/hooks'
 import { Suspense } from 'preact/compat'
-import PfpWithFallback from './PfpWithFallback'
+import EmojiAvatar from 'components/EmojiAvatar'
+import PfpWithFallback from 'components/PfpWithFallback'
+import useFcAccount from 'helpers/useFcAccount'
 
 type FcPfpProps = {
   address?: string | undefined
