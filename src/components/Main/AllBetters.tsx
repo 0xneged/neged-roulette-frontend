@@ -5,12 +5,8 @@ import Username from 'components/Username'
 import getAccountLink from 'helpers/getAccountLink'
 import getPercentFromTotal from 'helpers/getPercentFromTotal'
 
-export default function ({
-  deposits,
-  totalDeposits,
-  showAllBetter,
-}: BetsProps & { showAllBetter: boolean }) {
-  if (!showAllBetter || !deposits?.length || !totalDeposits) return null
+export default function ({ deposits, totalDeposits }: BetsProps) {
+  if (!deposits?.length || !totalDeposits) return null
 
   return (
     <div className="flex flex-col py-6 px-3 bg-primary-bg rounded-3xl my-8 gap-y-2">

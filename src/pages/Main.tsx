@@ -17,7 +17,6 @@ export default function () {
   const [parent] = useAutoAnimate()
   const { user } = usePrivy()
   const address = user?.farcaster?.ownerAddress || user?.wallet?.address
-  const [showAllBetter, setShowAllBetters] = useState(false)
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []
   const totalDeposits = safeDeposits.reduce(
@@ -64,17 +63,10 @@ export default function () {
     <Suspense fallback={<HatIcon rotateAnimation />}>
       <div ref={parent}>
         <Roulette round={currentRound} totalDeposits={totalDeposits} />
-        <TotalBets
-          totalDeposits={totalDeposits}
-          setShowAllBetters={setShowAllBetters}
-        />
+        <TotalBets totalDeposits={totalDeposits} />
         <RoundStats round={currentRound} />
         <YourBets deposits={safeDeposits} totalDeposits={totalDeposits} />
-        <AllBetters
-          deposits={safeDeposits}
-          totalDeposits={totalDeposits}
-          showAllBetter={showAllBetter}
-        />
+        <AllBetters deposits={safeDeposits} totalDeposits={totalDeposits} />
       </div>
     </Suspense>
   )

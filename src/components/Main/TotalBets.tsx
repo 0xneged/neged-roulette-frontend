@@ -3,15 +3,9 @@ import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
 import roundNumber from 'helpers/roundNumber'
 
-export default function ({
-  totalDeposits,
-  setShowAllBetters,
-}: {
-  totalDeposits: number
-  setShowAllBetters: Dispatch<StateUpdater<boolean>>
-}) {
+export default function ({ totalDeposits }: { totalDeposits: number }) {
   return (
-    <Button onClick={() => setShowAllBetters((prev) => !prev)} styles="!bg-hat">
+    <Button styles="!bg-hat">
       <span className="font-bold text-2xl pr-1">
         {roundNumber(totalDeposits)}
       </span>
