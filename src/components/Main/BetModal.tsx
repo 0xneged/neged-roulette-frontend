@@ -2,22 +2,22 @@ import { Button as FlowBitButton, Modal, useThemeMode } from 'flowbite-react'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import EthAddress from 'types/EthAddress'
 import queryClient from 'helpers/queryClient'
-import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import useSocket from 'helpers/useSocket'
 
 export default function ({
   address,
   modalOpen,
   setModalOpen,
+  userHats,
 }: {
   address: EthAddress | string | undefined
   modalOpen: boolean
   setModalOpen: (is: boolean) => void
+  userHats: number | undefined
 }) {
   const socket = useSocket()
   const [betValue, setBetValue] = useState(1)
   const mode = useThemeMode()
-  const userHats = useHatsCounter(address)
 
   useEffect(() => {
     mode.setMode('dark')

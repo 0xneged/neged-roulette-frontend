@@ -1,7 +1,7 @@
 import { Suspense } from 'preact/compat'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import { useEffect, useState } from 'preact/hooks'
-import { usePrivy } from '@privy-io/react-auth'
+import { useWallets } from '@privy-io/react-auth'
 import AllBetters from 'components/Main/AllBetters'
 import HatIcon from 'components/icons/HatIcon'
 import Roulette from 'components/Main/Roulette'
@@ -15,8 +15,8 @@ import useSocket from 'helpers/useSocket'
 export default function () {
   const socket = useSocket()
   const [parent] = useAutoAnimate()
-  const { user } = usePrivy()
-  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
+  const { wallets } = useWallets()
+  const address = wallets?.[0]?.address
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []
   const totalDeposits = safeDeposits.reduce(

@@ -29,7 +29,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
             <div className="flex flex-row bg-hat-alt h-full p-2 font-bold font-sm rounded-xl gap-x-1 items-center">
               <span>{amount}</span> <HatInCircle small />
             </div>
-            <div className="p-3 bg-pale-purple rounded-xl h-full">
+            <div className="p-2 bg-pale-purple rounded-xl h-full">
               <span>{getPercentFromTotal(amount, totalDeposits)}%</span>
             </div>
           </div>

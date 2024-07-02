@@ -7,21 +7,22 @@ import BetsProps from 'types/BetsProps'
 import BigButton from 'components/BigButton'
 import DashedCard from 'components/Main/DashedCard'
 import HatInCircle from 'components/icons/HatInCircle'
+import getPercentFromTotal from 'helpers/getPercentFromTotal'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {
   const [, navigate] = useLocation()
-  const { user, authenticated, login, ready } = usePrivy()
-  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
+  const { authenticated, login, ready, user } = usePrivy()
+  const address = user?.wallet?.address
   const hats = useHatsCounter(address)
 
-  const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
+  const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: 0 })
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     const amount =
       deposits.find((deposit) => deposit.address === address)?.amount || 0
-    const chance = Number((amount / totalDeposits) * 100).toFixed(2)
+    const chance = getPercentFromTotal(amount, totalDeposits)
 
     setUserDeposit({ amount, chance })
   }, [totalDeposits, deposits, address])
@@ -67,6 +68,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
         address={address}
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
+        userHats={hats}
       />
     </>
   )

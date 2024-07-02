@@ -1,11 +1,10 @@
-import { Dispatch, StateUpdater } from 'preact/hooks'
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
 import roundNumber from 'helpers/roundNumber'
 
 export default function ({ totalDeposits }: { totalDeposits: number }) {
   return (
-    <Button styles="!bg-hat">
+    <Button styles="!bg-hat !rounded-b-lg !rounded-t-none">
       <span className="font-bold text-2xl pr-1">
         {roundNumber(totalDeposits)}
       </span>

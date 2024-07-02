@@ -1,11 +1,9 @@
 import { Suspense } from 'preact/compat'
-import { User } from '@privy-io/react-auth'
 import DotsLoader from 'components/icons/DotsLoader'
 import truncateString from 'helpers/truncateString'
 import useFcAccount from 'helpers/useFcAccount'
 
 interface FcNameProps {
-  user: User | null
   address?: string | undefined
 }
 
@@ -24,10 +22,7 @@ function FcName({ address }: { address?: string | undefined }) {
   return <Name name={name} />
 }
 
-export default function ({ user, address }: FcNameProps) {
-  const displayName = user?.farcaster?.displayName
-  if (displayName) return <Name name={displayName} />
-
+export default function ({ address }: FcNameProps) {
   return (
     <Suspense fallback={<DotsLoader />}>
       <FcName address={address} />

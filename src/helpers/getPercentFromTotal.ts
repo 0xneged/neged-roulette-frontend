@@ -1,3 +1,3 @@
 export default function (amount: number, total: number) {
-  return Math.ceil((amount / total) * 100)
+  return Math.round((amount / total) * 100)
 }

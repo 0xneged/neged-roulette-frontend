@@ -18,21 +18,24 @@ import walletConfig from 'helpers/walletConfig'
 const decimals = 18
 
 export default function () {
-  const { login, authenticated, user, ready } = usePrivy()
-  const { wallets } = useWallets()
+  const { login, authenticated, ready, connectWallet, user } = usePrivy()
+  const { wallets, ready: walletsReady } = useWallets()
   const [amount, setAmount] = useState(1000)
   const [loading, setLoading] = useState(false)
   const [isReversed, setIsReversed] = useState(false)
 
-  const address = user?.farcaster?.ownerAddress || user?.wallet?.address
-
   const processExchange = useCallback(async () => {
-    if (!ready) return
+    if (!ready || !walletsReady) return
     if (!authenticated) {
       login()
       return
     }
-    if (!address || !wallets.length || amount <= 0 || loading) return
+    const address = user?.wallet?.address
+    if (!wallets[0]?.address) {
+      connectWallet({ suggestedAddress: address })
+    }
+
+    if (!address || amount <= 0 || loading) return
 
     const convertedAmount = amount * 10 ** decimals
 
@@ -80,14 +83,16 @@ export default function () {
       setLoading(false)
     }
   }, [
+    connectWallet,
     ready,
     authenticated,
-    address,
-    wallets,
     amount,
     loading,
     login,
     isReversed,
+    user?.wallet?.address,
+    wallets,
+    walletsReady,
   ])
 
   return (
@@ -116,7 +121,7 @@ export default function () {
       <BigButton
         onClick={processExchange}
         disabled={!amount}
-        loading={loading || !ready}
+        loading={loading || !ready || !walletsReady}
       >
         CONVERT
       </BigButton>
