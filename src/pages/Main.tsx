@@ -35,8 +35,8 @@ export default function () {
         round,
         nextRoundTimeout,
       }: {
-        nextRoundTimeout: number
         round: Round
+        nextRoundTimeout: number
       }) => {
         setCurrentRound(round)
 

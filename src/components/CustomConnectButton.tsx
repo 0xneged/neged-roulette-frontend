@@ -8,11 +8,7 @@ export default function () {
   const { authenticated, login, ready } = usePrivy()
 
   if (!ready) {
-    return (
-      <Button>
-        <HatIcon rotateAnimation />
-      </Button>
-    )
+    return <Button loading />
   }
 
   if (!authenticated) {
