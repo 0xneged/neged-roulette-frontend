@@ -11,7 +11,7 @@ function Name({ name }: { name?: string | undefined }) {
   return <div className="hidden md:block opacity-70">{name}</div>
 }
 
-function FcName({ address }: { address?: string | undefined }) {
+function FcName({ address }: { address: string }) {
   const { data } = useFcAccount(address)
 
   const name = truncateString({
@@ -23,6 +23,8 @@ function FcName({ address }: { address?: string | undefined }) {
 }
 
 export default function ({ address }: FcNameProps) {
+  if (!address) return <Name name={address} />
+
   return (
     <Suspense fallback={<DotsLoader />}>
       <FcName address={address} />

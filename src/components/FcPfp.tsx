@@ -11,9 +11,7 @@ type FcPfpProps = {
 function SuspendedFcPfp({ address }: { address: string }) {
   const { data } = useFcAccount(address)
 
-  const pfp = data?.fcPfpLink
-
-  return <PfpWithFallback address={address} pfpUrl={pfp} />
+  return <PfpWithFallback address={address} pfpUrl={data?.fcPfpLink} />
 }
 
 export default function ({ address, pfpUrl }: FcPfpProps) {
