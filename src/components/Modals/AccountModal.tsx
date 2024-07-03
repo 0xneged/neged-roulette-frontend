@@ -3,7 +3,6 @@ import { Suspense, useCallback } from 'preact/compat'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
 import ModalProps from 'types/ModalProps'
-import ethAddressRegex from 'helpers/ethAddressRegex'
 import useReferrer from 'helpers/hooks/useReferrer'
 
 interface AccountModalProps extends ModalProps {
@@ -17,12 +16,7 @@ function BodyContent({ address }: { address: string }) {
   return (
     <div className="flex flex-col w-full">
       <span className="text-white mr-1">Your referrer:</span>
-      <span
-        pattern={ethAddressRegex}
-        className="text-primary font-bold text-lg w-full"
-      >
-        {referrer}
-      </span>
+      <span className="text-primary font-bold text-lg w-full">{referrer}</span>
     </div>
   )
 }
