@@ -1,9 +1,9 @@
 import { usePrivy } from '@privy-io/react-auth'
+import { useState } from 'preact/hooks'
+import AccountModal from 'components/Modals/AccountModal'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
-import AccountModal from './Modals/AccountModal'
-import { useState } from 'preact/hooks'
 
 export default function () {
   const { logout, user } = usePrivy()

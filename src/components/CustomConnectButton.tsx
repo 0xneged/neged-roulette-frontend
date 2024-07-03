@@ -1,6 +1,5 @@
 import { usePrivy } from '@privy-io/react-auth'
 import Button from 'components/Button'
-import HatIcon from 'components/icons/HatIcon'
 import HeaderInfo from 'components/HeaderInfo'
 import WalletIcon from 'components/icons/WalletIcon'
 

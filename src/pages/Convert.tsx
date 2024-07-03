@@ -10,11 +10,11 @@ import CoinToHats from 'components/Convert/CoinToHats'
 import EthAddress from 'types/EthAddress'
 import ExchangerBlock from 'components/Convert/ExchangerBlock'
 import HatsQuantity from 'components/Convert/HatsQuantity'
+import Input from 'components/Input'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
-import Input from 'components/Input'
 
 const decimals = 18
 

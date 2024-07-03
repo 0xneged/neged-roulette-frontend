@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
 import { getReferrer } from 'helpers/api/referral'
+import { useQuery } from '@tanstack/react-query'
 
 export default function (userAddress: string) {
   const { data } = useQuery({

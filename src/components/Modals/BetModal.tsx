@@ -1,10 +1,10 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
 import { useCallback, useState } from 'preact/hooks'
+import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
+import ModalProps from 'types/ModalProps'
 import queryClient from 'helpers/queryClient'
 import useSocket from 'helpers/useSocket'
-import ModalProps from 'types/ModalProps'
-import DefaultModal from './DefaultModal'
 
 interface BetModalProps extends ModalProps {
   address: EthAddress | string | undefined

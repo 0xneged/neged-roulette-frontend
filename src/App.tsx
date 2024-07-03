@@ -1,6 +1,6 @@
 import { PrivyProvider } from '@privy-io/react-auth'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { Route, Switch, useSearch } from 'wouter-preact'
+import { Route, Switch } from 'wouter-preact'
 import { ToastContainer } from 'react-toastify'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { base } from 'viem/chains'

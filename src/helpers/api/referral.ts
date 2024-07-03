@@ -1,6 +1,6 @@
+import { isAddress } from 'viem'
 import axios from 'axios'
 import env from 'helpers/env'
-import { isAddress } from 'viem'
 
 type Referrer = {
   referrer: string | undefined
