@@ -13,10 +13,15 @@ export enum RoundStatus {
 }
 
 export default interface Round {
-  startTime: string
-  endTime: string
+  startTime?: string
+  endTime?: string
   deposits: Deposit[]
   winner: Winner
   winnerAmount: number
   roundStatus: RoundStatus
+}
+
+export interface RoundWithTime extends Round {
+  startTime: string
+  endTime: string
 }

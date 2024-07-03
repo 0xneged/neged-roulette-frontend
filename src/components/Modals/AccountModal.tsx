@@ -9,22 +9,27 @@ import isMobile from 'helpers/isMobile'
 import useReferrer from 'helpers/hooks/useReferrer'
 import vibrate from 'helpers/vibrate'
 
-interface AccountModalInner {
-  address: string
+type AddressProp = { address: string }
+
+interface AccountModalInner extends AddressProp {
   logout: () => Promise<void>
 }
 
 interface AccountModalProps extends AccountModalInner, ModalProps {}
 
-function BodyContentSuspended({ address }: { address: string }) {
-  const referrer = useReferrer(address)
-
+function StyledAddress({ address }: { address?: string | undefined }) {
   return (
-    <span className="text-primary font-bold text-lg w-full">{referrer}</span>
+    <span className="text-primary font-bold text-lg w-full">{address}</span>
   )
 }
 
-function BodyContent({ address }: { address: string }) {
+function BodyContentSuspended({ address }: AddressProp) {
+  const referrer = useReferrer(address)
+
+  return <StyledAddress address={referrer} />
+}
+
+function BodyContent({ address }: AddressProp) {
   return (
     <div className="flex flex-col w-full">
       <span className="text-white mr-1">Your referrer:</span>

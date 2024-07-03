@@ -3,12 +3,12 @@ import { useEffect, useState } from 'preact/hooks'
 import BiPeople from 'components/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
-import Round from 'types/Round'
+import Round, { RoundWithTime } from 'types/Round'
 import getPercentFromTime from 'helpers/numbers/getPercentFromTime'
 import padZeros from 'helpers/numbers/padZeros'
 import useCountDown from 'helpers/hooks/useCountDown'
 
-function InnerComponent({ round }: { round: Round }) {
+function InnerComponent({ round }: { round: RoundWithTime }) {
   const { minutes, seconds } = useCountDown(round.endTime)
   const participants = new Set(round.deposits.map(({ address }) => address))
 
@@ -32,12 +32,13 @@ function InnerComponent({ round }: { round: Round }) {
 export default function ({ round }: { round: Round | null }) {
   const [roundProgress, setRoundProgress] = useState(0)
 
-  const isRoundStarted = !!round
+  const roundHasStarted = round && round.startTime && round.endTime
 
   useEffect(() => {
-    if (!isRoundStarted) return
+    if (!roundHasStarted) return
 
     const interval = setInterval(() => {
+      if (!round || !round.startTime || !round.endTime) return
       const percent = getPercentFromTime(round.startTime, round.endTime)
       if (percent <= 100) setRoundProgress(percent)
       else {
@@ -49,12 +50,12 @@ export default function ({ round }: { round: Round | null }) {
     return () => {
       clearInterval(interval)
     }
-  }, [round?.startTime, round?.endTime, isRoundStarted])
+  }, [round?.startTime, round?.endTime, round, roundHasStarted])
 
   return (
     <div className="relative">
       <img src="img/neged-hat.png" />
-      {isRoundStarted ? (
+      {roundHasStarted ? (
         <>
           <div
             style={{
@@ -75,8 +76,15 @@ export default function ({ round }: { round: Round | null }) {
       ) : null}
 
       <div className="absolute top-1/2 flex flex-col justify-center w-full items-center">
-        {isRoundStarted ? (
-          <InnerComponent round={round} />
+        {round ? (
+          roundHasStarted ? (
+            <InnerComponent round={round as RoundWithTime} />
+          ) : (
+            <>
+              <span className="font-bold mb-2">Waiting for second bet</span>
+              <HatIcon rotateAnimation />
+            </>
+          )
         ) : (
           <Suspense fallback={<HatIcon rotateAnimation />}>
             <PreviousRoundResult />

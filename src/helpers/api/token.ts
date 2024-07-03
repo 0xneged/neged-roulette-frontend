@@ -46,6 +46,5 @@ export async function getPreviousWinner() {
     return data
   } catch (e) {
     console.error(e)
-    return ''
   }
 }
