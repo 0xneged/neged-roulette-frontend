@@ -3,7 +3,7 @@ import FcPfp from 'components/FcPfp'
 import HatInCircle from 'components/icons/HatInCircle'
 import Username from 'components/Username'
 import getAccountLink from 'helpers/getAccountLink'
-import getPercentFromTotal from 'helpers/getPercentFromTotal'
+import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {
   if (!deposits?.length || !totalDeposits) return null

@@ -10,7 +10,7 @@ import RoundStats from 'components/Main/RoundStats'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import queryClient from 'helpers/queryClient'
-import useSocket from 'helpers/useSocket'
+import useSocket from 'helpers/hooks/useSocket'
 
 export default function () {
   const socket = useSocket()

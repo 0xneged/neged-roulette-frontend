@@ -3,7 +3,7 @@ import FcPfp from 'components/FcPfp'
 import Username from 'components/Username'
 import emojiAvatarForAddress from 'helpers/emojiAvatarForAddress'
 import getAccountLink from 'helpers/getAccountLink'
-import roundNumber from 'helpers/roundNumber'
+import roundNumber from 'helpers/numbers/roundNumber'
 
 export default function ({
   address,

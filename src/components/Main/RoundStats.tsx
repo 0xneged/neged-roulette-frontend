@@ -4,8 +4,8 @@ import BiPeople from 'components/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
 import Round from 'types/Round'
-import getPercentFromTime from 'helpers/getPercentFromTime'
-import padZeros from 'helpers/padZeros'
+import getPercentFromTime from 'helpers/numbers/getPercentFromTime'
+import padZeros from 'helpers/numbers/padZeros'
 import useCountDown from 'helpers/hooks/useCountDown'
 
 function InnerComponent({ round }: { round: Round }) {

@@ -1,7 +1,7 @@
 import { Suspense } from 'preact/compat'
 import EmojiAvatar from 'components/EmojiAvatar'
 import PfpWithFallback from 'components/PfpWithFallback'
-import useFcAccount from 'helpers/useFcAccount'
+import useFcAccount from 'helpers/hooks/useFcAccount'
 
 type FcPfpProps = {
   address?: string | undefined

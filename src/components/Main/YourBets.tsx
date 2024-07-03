@@ -7,7 +7,7 @@ import BetsProps from 'types/BetsProps'
 import BigButton from 'components/BigButton'
 import DashedCard from 'components/Main/DashedCard'
 import HatInCircle from 'components/icons/HatInCircle'
-import getPercentFromTotal from 'helpers/getPercentFromTotal'
+import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 export default function ({ deposits, totalDeposits }: BetsProps) {

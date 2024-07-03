@@ -4,7 +4,7 @@ import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
 import ModalProps from 'types/ModalProps'
 import queryClient from 'helpers/queryClient'
-import useSocket from 'helpers/useSocket'
+import useSocket from 'helpers/hooks/useSocket'
 
 interface BetModalProps extends ModalProps {
   address: EthAddress | string | undefined

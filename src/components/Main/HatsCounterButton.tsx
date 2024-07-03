@@ -2,7 +2,7 @@ import { Suspense } from 'preact/compat'
 import { useLocation } from 'wouter-preact'
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
-import roundNumber from 'helpers/roundNumber'
+import roundNumber from 'helpers/numbers/roundNumber'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 interface HatsCounterProps {
@@ -18,8 +18,9 @@ function SuspendedHatsCounter({ address }: HatsCounterProps) {
   return (
     <Button
       onClick={() => navigate('/convert')}
-      styles="!bg-hat rounded-full !h-11"
+      styles="rounded-full h-11"
       disabled={!hasData}
+      bgHat
     >
       <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(hats)}
     </Button>

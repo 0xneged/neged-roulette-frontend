@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'preact/hooks'
 import RouletteParticipant from 'components/Main/RouletteParticipant'
 import Round, { Deposit } from 'types/Round'
 import Triangle from 'components/Triangle'
-import getPercentFromTotal from 'helpers/getPercentFromTotal'
+import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import repeatArray from 'helpers/repeatArray'
 
 type DepositWithChance = Deposit & { winChance: number }
