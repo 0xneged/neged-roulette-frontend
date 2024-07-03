@@ -10,6 +10,7 @@ import CoinToHats from 'components/Convert/CoinToHats'
 import EthAddress from 'types/EthAddress'
 import ExchangerBlock from 'components/Convert/ExchangerBlock'
 import HatsQuantity from 'components/Convert/HatsQuantity'
+import Input from 'components/Input'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
@@ -99,13 +100,12 @@ export default function () {
     <div className="flex flex-col items-center gap-y-7">
       <span>You Convert</span>
       <div className="text-4xl text-primary font-bold">
-        <input
+        <Input
           value={amount}
           onChange={({ currentTarget }) => {
             if (currentTarget.valueAsNumber <= 10000)
               setAmount(currentTarget.valueAsNumber)
           }}
-          className="text-4xl bg-transparent w-32 border-0 p-0 focus-visible:outline-0 focus-visible:ring-0"
           type="number"
           max={10000}
           min={0}
