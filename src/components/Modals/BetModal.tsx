@@ -24,10 +24,14 @@ export default function ({
     setModalOpen(false)
   }, [setModalOpen])
 
-  const placeBet = useCallback(async () => {
+  const placeBet = useCallback(() => {
     if (socket && address && betValue > 0) {
       socket.emit('placeBet', { address, amount: betValue })
-      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+      // Wait for DB update
+      setTimeout(
+        () => void queryClient.invalidateQueries({ queryKey: ['hatsCounter'] }),
+        500
+      )
     }
 
     closeModal()

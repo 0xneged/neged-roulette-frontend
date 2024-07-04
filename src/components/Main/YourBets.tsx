@@ -61,7 +61,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
 
   return (
     <>
-      <BigButton onClick={onClick} loading={!ready}>
+      <BigButton onClick={onClick} loading={!ready || modalOpen}>
         TRY YOUR LUCK
       </BigButton>
       <BetModal
