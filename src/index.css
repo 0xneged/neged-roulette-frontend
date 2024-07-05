@@ -90,7 +90,7 @@ a {
 
 .reveal-winner {
   will-change: transform;
-  transition: all var(--round-timeout) cubic-bezier(0, 0.3, 0.3, 1.05) 0s;
+  transition: all var(--round-timeout) cubic-bezier(0, 0.3, 0.3, 1) 0s;
 }
 
 .mask-hat {
