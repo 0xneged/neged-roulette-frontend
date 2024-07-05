@@ -1,13 +1,12 @@
-import { Dispatch, StateUpdater } from 'preact/hooks'
 import HatInCircle from 'components/icons/HatInCircle'
 import ReverseArrow from 'components/icons/ReverseArrow'
 
 export default function ({
   isReversed,
-  setIsReversed,
+  onReverse,
 }: {
   isReversed: boolean
-  setIsReversed: Dispatch<StateUpdater<boolean>>
+  onReverse: () => void
 }) {
   return (
     <>
@@ -19,7 +18,7 @@ export default function ({
         </div>
       </div>
 
-      <ReverseArrow onClick={() => setIsReversed((prev) => !prev)} />
+      <ReverseArrow onClick={onReverse} />
 
       <div className="flex items-center gap-x-2 w-24">
         <div className="flex flex-col">

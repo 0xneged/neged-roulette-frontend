@@ -21,9 +21,9 @@ const decimals = 18
 export default function () {
   const { login, authenticated, ready, connectWallet, user } = usePrivy()
   const { wallets, ready: walletsReady } = useWallets()
-  const [amount, setAmount] = useState(1000)
   const [loading, setLoading] = useState(false)
-  const [isReversed, setIsReversed] = useState(false)
+  const [isWithdraw, setIsWithdraw] = useState(false)
+  const [amount, setAmount] = useState(1000)
 
   const processExchange = useCallback(async () => {
     if (!ready || !walletsReady) return
@@ -45,7 +45,7 @@ export default function () {
 
       await wallets[0].switchChain(base.id)
 
-      if (!isReversed) {
+      if (!isWithdraw) {
         const res = await readContract(walletConfig, {
           address: env.VITE_TOKEN_ADDRESS as EthAddress,
           abi: bep20abi,
@@ -72,7 +72,7 @@ export default function () {
         }
       }
 
-      const res = await convertTokensHats(amount, isReversed)
+      const res = await convertTokensHats(amount, isWithdraw)
       if (typeof res !== 'number') return
 
       await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
@@ -90,7 +90,7 @@ export default function () {
     amount,
     loading,
     login,
-    isReversed,
+    isWithdraw,
     user?.wallet?.address,
     wallets,
     walletsReady,
@@ -103,20 +103,36 @@ export default function () {
         <Input
           value={amount}
           onChange={({ currentTarget }) => {
-            if (currentTarget.valueAsNumber <= 10000)
+            if (!isWithdraw && currentTarget.valueAsNumber <= 10000)
+              setAmount(currentTarget.valueAsNumber)
+
+            if (isWithdraw && currentTarget.valueAsNumber >= 2000)
               setAmount(currentTarget.valueAsNumber)
           }}
           type="number"
-          max={10000}
-          min={0}
+          max={isWithdraw ? undefined : 10000}
+          min={isWithdraw ? 2000 : 0}
         />
-        <span>{isReversed ? 'Hats' : 'negeD'}</span>
+        <span>{isWithdraw ? 'Hats' : 'negeD'}</span>
       </div>
+      {isWithdraw ? (
+        <span className="font-semibold opacity-70">
+          Minimum withdrawal amount is 2000 HATs
+        </span>
+      ) : null}
       <ExchangerBlock label="You Receive">
-        <HatsQuantity quantity={amount} isReversed={isReversed} />
+        <HatsQuantity quantity={amount} isReversed={isWithdraw} />
       </ExchangerBlock>
       <ExchangerBlock label="Exchange">
-        <CoinToHats isReversed={isReversed} setIsReversed={setIsReversed} />
+        <CoinToHats
+          isReversed={isWithdraw}
+          onReverse={() => {
+            setIsWithdraw((isWithdraw) => {
+              isWithdraw ? setAmount(1000) : setAmount(2000)
+              return !isWithdraw
+            })
+          }}
+        />
       </ExchangerBlock>
       <BigButton
         onClick={processExchange}
