@@ -1,6 +1,16 @@
-export default function (num: number) {
-  num = Math.ceil(num * 1000) / 1000
-  if (num > 1000) return (num / 1000).toFixed(0) + 'K'
-  if (num > 1000000) return (num / 1000000).toFixed(0) + 'KK'
-  else return num.toFixed(0)
+export default function nFormatter(num: number, digits = 1) {
+  const lookup = [
+    { value: 1, symbol: '' },
+    { value: 1e3, symbol: 'K' },
+    { value: 1e6, symbol: 'M' },
+    { value: 1e9, symbol: 'G' },
+    { value: 1e12, symbol: 'T' },
+    { value: 1e15, symbol: 'P' },
+    { value: 1e18, symbol: 'E' },
+  ]
+  const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/
+  const item = lookup.findLast((item) => num >= item.value)
+  return item
+    ? (num / item.value).toFixed(digits).replace(regexp, '').concat(item.symbol)
+    : '0'
 }

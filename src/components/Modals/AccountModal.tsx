@@ -5,6 +5,7 @@ import Button from 'components/Button'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
 import ModalProps from 'types/ModalProps'
+import Share from 'components/icons/Share'
 import isMobile from 'helpers/isMobile'
 import useReferrer from 'helpers/hooks/useReferrer'
 import vibrate from 'helpers/vibrate'
@@ -71,7 +72,7 @@ function ModalFooter({
 
   const ShareButton = () => (
     <Button onClick={shareOnClick} bgHat>
-      Share your referral
+      <Share size={14} /> referral
     </Button>
   )
 
