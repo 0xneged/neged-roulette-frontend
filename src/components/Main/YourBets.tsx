@@ -8,6 +8,7 @@ import BetModal from 'components/Modals/BetModal'
 import BigButton from 'components/BigButton'
 import DashedCard from 'components/Main/DashedCard'
 import HatInCircle from 'components/icons/HatInCircle'
+import env from 'helpers/env'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
@@ -20,6 +21,9 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: 0 })
   const [modalOpen, setModalOpen] = useState(false)
 
+  const noSeats = round ? round.deposits.length >= env.VITE_MAX_PLAYERS : false
+  const roundEnded = round?.roundStatus === RoundStatus.ended
+
   useEffect(() => {
     const deposits = round?.deposits || []
     const amount =
@@ -30,6 +34,7 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
   }, [totalDeposits, round, address])
 
   const onClick = useCallback(() => {
+    if (noSeats || roundEnded) return
     if (!ready) return
     if (!authenticated) {
       login()
@@ -44,7 +49,7 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
     }
 
     setModalOpen(true)
-  }, [ready, authenticated, hats, login, navigate])
+  }, [ready, authenticated, hats, login, navigate, noSeats, roundEnded])
 
   const isUserDeposited = userDeposit.amount > 0
 
@@ -67,7 +72,7 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
 
         <BigButton
           onClick={onClick}
-          disabled={round?.roundStatus === RoundStatus.ended}
+          disabled={roundEnded || noSeats}
           loading={!ready || modalOpen}
         >
           {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}

@@ -1,4 +1,4 @@
-import { bool, cleanEnv, str } from 'envalid'
+import { bool, cleanEnv, num, str } from 'envalid'
 
 export default cleanEnv(import.meta.env, {
   VITE_BACKEND_URL: str(),
@@ -7,5 +7,6 @@ export default cleanEnv(import.meta.env, {
   VITE_TOKEN_RECEIVER_CONTRACT: str(),
   VITE_DEV_CLIENT_ID: str({ default: '' }),
   VITE_PROD_CLIENT_ID: str(),
+  VITE_MAX_PLAYERS: num({ default: 50 }),
   DEV: bool({ default: import.meta.env.DEV }),
 })
