@@ -1,18 +1,23 @@
-import { Winner } from 'types/Round'
 import { getAccessToken } from '@privy-io/react-auth'
 import { toast } from 'react-toastify'
+import Round from 'types/Round'
 import axios from 'axios'
 import env from 'helpers/env'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
 export async function convertTokensHats(amount: number, withdraw: boolean) {
-  if (amount <= 0) return false
+  if (amount <= 0) return
 
   try {
     const authToken = await getAccessToken()
 
-    if (!authToken) return
+    if (!authToken) {
+      toast.error(
+        'Looks like your wallet lost connection, please reconnect using our button 🙏'
+      )
+      return
+    }
 
     const result = await axios.post<{ balance: number | undefined }>(
       `${backendEndpoint}/convert`,
@@ -22,7 +27,6 @@ export async function convertTokensHats(amount: number, withdraw: boolean) {
     return result.data.balance
   } catch (e) {
     toast.error('Failed to swap tokens', e)
-    return false
   }
 }
 
@@ -42,9 +46,10 @@ export async function getTokensForUser(address?: string) {
 
 export async function getPreviousWinner() {
   try {
-    const { data } = await axios.get<Winner>(`${backendEndpoint}/prevWinner`)
+    const { data } = await axios.get<Round>(`${backendEndpoint}/prevWinner`)
     return data
   } catch (e) {
     console.error(e)
+    return ''
   }
 }

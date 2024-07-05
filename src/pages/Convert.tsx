@@ -79,7 +79,7 @@ export default function () {
       toast.success('Converted 🎉')
     } catch (e) {
       console.error(e)
-      toast.error('Something went wrong when converting. Please try again 🥺')
+      toast.error('Something went wrong when converting 🧟 Please try again 🥺')
     } finally {
       setLoading(false)
     }

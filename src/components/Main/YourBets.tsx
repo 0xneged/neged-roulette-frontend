@@ -13,7 +13,7 @@ import useHatsCounter from 'helpers/hooks/useHatsCounter'
 export default function ({ deposits, totalDeposits }: BetsProps) {
   const [, navigate] = useLocation()
   const { authenticated, login, ready, user } = usePrivy()
-  const address = user?.wallet?.address
+  const address = user?.wallet?.address.toLowerCase()
   const hats = useHatsCounter(address)
 
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: 0 })
@@ -53,7 +53,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
             <HatInCircle />
           </div>
         </DashedCard>
-        <DashedCard orange subtitle="your chance">
+        <DashedCard address={address} subtitle="your chance">
           {userDeposit.chance}%
         </DashedCard>
       </div>

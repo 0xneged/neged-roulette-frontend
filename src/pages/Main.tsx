@@ -9,6 +9,7 @@ import Round from 'types/Round'
 import RoundStats from 'components/Main/RoundStats'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
+import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 import queryClient from 'helpers/queryClient'
 import useSocket from 'helpers/hooks/useSocket'
 
@@ -16,13 +17,10 @@ export default function () {
   const socket = useSocket()
   const [parent] = useAutoAnimate()
   const { wallets } = useWallets()
-  const address = wallets?.[0]?.address
+  const address = wallets?.[0]?.address.toLowerCase()
   const [currentRound, setCurrentRound] = useState<Round | null>(null)
   const safeDeposits = currentRound?.deposits || []
-  const totalDeposits = safeDeposits.reduce(
-    (prev, { amount }) => prev + amount,
-    0
-  )
+  const totalDeposits = getTotalDeposits(safeDeposits)
 
   useEffect(() => {
     socket?.on('updateRound', (data: { currentRound: Round }) => {
@@ -31,7 +29,7 @@ export default function () {
 
     socket?.on(
       'roundEnd',
-      async ({
+      ({
         round,
         nextRoundTimeout,
       }: {
@@ -46,9 +44,9 @@ export default function () {
           nextRoundTimeout - 750 + 'ms'
         )
 
-        await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
-        await queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
-        setTimeout(() => {
+        setTimeout(async () => {
+          await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+          await queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
           setCurrentRound(null)
         }, nextRoundTimeout)
       }

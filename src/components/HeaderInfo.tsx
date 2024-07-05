@@ -9,7 +9,7 @@ export default function () {
   const { logout, user } = usePrivy()
   const [showModal, setShowModal] = useState(false)
 
-  const address = user?.wallet?.address
+  const address = user?.wallet?.address.toLowerCase()
 
   return (
     <>

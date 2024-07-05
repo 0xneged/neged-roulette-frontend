@@ -10,12 +10,13 @@ const backendEndpoint = `${env.VITE_BACKEND_URL}/referral`
 
 export async function getReferrer(userAddress: string) {
   try {
-    const { data: previous } = await axios.get<Referrer>(backendEndpoint, {
+    const { data } = await axios.get<Referrer>(backendEndpoint, {
       params: { userAddress },
     })
-    return previous.referrer
+    return data.referrer || ''
   } catch (e) {
     console.error(e)
+    return ''
   }
 }
 

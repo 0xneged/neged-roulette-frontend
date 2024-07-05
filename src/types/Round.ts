@@ -17,7 +17,6 @@ export default interface Round {
   endTime?: string
   deposits: Deposit[]
   winner: Winner
-  winnerAmount: number
   roundStatus: RoundStatus
 }
 
