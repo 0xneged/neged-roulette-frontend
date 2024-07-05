@@ -44,26 +44,28 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
     setModalOpen(true)
   }, [ready, authenticated, hats, login, navigate])
 
-  if (userDeposit.amount > 0)
-    return (
-      <div className="flex flex-row items-center justify-center gap-x-2">
-        <DashedCard subtitle="your bets">
-          <div className="flex gap-x-2">
-            {userDeposit.amount}
-            <HatInCircle />
-          </div>
-        </DashedCard>
-        <DashedCard address={address} subtitle="your chance">
-          {userDeposit.chance}%
-        </DashedCard>
-      </div>
-    )
+  const isUserDeposited = userDeposit.amount > 0
 
   return (
     <>
-      <BigButton onClick={onClick} loading={!ready || modalOpen}>
-        TRY YOUR LUCK
-      </BigButton>
+      <div className="flex flex-col gap-y-2">
+        {isUserDeposited ? (
+          <div className="flex flex-row items-center justify-center gap-x-2">
+            <DashedCard subtitle="your bets">
+              <div className="flex gap-x-2">
+                {userDeposit.amount}
+                <HatInCircle />
+              </div>
+            </DashedCard>
+            <DashedCard address={address} subtitle="your chance">
+              {userDeposit.chance}%
+            </DashedCard>
+          </div>
+        ) : null}
+        <BigButton onClick={onClick} loading={!ready || modalOpen}>
+          {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}
+        </BigButton>
+      </div>
       <BetModal
         address={address}
         modalOpen={modalOpen}
