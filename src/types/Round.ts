@@ -8,6 +8,7 @@ export type Winner = Deposit & {
   winnerAmount: number
 }
 export enum RoundStatus {
+  preparing,
   ongoing,
   ended,
 }

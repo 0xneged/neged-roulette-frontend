@@ -27,17 +27,21 @@ export default function ({
   const placeBet = useCallback(() => {
     if (socket && address && betValue > 0) {
       socket.emit('placeBet', { address, amount: betValue })
+
       // Wait for DB update
-      setTimeout(
-        () => void queryClient.invalidateQueries({ queryKey: ['hatsCounter'] }),
-        500
-      )
+      setTimeout(async () => {
+        await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+      }, 500)
     }
 
     closeModal()
   }, [address, betValue, closeModal, socket])
 
-  const max = userHats?.toFixed(0) || 1000
+  const max = userHats
+    ? userHats > 500000
+      ? 500000
+      : userHats.toFixed(0)
+    : 1000
 
   const BodyContent = (
     <div class="relative mb-6">

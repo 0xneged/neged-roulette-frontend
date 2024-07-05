@@ -64,7 +64,7 @@ export default function () {
         <Roulette round={currentRound} totalDeposits={totalDeposits} />
         <TotalBets totalDeposits={totalDeposits} />
         <RoundStats round={currentRound} />
-        <YourBets deposits={safeDeposits} totalDeposits={totalDeposits} />
+        <YourBets round={currentRound} totalDeposits={totalDeposits} />
         <AllBetters deposits={safeDeposits} totalDeposits={totalDeposits} />
       </div>
     </Suspense>

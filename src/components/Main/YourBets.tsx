@@ -1,16 +1,17 @@
+import { RoundStatus } from 'types/Round'
+import { RoundWithTotal } from 'types/BetsProps'
 import { toast } from 'react-toastify'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import { useLocation } from 'wouter-preact'
 import { usePrivy } from '@privy-io/react-auth'
 import BetModal from 'components/Modals/BetModal'
-import BetsProps from 'types/BetsProps'
 import BigButton from 'components/BigButton'
 import DashedCard from 'components/Main/DashedCard'
 import HatInCircle from 'components/icons/HatInCircle'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
-export default function ({ deposits, totalDeposits }: BetsProps) {
+export default function ({ round, totalDeposits }: RoundWithTotal) {
   const [, navigate] = useLocation()
   const { authenticated, login, ready, user } = usePrivy()
   const address = user?.wallet?.address.toLowerCase()
@@ -20,12 +21,13 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
   const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
+    const deposits = round?.deposits || []
     const amount =
       deposits.find((deposit) => deposit.address === address)?.amount || 0
     const chance = getPercentFromTotal(amount, totalDeposits)
 
     setUserDeposit({ amount, chance })
-  }, [totalDeposits, deposits, address])
+  }, [totalDeposits, round, address])
 
   const onClick = useCallback(() => {
     if (!ready) return
@@ -48,7 +50,7 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-3">
         {isUserDeposited ? (
           <div className="flex flex-row items-center justify-center gap-x-2">
             <DashedCard subtitle="your bets">
@@ -62,7 +64,12 @@ export default function ({ deposits, totalDeposits }: BetsProps) {
             </DashedCard>
           </div>
         ) : null}
-        <BigButton onClick={onClick} loading={!ready || modalOpen}>
+
+        <BigButton
+          onClick={onClick}
+          disabled={round?.roundStatus === RoundStatus.ended}
+          loading={!ready || modalOpen}
+        >
           {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}
         </BigButton>
       </div>

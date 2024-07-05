@@ -22,7 +22,14 @@ export default function ({
       'bg-gradient-to-r from-primary-bright to-primary-dark cursor-pointer active:scale-105 hover:hue-rotate-15'
 
   return (
-    <div onClick={onClick} disabled={disabled} className={styles}>
+    <div
+      onClick={() => {
+        if (disabled || loading) return
+        onClick?.()
+      }}
+      disabled={disabled}
+      className={styles}
+    >
       {loading ? <HatIcon rotateAnimation /> : children}
     </div>
   )
