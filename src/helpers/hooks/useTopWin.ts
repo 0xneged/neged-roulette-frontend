@@ -3,7 +3,7 @@ import getTopWinOfTheDay from 'helpers/api/topWin'
 
 export default function () {
   return useQuery({
-    queryKey: ['top-win'],
+    queryKey: ['topWin'],
     queryFn: getTopWinOfTheDay,
   })
 }

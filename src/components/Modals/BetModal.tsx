@@ -34,6 +34,15 @@ export default function ({
 
   const disabled = !userHats || betValue > userHats || betValue > maxDeposit
 
+  console.log([
+    address,
+    betValue,
+    closeModal,
+    socket,
+    userDeposit.amount,
+    userHats,
+  ])
+
   const placeBet = useCallback(() => {
     if (!userHats || betValue > userHats) {
       toast.error("You don't have enough HATs")

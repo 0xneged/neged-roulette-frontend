@@ -4,12 +4,12 @@ import env from 'helpers/env'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/token/most-win'
 
-export default async function getTopWinOfTheDay() {
+export default async function getTopWinOfTheDay(): Promise<RoundWithTime | null> {
   try {
     const { data } = await axios.get<RoundWithTime>(backendEndpoint)
-    return data || ''
+    return data || null
   } catch (e) {
     console.error(e)
-    return ''
+    return null
   }
 }
