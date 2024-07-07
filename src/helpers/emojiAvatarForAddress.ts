@@ -75,7 +75,12 @@ function hashCode(text: string) {
   return hash
 }
 
-export default function (address?: string) {
+const cache = new Map<string, { color: string; emoji: string }>()
+
+export default function (address?: string): { color: string; emoji: string } {
+  if (!address) return avatars[0]
+  if (cache.has(address)) return cache.get(address) || avatars[0]
+
   const resolvedAddress = typeof address === 'string' ? address : ''
   const avatarIndex = Math.abs(
     hashCode(resolvedAddress.toLowerCase()) % avatars.length
