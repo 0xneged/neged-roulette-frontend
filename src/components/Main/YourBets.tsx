@@ -83,6 +83,7 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         userHats={hats}
+        userDeposit={userDeposit}
       />
     </>
   )

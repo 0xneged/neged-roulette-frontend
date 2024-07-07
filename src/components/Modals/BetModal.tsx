@@ -1,21 +1,27 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
+import { toast } from 'react-toastify'
 import { useCallback, useState } from 'preact/hooks'
 import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
 import ModalProps from 'types/ModalProps'
+import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
 import useSocket from 'helpers/hooks/useSocket'
 
 interface BetModalProps extends ModalProps {
   address: EthAddress | string | undefined
   userHats: number | undefined
+  userDeposit: { amount: number; chance: string }
 }
+
+const maxDeposit = env.MAX_DEPOSIT_PER_PLAYER
 
 export default function ({
   address,
   modalOpen,
   setModalOpen,
   userHats,
+  userDeposit,
 }: BetModalProps) {
   const socket = useSocket()
   const [betValue, setBetValue] = useState(1)
@@ -25,6 +31,11 @@ export default function ({
   }, [setModalOpen])
 
   const placeBet = useCallback(() => {
+    if (userDeposit.amount >= maxDeposit) {
+      toast.error(`You can't deposit more than ${maxDeposit} HATs`)
+      closeModal()
+    }
+
     if (socket && address && betValue > 0) {
       socket.emit('placeBet', { address, amount: betValue })
 
@@ -32,14 +43,13 @@ export default function ({
       setTimeout(async () => {
         await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       }, 500)
+      closeModal()
     }
-
-    closeModal()
-  }, [address, betValue, closeModal, socket])
+  }, [address, betValue, closeModal, socket, userDeposit])
 
   const max = userHats
-    ? userHats > 500000
-      ? 500000
+    ? userHats > maxDeposit
+      ? maxDeposit
       : userHats.toFixed(0)
     : 1000
 
