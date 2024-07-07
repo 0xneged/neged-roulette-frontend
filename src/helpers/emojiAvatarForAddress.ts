@@ -85,5 +85,7 @@ export default function (address?: string): { color: string; emoji: string } {
   const avatarIndex = Math.abs(
     hashCode(resolvedAddress.toLowerCase()) % avatars.length
   )
-  return avatars[avatarIndex ?? 0]
+  const avatar = avatars[avatarIndex ?? 0]
+  cache.set(address, avatar)
+  return avatar
 }
