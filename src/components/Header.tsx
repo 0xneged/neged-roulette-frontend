@@ -26,6 +26,7 @@ export default function () {
           <CustomConnectButton />
         </div>
       </div>
+
       <FaqModal modalOpen={faqModalOpen} setModalOpen={setFaqModalOpen} />
     </>
   )

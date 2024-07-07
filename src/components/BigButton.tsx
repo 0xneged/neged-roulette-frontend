@@ -5,6 +5,7 @@ import OnClick from 'types/OnClick'
 interface BigButtonProps extends PropsWithChildren, OnClick {
   loading?: boolean
   disabled?: boolean
+  exClassName?: string
 }
 
 const commonStyles =
@@ -15,11 +16,12 @@ export default function ({
   onClick,
   loading,
   disabled,
+  exClassName,
 }: BigButtonProps) {
   const styles = disabled
-    ? commonStyles + 'bg-pale-purple cursor-not-allowed'
+    ? commonStyles + 'bg-pale-purple cursor-not-allowed '
     : commonStyles +
-      'bg-gradient-to-r from-primary-bright to-primary-dark cursor-pointer active:scale-105 hover:hue-rotate-15'
+      'bg-gradient-to-r from-primary-bright to-primary-dark cursor-pointer active:scale-105 hover:hue-rotate-15 '
 
   return (
     <div
@@ -28,7 +30,7 @@ export default function ({
         onClick?.()
       }}
       disabled={disabled}
-      className={styles}
+      className={styles + exClassName}
     >
       {loading ? <HatIcon rotateAnimation /> : children}
     </div>

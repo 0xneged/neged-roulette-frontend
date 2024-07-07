@@ -1,3 +1,4 @@
+import { TargetedEvent, ChangeEvent } from 'preact/compat'
 import { base } from 'viem/chains'
 import { convertTokensHats } from 'helpers/api/token'
 import { readContract, writeContract } from '@wagmi/core'
@@ -7,10 +8,12 @@ import { usePrivy, useWallets } from '@privy-io/react-auth'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import BigButton from 'components/BigButton'
 import CoinToHats from 'components/Convert/CoinToHats'
+import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
 import ExchangerBlock from 'components/Convert/ExchangerBlock'
 import HatsQuantity from 'components/Convert/HatsQuantity'
 import Input from 'components/Input'
+import ModalProps from 'types/ModalProps'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
@@ -18,7 +21,7 @@ import walletConfig from 'helpers/walletConfig'
 
 const decimals = 18
 
-export default function () {
+export default function ({ modalOpen, setModalOpen }: ModalProps) {
   const { login, authenticated, ready, connectWallet, user } = usePrivy()
   const { wallets, ready: walletsReady } = useWallets()
   const [loading, setLoading] = useState(false)
@@ -96,23 +99,38 @@ export default function () {
     walletsReady,
   ])
 
-  return (
-    <div className="flex flex-col items-center gap-y-7">
-      <span>You Convert</span>
-      <div className="text-4xl text-primary font-bold">
-        <Input
-          value={amount}
-          onChange={({ currentTarget }) => {
-            if (!isWithdraw && currentTarget.valueAsNumber <= 10000)
-              setAmount(currentTarget.valueAsNumber)
+  const Footer = (
+    <BigButton
+      onClick={processExchange}
+      disabled={!amount}
+      loading={loading || !ready || !walletsReady}
+      exClassName="w-full"
+    >
+      CONVERT
+    </BigButton>
+  )
 
-            if (isWithdraw && currentTarget.valueAsNumber >= 2000)
-              setAmount(currentTarget.valueAsNumber)
-          }}
-          type="number"
-          max={isWithdraw ? undefined : 10000}
-          min={isWithdraw ? 2000 : 0}
-        />
+  const onInputChange = useCallback(
+    ({ currentTarget }: TargetedEvent<HTMLInputElement>) => {
+      if (!isWithdraw) setAmount(currentTarget.valueAsNumber)
+
+      if (isWithdraw && currentTarget.valueAsNumber >= 2000)
+        setAmount(currentTarget.valueAsNumber)
+    },
+    []
+  )
+
+  const inputProps = {
+    value: amount,
+    onChange: onInputChange,
+    type: 'number',
+    min: isWithdraw ? 2000 : 1,
+  }
+
+  const Body = (
+    <div className="flex flex-col items-center gap-y-7 text-white">
+      <div className="text-4xl text-primary font-bold">
+        <Input {...inputProps} />
         <span>{isWithdraw ? 'Hats' : 'negeD'}</span>
       </div>
       {isWithdraw ? (
@@ -121,7 +139,7 @@ export default function () {
         </span>
       ) : null}
       <ExchangerBlock label="You Receive">
-        <HatsQuantity quantity={amount} isReversed={isWithdraw} />
+        <HatsQuantity isReversed={isWithdraw} {...inputProps} />
       </ExchangerBlock>
       <ExchangerBlock label="Exchange">
         <CoinToHats
@@ -134,13 +152,16 @@ export default function () {
           }}
         />
       </ExchangerBlock>
-      <BigButton
-        onClick={processExchange}
-        disabled={!amount}
-        loading={loading || !ready || !walletsReady}
-      >
-        CONVERT
-      </BigButton>
     </div>
+  )
+
+  return (
+    <DefaultModal
+      headerText="Convert"
+      modalOpen={modalOpen}
+      setModalOpen={setModalOpen}
+      bodyContent={Body}
+      footerContent={Footer}
+    />
   )
 }

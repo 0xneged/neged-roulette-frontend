@@ -1,4 +1,5 @@
 import { Socket, io } from 'socket.io-client'
+import { toast } from 'react-toastify'
 import { useEffect, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
 import env from 'helpers/env'
@@ -28,7 +29,14 @@ export default function () {
   }, [ready, getAccessToken])
 
   useEffect(() => {
-    socket?.connect()
+    const connection = socket?.connect()
+    connection?.on('serverError', ({ message }: { message: string }) =>
+      toast.error(message)
+    )
+
+    return () => {
+      connection?.off('serverError')
+    }
   }, [socket])
 
   return socket

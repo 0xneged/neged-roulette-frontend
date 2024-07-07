@@ -2,7 +2,6 @@ import { RoundStatus } from 'types/Round'
 import { RoundWithTotal } from 'types/BetsProps'
 import { toast } from 'react-toastify'
 import { useCallback, useEffect, useState } from 'preact/hooks'
-import { useLocation } from 'wouter-preact'
 import { usePrivy } from '@privy-io/react-auth'
 import BetModal from 'components/Modals/BetModal'
 import BigButton from 'components/BigButton'
@@ -13,7 +12,6 @@ import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 
 export default function ({ round, totalDeposits }: RoundWithTotal) {
-  const [, navigate] = useLocation()
   const { authenticated, login, ready, user } = usePrivy()
   const address = user?.wallet?.address.toLowerCase()
   const hats = useHatsCounter(address)
@@ -41,15 +39,12 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
       return
     }
     if (!hats || hats < 1) {
-      toast.warn('Please top up your balance 🪙', {
-        onClick: () => navigate('/convert'),
-      })
-      navigate('/convert')
+      toast.warn('Please top up your balance 🪙')
       return
     }
 
     setModalOpen(true)
-  }, [ready, authenticated, hats, login, navigate, noSeats, roundEnded])
+  }, [ready, authenticated, hats, login, noSeats, roundEnded])
 
   const isUserDeposited = userDeposit.amount > 0
 

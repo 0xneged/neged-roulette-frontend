@@ -1,8 +1,10 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
+import { TargetedEvent } from 'preact/compat'
 import { toast } from 'react-toastify'
 import { useCallback, useState } from 'preact/hooks'
 import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
+import Input from 'components/Input'
 import ModalProps from 'types/ModalProps'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
@@ -30,8 +32,14 @@ export default function ({
     setModalOpen(false)
   }, [setModalOpen])
 
+  const disabled = !userHats || betValue > userHats || betValue > maxDeposit
+
   const placeBet = useCallback(() => {
-    if (userDeposit.amount >= maxDeposit) {
+    if (!userHats || betValue > userHats) {
+      toast.error("You don't have enough HATs")
+      closeModal()
+    }
+    if (userDeposit.amount + betValue > maxDeposit) {
       toast.error(`You can't deposit more than ${maxDeposit} HATs`)
       closeModal()
     }
@@ -45,13 +53,21 @@ export default function ({
       }, 500)
       closeModal()
     }
-  }, [address, betValue, closeModal, socket, userDeposit])
+  }, [address, betValue, closeModal, socket, userDeposit.amount, userHats])
 
   const max = userHats
     ? userHats > maxDeposit
       ? maxDeposit
-      : userHats.toFixed(0)
+      : Math.floor(userHats)
     : 1000
+
+  const commonInputProps = {
+    value: betValue,
+    min: 1,
+    max,
+    onChange: (e: TargetedEvent<HTMLInputElement>) =>
+      setBetValue(e.currentTarget.valueAsNumber),
+  }
 
   const BodyContent = (
     <div class="relative mb-6">
@@ -61,11 +77,8 @@ export default function ({
       <input
         id="labels-range-input"
         type="range"
-        value={betValue}
-        min={1}
-        max={max}
         class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-gray-700"
-        onChange={(e) => setBetValue(e.currentTarget.valueAsNumber)}
+        {...commonInputProps}
       />
       <span class="text-sm text-gray-400 absolute start-0 -bottom-6">
         1 Hat
@@ -78,13 +91,21 @@ export default function ({
 
   const FooterContent = (
     <>
-      <span className="text-gray-400">
-        {betValue} Hat{betValue > 1 ? 's' : ''}
-      </span>
+      <div className="text-gray-400 font-bold">
+        <Input
+          type="number"
+          className="!w-20"
+          plainInput
+          {...commonInputProps}
+        />
+        <span>Hats</span>
+      </div>
+
       {FlowBiteButton({
         onClick: placeBet,
         color: 'purple',
         children: 'Accept',
+        disabled,
       })}
     </>
   )

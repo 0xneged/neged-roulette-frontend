@@ -4,7 +4,6 @@ import { Route, Switch } from 'wouter-preact'
 import { ToastContainer } from 'react-toastify'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { base } from 'viem/chains'
-import Convert from 'pages/Convert'
 import Header from 'components/Header'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
@@ -13,6 +12,10 @@ import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
 
 export default function () {
+  alert(
+    'The game is currently in test mode.\nBy playing it, you accept the fact that there might be some bugs or malfunctions'
+  )
+
   return (
     <PrivyProvider
       config={{
@@ -34,7 +37,6 @@ export default function () {
           <Header />
           <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
             <Switch>
-              <Route path="/convert" component={Convert} />
               <Route path="/" component={Main} />
               <Route component={NotFound} />
             </Switch>

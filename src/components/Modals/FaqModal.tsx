@@ -24,6 +24,7 @@ function BodyContent() {
         CA:{' '}
         <a
           href={baseScanAddress(env.VITE_TOKEN_ADDRESS)}
+          target="_blank"
           className={textStyles + ' !underline break-all'}
         >
           {env.VITE_TOKEN_ADDRESS}
