@@ -18,7 +18,7 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
   const address = user?.wallet?.address.toLowerCase()
   const hats = useHatsCounter(address)
 
-  const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: 0 })
+  const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
   const [modalOpen, setModalOpen] = useState(false)
 
   const noSeats = round ? round.deposits.length >= env.VITE_MAX_PLAYERS : false
