@@ -2,17 +2,19 @@ import FcPfp from 'components/FcPfp'
 import Username from 'components/Username'
 import getAccountLink from 'helpers/getAccountLink'
 
+interface ParticipantDataProps {
+  address: string
+  fcPfpLink: string | undefined
+  fcUsername: string | undefined
+  limitWidth?: boolean
+}
+
 export default function ({
   address,
   fcPfpLink,
   fcUsername,
   limitWidth,
-}: {
-  address: string
-  fcPfpLink: string | undefined
-  fcUsername: string | undefined
-  limitWidth?: boolean
-}) {
+}: ParticipantDataProps) {
   return (
     <a
       href={getAccountLink(address, fcUsername)}

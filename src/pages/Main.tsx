@@ -7,6 +7,7 @@ import HatIcon from 'components/icons/HatIcon'
 import Roulette from 'components/Main/Roulette'
 import Round from 'types/Round'
 import RoundStats from 'components/Main/RoundStats'
+import TopWin from 'components/TopWin'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
@@ -61,6 +62,7 @@ export default function () {
   return (
     <Suspense fallback={<HatIcon rotateAnimation />}>
       <div ref={parent}>
+        <TopWin />
         <Roulette round={currentRound} totalDeposits={totalDeposits} />
         <TotalBets totalDeposits={totalDeposits} />
         <RoundStats round={currentRound} />

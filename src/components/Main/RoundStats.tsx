@@ -1,6 +1,6 @@
 import { Suspense } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
-import BiPeople from 'components/BiPeople'
+import BiPeople from 'components/icons/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
 import Round, { RoundWithTime } from 'types/Round'

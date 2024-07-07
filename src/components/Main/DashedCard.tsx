@@ -2,13 +2,22 @@ import { PropsWithChildren } from 'preact/compat'
 import emojiAvatarForAddress from 'helpers/emojiAvatarForAddress'
 
 interface DashedCardProps extends PropsWithChildren {
-  subtitle: string
+  subtitle?: string
   address?: string | undefined
+  fullSize?: boolean
+  extStyles?: string
 }
 
-export default function ({ children, address, subtitle }: DashedCardProps) {
+export default function ({
+  children,
+  address,
+  subtitle,
+  fullSize,
+  extStyles = '',
+}: DashedCardProps) {
   const { color } = emojiAvatarForAddress(address)
-  const className = `flex flex-col rounded-xl items-center justify-center w-40 h-20 gap-y-1 border-dashed border-2 text-center`
+  const size = fullSize ? '' : 'w-40 h-20'
+  const className = `flex flex-col rounded-xl items-center justify-center gap-y-1 border-dashed border-2 finalStyles text-center ${size} ${extStyles}`
 
   return (
     <div

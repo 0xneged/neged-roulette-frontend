@@ -1,4 +1,4 @@
-import { TargetedEvent, ChangeEvent } from 'preact/compat'
+import { TargetedEvent } from 'preact/compat'
 import { base } from 'viem/chains'
 import { convertTokensHats } from 'helpers/api/token'
 import { readContract, writeContract } from '@wagmi/core'
@@ -117,7 +117,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       if (isWithdraw && currentTarget.valueAsNumber >= 2000)
         setAmount(currentTarget.valueAsNumber)
     },
-    []
+    [isWithdraw]
   )
 
   const inputProps = {
