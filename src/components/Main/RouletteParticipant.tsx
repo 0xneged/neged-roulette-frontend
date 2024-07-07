@@ -13,7 +13,7 @@ export default function ({
   fcUsername,
   width = 136,
 }: {
-  winChance: number
+  winChance: string
   width?: number
 } & Deposit) {
   const { color } = emojiAvatarForAddress(address)

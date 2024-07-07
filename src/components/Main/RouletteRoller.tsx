@@ -6,7 +6,7 @@ import Triangle from 'components/Triangle'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import repeatArray from 'helpers/repeatArray'
 
-type DepositWithChance = Deposit & { winChance: number }
+type DepositWithChance = Deposit & { winChance: string }
 
 const participantBoxWidth = 136
 const gapX = 4
