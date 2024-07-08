@@ -6,6 +6,7 @@ import { usePrivy } from '@privy-io/react-auth'
 import BetModal from 'components/Modals/BetModal'
 import BigButton from 'components/BigButton'
 import DashedCard from 'components/Main/DashedCard'
+import HatIcon from 'components/icons/HatIcon'
 import HatInCircle from 'components/icons/HatInCircle'
 import env from 'helpers/env'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
@@ -72,6 +73,9 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
         >
           {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}
         </BigButton>
+        <div className="flex flex-row gap-x-1 w-full items-center justify-center">
+          <span>Bet limits are 1 - 50K</span> <HatIcon />
+        </div>
       </div>
       <BetModal
         address={address}
