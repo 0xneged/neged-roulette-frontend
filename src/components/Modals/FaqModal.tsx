@@ -61,6 +61,33 @@ function BodyContent() {
   )
 }
 
+function ModalFooter({ closeModal }: { closeModal: () => void }) {
+  const firstButton = FlowBiteButton({
+    onClick: closeModal,
+    color: 'purple',
+    children: 'Gotcha :)',
+  })
+
+  const negedFID = 398355
+  const message = 'Hello, I played at neged-hat.app and encountered an error: '
+  const secondButton = FlowBiteButton({
+    onClick: () =>
+      window.open(
+        `https://warpcast.com/create/${negedFID}?text=${message}`,
+        '_blank'
+      ),
+    color: 'red',
+    children: 'DM @neged',
+  })
+
+  return (
+    <div className="flex flex-row gap-x-2">
+      {firstButton}
+      {secondButton}
+    </div>
+  )
+}
+
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
   return (
     <DefaultModal
@@ -68,11 +95,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       setModalOpen={setModalOpen}
       headerText="Faq"
       bodyContent={<BodyContent />}
-      footerContent={FlowBiteButton({
-        onClick: () => setModalOpen(false),
-        color: 'purple',
-        children: 'Gotcha :)',
-      })}
+      footerContent={<ModalFooter closeModal={() => setModalOpen(false)} />}
     />
   )
 }
