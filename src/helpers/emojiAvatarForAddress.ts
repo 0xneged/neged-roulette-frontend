@@ -1,5 +1,8 @@
 // Shoutouts to: https://github.com/rainbow-me/rainbowkit/blob/main/packages/rainbowkit/src/components/Avatar/emojiAvatarForAddress.ts
 
+import { readAtom, writeAtom } from 'helpers/stores/atomStore'
+import pfpStore from 'helpers/stores/pfpStore'
+
 const colors = [
   '#FC5C54',
   '#FFD95A',
@@ -75,17 +78,16 @@ function hashCode(text: string) {
   return hash
 }
 
-const cache = new Map<string, { color: string; emoji: string }>()
-
 export default function (address?: string): { color: string; emoji: string } {
   if (!address) return avatars[0]
-  if (cache.has(address)) return cache.get(address) || avatars[0]
+  const storedValue = readAtom(pfpStore)[address]
+  if (storedValue) return storedValue || avatars[0]
 
   const resolvedAddress = typeof address === 'string' ? address : ''
   const avatarIndex = Math.abs(
     hashCode(resolvedAddress.toLowerCase()) % avatars.length
   )
   const avatar = avatars[avatarIndex ?? 0]
-  cache.set(address, avatar)
+  writeAtom(pfpStore, { [address]: avatar })
   return avatar
 }

@@ -20,12 +20,17 @@ export default function ({
     )
 
   return (
-    <img
-      src={pfpUrl}
-      className={`my-0 ${imageStyles}`}
-      onError={() => {
-        setImgLoadError(true)
-      }}
-    />
+    <div className={`relative ${imageStyles}`}>
+      <img
+        src={pfpUrl}
+        className={`absolute z-10 my-0 ${imageStyles}`}
+        onError={() => {
+          setImgLoadError(true)
+        }}
+      />
+      <div className={`absolute z-0 ${imageStyles}`}>
+        <EmojiAvatar address={address} />
+      </div>
+    </div>
   )
 }

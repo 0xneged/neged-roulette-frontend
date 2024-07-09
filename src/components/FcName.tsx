@@ -8,16 +8,18 @@ interface FcNameProps {
 }
 
 function Name({ name }: { name?: string | undefined }) {
-  return <div className="hidden md:block opacity-70">{name}</div>
+  const truncated = truncateString({
+    fullString: name,
+    backChars: 5,
+  })
+
+  return <div className="hidden md:block opacity-70">{truncated}</div>
 }
 
 function FcName({ address }: { address: string }) {
   const { data } = useFcAccount(address)
 
-  const name = truncateString({
-    fullString: data?.fcUsername || address,
-    backChars: 5,
-  })
+  const name = data?.fcUsername || address
 
   return <Name name={name} />
 }
