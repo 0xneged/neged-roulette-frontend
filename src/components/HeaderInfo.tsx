@@ -5,11 +5,13 @@ import ConvertModal from 'components/Modals/ConvertModal'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
+import ReferralFaqModal from 'components/Modals/ReferralFaqModal'
 
 export default function () {
   const { logout, user } = usePrivy()
   const [accountModal, setAccountModal] = useState(false)
   const [convertModalOpen, setConvertModalOpen] = useState(false)
+  const [refFaqModalOpen, setRefFaqModalOpen] = useState(false)
 
   const address = user?.wallet?.address.toLowerCase()
 
@@ -35,6 +37,12 @@ export default function () {
             setModalOpen={setAccountModal}
             address={address}
             logout={logout}
+            setOpenShareFaq={() => setRefFaqModalOpen(true)}
+          />
+          <ReferralFaqModal
+            modalOpen={refFaqModalOpen}
+            setModalOpen={setRefFaqModalOpen}
+            address={address}
           />
           <ConvertModal
             modalOpen={convertModalOpen}

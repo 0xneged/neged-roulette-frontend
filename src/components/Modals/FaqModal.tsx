@@ -69,7 +69,7 @@ function ModalFooter({ closeModal }: { closeModal: () => void }) {
   })
 
   const negedFID = 398355
-  const message = 'Hello, I played at neged-hat.app and encountered an error: '
+  const message = 'Hello, I played at neged-hat.app and encountered a problem'
   const secondButton = FlowBiteButton({
     onClick: () =>
       window.open(

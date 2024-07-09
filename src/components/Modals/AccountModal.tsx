@@ -1,12 +1,10 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
 import { Suspense, useCallback } from 'preact/compat'
-import { toast } from 'react-toastify'
-import Button from 'components/Button'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
+import FaqIcon from 'components/icons/FaqIcon'
 import ModalProps from 'types/ModalProps'
-import Share from 'components/icons/Share'
-import isMobile from 'helpers/isMobile'
+import ShareRefButton from 'components/ShareRefButton'
 import useReferrer from 'helpers/hooks/useReferrer'
 import vibrate from 'helpers/vibrate'
 
@@ -14,6 +12,7 @@ type AddressProp = { address: string }
 
 interface AccountModalInner extends AddressProp {
   logout: () => Promise<void>
+  setOpenShareFaq: () => void
 }
 
 interface AccountModalProps extends AccountModalInner, ModalProps {}
@@ -45,7 +44,10 @@ function ModalFooter({
   address,
   logout,
   closeModal,
-}: AccountModalInner & { closeModal: () => void }) {
+  setOpenShareFaq,
+}: AccountModalInner & {
+  closeModal: () => void
+}) {
   const LogoutButton = () =>
     FlowBiteButton({
       onClick: async () => {
@@ -57,23 +59,11 @@ function ModalFooter({
       children: 'Logout',
     })
 
-  const shareOnClick = useCallback(async () => {
-    const url = document.location.origin + '?ref=' + address
-    if (isMobile) {
-      await navigator.share({
-        title: 'Try your 🍀 at negeD game 😏',
-        url,
-      })
-    } else {
-      await navigator.clipboard.writeText(url)
-      toast.success('Copied 😎')
-    }
-  }, [address])
-
   const ShareButton = () => (
-    <Button onClick={shareOnClick} bgHat>
-      <Share size={14} /> referral
-    </Button>
+    <div className="flex flex-row gap-x-2">
+      <FaqIcon onClick={setOpenShareFaq} />
+      <ShareRefButton address={address} />
+    </div>
   )
 
   return (
@@ -89,6 +79,7 @@ export default function ({
   modalOpen,
   setModalOpen,
   logout,
+  setOpenShareFaq,
 }: AccountModalProps) {
   const closeModal = useCallback(() => {
     setModalOpen(false)
@@ -103,6 +94,10 @@ export default function ({
           logout={logout}
           address={address}
           closeModal={closeModal}
+          setOpenShareFaq={() => {
+            closeModal()
+            setOpenShareFaq()
+          }}
         />
       }
       modalOpen={modalOpen}
