@@ -3003,6 +3003,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@telegram-apps/sdk-react@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@telegram-apps/sdk-react@npm:1.1.0"
+  dependencies:
+    "@telegram-apps/sdk": "npm:^1.1.0"
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/130b54b1fb78802cde2b5752d4260cdf59b356bfaa71af246d9743ea918aa5bc0bce2a1a842e27cb0ab3a4341199d9429fda1386564026c20b3b14f1dae3a5d8
+  languageName: node
+  linkType: hard
+
+"@telegram-apps/sdk@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@telegram-apps/sdk@npm:1.1.0"
+  checksum: 10c0/573145bead07631aa52393102f4d83419aaf7950f61b11369a9a7f99e85b2f7e003fb0178be51ac5a8489d177d6d695673eea78d21c8a40ff9de4323616a4fdc
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:1":
   version: 1.1.2
   resolution: "@tootallnate/once@npm:1.1.2"
@@ -8979,6 +9001,7 @@ __metadata:
     "@privy-io/wagmi": "npm:^0.2.10"
     "@tailwindcss/typography": "npm:^0.5.13"
     "@tanstack/react-query": "npm:^5.48.0"
+    "@telegram-apps/sdk-react": "npm:^1.1.0"
     "@types/node": "npm:^20.14.7"
     "@typescript-eslint/eslint-plugin": "npm:^7.13.1"
     "@typescript-eslint/parser": "npm:^7.13.1"

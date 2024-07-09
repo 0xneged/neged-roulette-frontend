@@ -134,7 +134,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
         <span>{isWithdraw ? 'Hats' : 'negeD'}</span>
       </div>
       {isWithdraw ? (
-        <span className="font-semibold opacity-70">
+        <span className="font-semibold opacity-70 text-center">
           Minimum withdrawal amount is 2000 HATs
         </span>
       ) : null}

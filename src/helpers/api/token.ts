@@ -1,6 +1,5 @@
 import { getAccessToken } from '@privy-io/react-auth'
 import { toast } from 'react-toastify'
-import Round from 'types/Round'
 import axios from 'axios'
 import env from 'helpers/env'
 
@@ -41,15 +40,5 @@ export async function getTokensForUser(address?: string) {
   } catch (e) {
     console.error(e)
     return 0
-  }
-}
-
-export async function getPreviousWinner() {
-  try {
-    const { data } = await axios.get<Round>(`${backendEndpoint}/prevWinner`)
-    return data
-  } catch (e) {
-    console.error(e)
-    return ''
   }
 }
