@@ -48,9 +48,15 @@ export default function () {
         )
 
         setTimeout(async () => {
-          await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
-          await queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
-          await queryClient.invalidateQueries({ queryKey: ['topWin'] })
+          await queryClient.invalidateQueries({
+            queryKey: [
+              'hatsCounter',
+              'prevWinner',
+              'topWin',
+              'roundHistory',
+              'playerHistory',
+            ],
+          })
           setCurrentRound(null)
         }, nextRoundTimeout)
       }

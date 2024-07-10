@@ -1,14 +1,23 @@
-import useRoundHistory from 'helpers/hooks/useRoundHistory'
+import { useRoundHistory } from 'helpers/hooks/useRoundHistory'
+import HatIcon from 'components/icons/HatIcon'
+import SingleBetter from 'components/Main/SingleBetter'
+import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 
 export default function () {
-  const rounds = useRoundHistory()
+  const { data, status } = useRoundHistory()
 
-  const component = rounds?.map(({ winner }) => (
-    <div className="bg-roulette-box flex flex-row justify-between items-center rounded-2xl p-3 gap-x-1">
-      <p>Winner: {winner.fcUsername || winner.address}</p>
-      <p>Winner amount: {winner.winnerAmount}</p>
-      <p>Winner bet: {winner.amount}</p>
-    </div>
+  if (status !== 'success') return <HatIcon rotateAnimation />
+
+  if (!data)
+    return (
+      <span className="text-center">No plays yet, let's make some 🍆🍑</span>
+    )
+
+  const component = data.map((round) => (
+    <SingleBetter
+      {...round.winner}
+      totalDeposits={getTotalDeposits(round.deposits)}
+    />
   ))
 
   return <>{component}</>

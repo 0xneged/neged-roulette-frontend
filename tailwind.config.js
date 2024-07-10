@@ -14,6 +14,9 @@ module.exports = {
   plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
   theme: {
     extend: {
+      screens: {
+        se: '375px',
+      },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         script: ['"Nanum Pen Script"', 'cursive'],

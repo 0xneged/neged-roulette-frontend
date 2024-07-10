@@ -1,4 +1,4 @@
-import Round, { RoundWithTime } from 'types/Round'
+import { RoundWithTime } from 'types/Round'
 import axios from 'axios'
 import env from 'helpers/env'
 
@@ -18,7 +18,9 @@ export async function getTopWinOfTheDay(): Promise<RoundWithTime | null> {
 
 export async function getPreviousWinner() {
   try {
-    const { data } = await axios.get<Round>(`${backendEndpoint}/prevWinner`)
+    const { data } = await axios.get<RoundWithTime>(
+      `${backendEndpoint}/prevWinner`
+    )
     return data
   } catch (e) {
     console.error(e)
@@ -28,7 +30,24 @@ export async function getPreviousWinner() {
 
 export async function getRoundHistory() {
   try {
-    const { data } = await axios.get<Round[]>(`${backendEndpoint}/roundHistory`)
+    const { data } = await axios.get<RoundWithTime[]>(
+      `${backendEndpoint}/roundHistory`
+    )
+    return data
+  } catch (e) {
+    console.error(e)
+    return []
+  }
+}
+
+export async function getPlayerHistory(userAddress?: string) {
+  if (!userAddress) return []
+
+  try {
+    const { data } = await axios.get<RoundWithTime[]>(
+      `${backendEndpoint}/playerHistory`,
+      { params: { userAddress } }
+    )
     return data
   } catch (e) {
     console.error(e)

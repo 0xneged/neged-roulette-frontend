@@ -17,7 +17,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: radial-gradient(circle, #ff6ddf30, transparent 50%);
 }
 
 input[type='string'] {

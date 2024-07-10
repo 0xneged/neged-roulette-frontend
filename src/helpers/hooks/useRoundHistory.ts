@@ -1,11 +1,16 @@
-import { getRoundHistory } from 'helpers/api/round'
+import { getPlayerHistory, getRoundHistory } from 'helpers/api/round'
 import { useQuery } from '@tanstack/react-query'
 
-export default function () {
-  const { data } = useQuery({
+export function useRoundHistory() {
+  return useQuery({
     queryKey: ['roundHistory'],
     queryFn: getRoundHistory,
   })
+}
 
-  return data
+export function usePlayerHistory(address?: string) {
+  return useQuery({
+    queryKey: ['playerHistory'],
+    queryFn: () => getPlayerHistory(address),
+  })
 }
