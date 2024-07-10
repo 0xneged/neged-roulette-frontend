@@ -1,5 +1,5 @@
 import { Winner } from 'types/Round'
-import { getPreviousWinner } from 'helpers/api/token'
+import { getPreviousWinner } from 'helpers/api/round'
 import { useQuery } from '@tanstack/react-query'
 import HatIcon from 'components/icons/HatIcon'
 import ParticipantData from 'components/Main/ParticipantData'

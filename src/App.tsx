@@ -12,9 +12,10 @@ import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
 
 export default function () {
-  alert(
-    'The game is currently in test mode.\nBy playing it, you accept the fact that there might be some bugs or malfunctions'
-  )
+  if (!env.DEV)
+    alert(
+      'The game is currently in test mode.\nBy playing it, you accept the fact that there might be some bugs or malfunctions'
+    )
 
   return (
     <PrivyProvider

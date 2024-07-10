@@ -1,17 +1,19 @@
 import { Suspense } from 'preact/compat'
+import { useAtom } from 'jotai'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect } from 'preact/hooks'
 import { useWallets } from '@privy-io/react-auth'
-import AllBetters from 'components/Main/AllBetters'
 import HatIcon from 'components/icons/HatIcon'
 import Roulette from 'components/Main/Roulette'
 import Round from 'types/Round'
 import RoundStats from 'components/Main/RoundStats'
+import RoundTab from 'components/Main/RoundTab'
 import TopWin from 'components/TopWin'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 import queryClient from 'helpers/queryClient'
+import roundAtom from 'helpers/atoms/roundAtom'
 import useSocket from 'helpers/hooks/useSocket'
 
 export default function () {
@@ -19,7 +21,7 @@ export default function () {
   const [parent] = useAutoAnimate()
   const { wallets } = useWallets()
   const address = wallets?.[0]?.address.toLowerCase()
-  const [currentRound, setCurrentRound] = useState<Round | null>(null)
+  const [currentRound, setCurrentRound] = useAtom(roundAtom)
   const safeDeposits = currentRound?.deposits || []
   const totalDeposits = getTotalDeposits(safeDeposits)
 
@@ -46,9 +48,15 @@ export default function () {
         )
 
         setTimeout(async () => {
-          await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
-          await queryClient.invalidateQueries({ queryKey: ['prevWinner'] })
-          await queryClient.invalidateQueries({ queryKey: ['topWin'] })
+          await queryClient.invalidateQueries({
+            queryKey: [
+              'hatsCounter',
+              'prevWinner',
+              'topWin',
+              'roundHistory',
+              'playerHistory',
+            ],
+          })
           setCurrentRound(null)
         }, nextRoundTimeout)
       }
@@ -58,7 +66,7 @@ export default function () {
       socket?.off('updateRound')
       socket?.off('roundEnd')
     }
-  }, [socket, address])
+  }, [socket, address, setCurrentRound])
 
   return (
     <Suspense fallback={<HatIcon rotateAnimation />}>
@@ -68,7 +76,7 @@ export default function () {
         <TotalBets totalDeposits={totalDeposits} />
         <RoundStats round={currentRound} />
         <YourBets round={currentRound} totalDeposits={totalDeposits} />
-        <AllBetters deposits={safeDeposits} totalDeposits={totalDeposits} />
+        <RoundTab />
       </div>
     </Suspense>
   )
