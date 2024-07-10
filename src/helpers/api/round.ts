@@ -46,7 +46,7 @@ export async function getPlayerHistory(userAddress?: string) {
   try {
     const { data } = await axios.get<RoundWithTime[]>(
       `${backendEndpoint}/playerHistory`,
-      { params: { userAddress } }
+      { params: { userAddress: userAddress.toLowerCase() } }
     )
     return data
   } catch (e) {
