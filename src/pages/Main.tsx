@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import { useEffect } from 'preact/hooks'
 import { useWallets } from '@privy-io/react-auth'
+import FloatingGmButton from 'components/FloatingGmButton'
 import HatIcon from 'components/icons/HatIcon'
 import Roulette from 'components/Main/Roulette'
 import Round from 'types/Round'
@@ -78,6 +79,7 @@ export default function () {
         <YourBets round={currentRound} totalDeposits={totalDeposits} />
         <RoundTab />
       </div>
+      <FloatingGmButton />
     </Suspense>
   )
 }

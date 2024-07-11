@@ -5,6 +5,8 @@
 :root {
   /* Actual value is fetched and set from the backend in the code */
   --round-timeout: 5000ms;
+  --secondary: #f4b862;
+  --primary-dark: #5b38e7;
 }
 
 html {
@@ -103,4 +105,14 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.gm-button {
+  will-change: filter;
+  transition: filter 0.2s ease-out;
+  animation: bg-fire 2s linear infinite;
+  filter: drop-shadow(0px 0px 5px var(--secondary));
+}
+.gm-button:actitve {
+  filter: drop-shadow(0px 0px 7px var(--primary-dark));
 }

@@ -15,7 +15,7 @@ export default function () {
         {tabHeaders.map((header, index) => (
           <button
             className={
-              'text-base md:text-lg leading-tight text-center font-bold bg-primary-dark rounded-2xl p-2 ' +
+              'text-base md:text-lg leading-tight text-center font-bold bg-primary rounded-2xl p-2 ' +
               (index === tab ? 'bg-opacity-30' : 'bg-opacity-0')
             }
             onClick={() => setTab(index)}
