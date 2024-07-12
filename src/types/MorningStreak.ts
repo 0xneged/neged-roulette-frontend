@@ -1,9 +1,6 @@
-export type MorningStreakResponse = {
+type MorningStreakResponse = {
   morningStreak: number
   morningStreakTimeout: string
 }
 
-export type MorningStreak = {
-  morningStreak: number
-  morningStreakTimeout: Date
-}
+export default MorningStreakResponse

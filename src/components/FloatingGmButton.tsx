@@ -21,7 +21,6 @@ export default function () {
     } catch (e) {
       console.error(e)
       toast.error('Ooof, please try GM again 😥')
-      return null
     } finally {
       setLoading(false)
     }

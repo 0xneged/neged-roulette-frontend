@@ -1,7 +1,7 @@
-import { MorningStreakResponse } from 'types/MorningStreak'
 import { getAccessToken } from '@privy-io/react-auth'
 import { invalidateManyQueries } from 'helpers/queryClient'
 import { toast } from 'react-toastify'
+import MorningStreakResponse from 'types/MorningStreak'
 import axios from 'axios'
 import env from 'helpers/env'
 

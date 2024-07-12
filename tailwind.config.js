@@ -22,7 +22,7 @@ module.exports = {
         script: ['"Nanum Pen Script"', 'cursive'],
       },
       colors: {
-        primary: '#7F60F9',
+        primary: 'var(--primary)',
         'primary-bright': '#B66DFF',
         'primary-dark': 'var(--primary-dark)',
         'primary-bg': '#180431',
