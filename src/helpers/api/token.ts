@@ -30,7 +30,7 @@ export async function convertTokensHats(amount: number, withdraw: boolean) {
 }
 
 export async function getTokensForUser(address?: string) {
-  if (!address) return 0
+  if (!address) return null
 
   try {
     const { data } = await axios.get<number>(backendEndpoint, {
@@ -39,6 +39,6 @@ export async function getTokensForUser(address?: string) {
     return data
   } catch (e) {
     console.error(e)
-    return 0
+    return null
   }
 }

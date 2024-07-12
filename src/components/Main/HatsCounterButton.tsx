@@ -17,7 +17,7 @@ function SuspendedHatsCounter({ address, setModalOpen }: HatsCounterProps) {
   return (
     <Button
       onClick={() => setModalOpen(true)}
-      styles="rounded-full h-11"
+      styles="rounded-full h-11 !opacity-100"
       disabled={!hasData}
       bgHat
     >

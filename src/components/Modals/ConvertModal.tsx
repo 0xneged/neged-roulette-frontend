@@ -89,12 +89,12 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       const res = await convertTokensHats(amount, isWithdraw)
       if (typeof res !== 'number') return
 
-      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       toast.success('Converted 🎉')
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong when converting 🧟 Please try again 🥺')
     } finally {
+      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       setLoading(false)
     }
   }, [

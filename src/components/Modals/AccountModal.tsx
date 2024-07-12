@@ -6,7 +6,6 @@ import DotsLoader from 'components/icons/DotsLoader'
 import FaqIcon from 'components/icons/FaqIcon'
 import ModalProps from 'types/ModalProps'
 import ShareRefButton from 'components/ShareRefButton'
-import getAccountLink from 'helpers/getAccountLink'
 import useMorningStreak from 'helpers/hooks/useMorningStreak'
 import useReferrer from 'helpers/hooks/useReferrer'
 import vibrate from 'helpers/vibrate'
@@ -22,24 +21,21 @@ interface AccountModalProps extends AccountModalInner, ModalProps {}
 
 function StyledAddress({ address }: { address?: string | undefined }) {
   return (
-    <a
-      className="!text-primary font-bold text-lg truncate"
-      href={address ? getAccountLink(address) : ''}
-    >
-      {address}
-    </a>
+    <span className="!text-primary font-bold text-lg truncate">{address}</span>
   )
 }
 
 function YourReferrer({ address }: AddressProp) {
   const { data, status } = useReferrer(address)
 
-  if (status === 'pending') return <DotsLoader />
-
   return (
     <div className="flex flex-row gap-x-2 justify-between items-center">
       <span>Your referrer</span>
-      <StyledAddress address={data} />
+      {status === 'pending' || !data ? (
+        <DotsLoader />
+      ) : (
+        <StyledAddress address={data} />
+      )}
     </div>
   )
 }

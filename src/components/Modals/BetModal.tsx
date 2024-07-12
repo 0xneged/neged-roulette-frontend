@@ -12,7 +12,7 @@ import useSocket from 'helpers/hooks/useSocket'
 
 interface BetModalProps extends ModalProps {
   address: EthAddress | string | undefined
-  userHats: number | undefined
+  userHats: number | undefined | null
   userDeposit: { amount: number; chance: string }
 }
 
