@@ -21,7 +21,9 @@ export default function ({
         dismissible
         show={modalOpen}
         onClose={() => setModalOpen(false)}
-        theme={{ content: { inner: 'rounded-2xl' } }}
+        theme={{
+          content: { inner: 'rounded-2xl', base: 'relative h-auto w-full p-4' },
+        }}
       >
         <Modal.Header className="bg-primary-bg rounded-t-2xl">
           <h2 className="text-3xl font-script text-primary-bright">

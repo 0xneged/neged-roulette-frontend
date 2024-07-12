@@ -1,6 +1,8 @@
 import baseScanAddress from 'helpers/baseScanAddress'
 
-export default function (address: string, fcUsername?: string) {
+export default function (address?: string, fcUsername?: string) {
+  if (!address || !fcUsername) return ''
   if (fcUsername) return `https://warpcast.com/${fcUsername}`
-  else return baseScanAddress(address)
+
+  return baseScanAddress(address)
 }

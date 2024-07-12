@@ -17,16 +17,23 @@ import ModalProps from 'types/ModalProps'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import walletConfig from 'helpers/walletConfig'
 
 const decimals = 18
+const minimumWithdrawal = 2000
 
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
   const { login, authenticated, ready, connectWallet, user } = usePrivy()
+  const hats = useHatsCounter()
   const { wallets, ready: walletsReady } = useWallets()
   const [loading, setLoading] = useState(false)
   const [isWithdraw, setIsWithdraw] = useState(false)
   const [amount, setAmount] = useState(1000)
+
+  const disabledWhenTooLow = isWithdraw
+    ? (hats || amount) < minimumWithdrawal
+    : false
 
   const processExchange = useCallback(async () => {
     if (!ready || !walletsReady) return
@@ -75,6 +82,10 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
         }
       }
 
+      if ((hats || amount) < minimumWithdrawal) {
+        toast.error('Amount is lower than' + minimumWithdrawal + 'HATs')
+        return
+      }
       const res = await convertTokensHats(amount, isWithdraw)
       if (typeof res !== 'number') return
 
@@ -97,12 +108,13 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     user?.wallet?.address,
     wallets,
     walletsReady,
+    hats,
   ])
 
   const Footer = (
     <BigButton
       onClick={processExchange}
-      disabled={!amount}
+      disabled={!amount || disabledWhenTooLow}
       loading={loading || !ready || !walletsReady}
       exClassName="w-full"
     >
@@ -112,19 +124,26 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
   const onInputChange = useCallback(
     ({ currentTarget }: TargetedEvent<HTMLInputElement>) => {
-      if (!isWithdraw) setAmount(currentTarget.valueAsNumber)
+      if (!isWithdraw) setAmount(currentTarget.valueAsNumber || 0)
 
-      if (isWithdraw && currentTarget.valueAsNumber >= 2000)
-        setAmount(currentTarget.valueAsNumber)
+      setAmount(currentTarget.valueAsNumber || 0)
     },
     [isWithdraw]
   )
+
+  const onReversePress = useCallback(() => {
+    setIsWithdraw((isWithdraw) => {
+      isWithdraw ? setAmount(1000) : setAmount(hats || minimumWithdrawal)
+
+      return !isWithdraw
+    })
+  }, [hats])
 
   const inputProps = {
     value: amount,
     onChange: onInputChange,
     type: 'number',
-    min: isWithdraw ? 2000 : 1,
+    min: isWithdraw ? minimumWithdrawal : 1,
   }
 
   const Body = (
@@ -135,22 +154,14 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       </div>
       {isWithdraw ? (
         <span className="font-semibold opacity-70 text-center">
-          Minimum withdrawal amount is 2000 HATs
+          Minimum withdrawal amount is {minimumWithdrawal} HATs
         </span>
       ) : null}
       <ExchangerBlock label="You Receive">
         <HatsQuantity isReversed={isWithdraw} {...inputProps} />
       </ExchangerBlock>
       <ExchangerBlock label="Exchange">
-        <CoinToHats
-          isReversed={isWithdraw}
-          onReverse={() => {
-            setIsWithdraw((isWithdraw) => {
-              isWithdraw ? setAmount(1000) : setAmount(2000)
-              return !isWithdraw
-            })
-          }}
-        />
+        <CoinToHats isReversed={isWithdraw} onReverse={onReversePress} />
       </ExchangerBlock>
     </div>
   )
