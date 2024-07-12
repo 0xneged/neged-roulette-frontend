@@ -33,12 +33,7 @@ export async function addToMorningStreak() {
 export async function getMorningStreak() {
   const authToken = await getAccessToken()
 
-  if (!authToken) {
-    toast.error(
-      'Looks like your wallet lost connection, please reconnect using our button 🙏'
-    )
-    return
-  }
+  if (!authToken) return
 
   const { data } = await axios.get<MorningStreakResponse>(
     `${backendEndpoint}/gm`,
