@@ -58,7 +58,9 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       if (isWithdraw && (hats || amount) < minimumWithdrawal) {
         toast.error('Amount is lower than ' + minimumWithdrawal + ' HATs')
         return
-      } else {
+      }
+
+      if (!isWithdraw) {
         const res = await readContract(walletConfig, {
           address: env.VITE_TOKEN_ADDRESS as EthAddress,
           abi: bep20abi,
