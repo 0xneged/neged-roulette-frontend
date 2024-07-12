@@ -55,7 +55,10 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
       await wallets[0].switchChain(base.id)
 
-      if (!isWithdraw) {
+      if (isWithdraw && (hats || amount) < minimumWithdrawal) {
+        toast.error('Amount is lower than ' + minimumWithdrawal + ' HATs')
+        return
+      } else {
         const res = await readContract(walletConfig, {
           address: env.VITE_TOKEN_ADDRESS as EthAddress,
           abi: bep20abi,
@@ -82,10 +85,6 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
         }
       }
 
-      if ((hats || amount) < minimumWithdrawal) {
-        toast.error('Amount is lower than' + minimumWithdrawal + 'HATs')
-        return
-      }
       const res = await convertTokensHats(amount, isWithdraw)
       if (typeof res !== 'number') return
 
