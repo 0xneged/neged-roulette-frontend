@@ -1,4 +1,5 @@
 import { Suspense } from 'preact/compat'
+import { invalidateManyQueries } from 'helpers/queryClient'
 import { useAtom } from 'jotai'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import { useEffect } from 'preact/hooks'
@@ -13,7 +14,6 @@ import TopWin from 'components/TopWin'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
-import queryClient from 'helpers/queryClient'
 import roundAtom from 'helpers/atoms/roundAtom'
 import useSocket from 'helpers/hooks/useSocket'
 
@@ -49,15 +49,13 @@ export default function () {
         )
 
         setTimeout(async () => {
-          await queryClient.invalidateQueries({
-            queryKey: [
-              'hatsCounter',
-              'prevWinner',
-              'topWin',
-              'roundHistory',
-              'playerHistory',
-            ],
-          })
+          await invalidateManyQueries([
+            'hatsCounter',
+            'prevWinner',
+            'topWin',
+            'roundHistory',
+            'playerHistory',
+          ])
           setCurrentRound(null)
         }, nextRoundTimeout)
       }

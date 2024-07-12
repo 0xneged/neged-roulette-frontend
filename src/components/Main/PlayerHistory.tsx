@@ -32,7 +32,7 @@ function PlayerHistoryEntry({
       leftComponent={
         <div className="flex flex-col text-sm">
           <span>
-            {endTime.getDay()}/{endTime.getMonth()}
+            {endTime.getDate()}/{endTime.getMonth() + 1}
           </span>
           <span>{endTime.getFullYear()}</span>
         </div>

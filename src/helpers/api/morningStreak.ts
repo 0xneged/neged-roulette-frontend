@@ -1,9 +1,9 @@
 import { MorningStreakResponse } from 'types/MorningStreak'
 import { getAccessToken } from '@privy-io/react-auth'
+import { invalidateManyQueries } from 'helpers/queryClient'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import env from 'helpers/env'
-import queryClient from 'helpers/queryClient'
 
 const backendEndpoint = env.VITE_BACKEND_URL
 
@@ -25,9 +25,7 @@ export async function addToMorningStreak() {
 
   if (data.success) {
     toast.success('Nice 🔥 Your balance is ' + data.balance + ' HATs')
-    await queryClient.invalidateQueries({
-      queryKey: ['morningStreak', 'hatsCounter'],
-    })
+    await invalidateManyQueries(['hatsCounter', 'morningStreak'])
   }
 
   return data
