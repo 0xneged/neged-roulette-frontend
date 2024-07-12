@@ -133,7 +133,9 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
   const onReversePress = useCallback(() => {
     setIsWithdraw((isWithdraw) => {
-      isWithdraw ? setAmount(1000) : setAmount(hats || minimumWithdrawal)
+      isWithdraw
+        ? setAmount(1000)
+        : setAmount(Math.floor(Number(hats)) || minimumWithdrawal)
 
       return !isWithdraw
     })
