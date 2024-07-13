@@ -5,7 +5,7 @@ import ModalProps from 'types/ModalProps'
 interface DefaultModalProps extends ModalProps {
   header: JSX.Element | string
   bodyContent: JSX.Element
-  footerContent: JSX.Element
+  footerContent: JSX.Element | null
 }
 
 export default function ({

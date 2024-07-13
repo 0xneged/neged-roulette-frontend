@@ -1,16 +1,8 @@
 import { useState } from 'preact/hooks'
 import GmModal from 'components/Modals/GmModal'
-import useMorningStreak from 'helpers/hooks/useMorningStreak'
 
 export default function () {
-  const { data } = useMorningStreak()
   const [modalOpen, setModalOpen] = useState(false)
-
-  if (!data) return null
-
-  const isAvailable = new Date() > new Date(data.morningStreakTimeout)
-
-  if (!isAvailable) return null
 
   return (
     <>
@@ -20,11 +12,7 @@ export default function () {
       >
         🔥
       </button>
-      <GmModal
-        streakData={data}
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-      />
+      <GmModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </>
   )
 }
