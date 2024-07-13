@@ -171,7 +171,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
   return (
     <DefaultModal
-      headerText="Convert"
+      header="Convert"
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
       bodyContent={Body}

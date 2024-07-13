@@ -93,7 +93,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     <DefaultModal
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
-      headerText="Faq"
+      header="Faq"
       bodyContent={<BodyContent />}
       footerContent={<ModalFooter closeModal={() => setModalOpen(false)} />}
     />

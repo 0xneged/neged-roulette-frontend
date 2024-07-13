@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import MorningStreakResponse from 'types/MorningStreak'
 import axios from 'axios'
 import env from 'helpers/env'
+import roundNumber from 'helpers/numbers/roundNumber'
 
 const backendEndpoint = env.VITE_BACKEND_URL
 
@@ -24,7 +25,11 @@ export async function addToMorningStreak() {
   )
 
   if (data.success) {
-    toast.success('Nice 🔥 Your balance is ' + data.balance + ' HATs')
+    toast.success(
+      'Nice 🔥 Your balance is ' +
+        roundNumber(data.balance) +
+        ' 🎩 Comeback in 24h'
+    )
     await invalidateManyQueries(['hatsCounter', 'morningStreak'])
   }
 

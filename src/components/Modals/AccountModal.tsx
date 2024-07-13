@@ -1,10 +1,12 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
 import { Tooltip } from 'flowbite-react'
 import { useCallback } from 'preact/compat'
+import { useTimer } from 'react-timer-hook'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
 import FaqIcon from 'components/icons/FaqIcon'
 import ModalProps from 'types/ModalProps'
+import MorningStreakResponse from 'types/MorningStreak'
 import ShareRefButton from 'components/ShareRefButton'
 import useMorningStreak from 'helpers/hooks/useMorningStreak'
 import useReferrer from 'helpers/hooks/useReferrer'
@@ -40,9 +42,26 @@ function YourReferrer({ address }: AddressProp) {
   )
 }
 
+function StreakTime({ morningStreakTimeout }: MorningStreakResponse) {
+  const dateTimeout = new Date(morningStreakTimeout)
+
+  const { hours, minutes, seconds } = useTimer({
+    expiryTimestamp: dateTimeout,
+    autoStart: true,
+  })
+  const expired = hours === 0 && minutes === 0 && seconds === 0
+
+  if (expired) return <span>Claim now :)</span>
+
+  return (
+    <span>
+      timeout {hours}:{minutes}:{seconds}
+    </span>
+  )
+}
+
 function MorningStreak() {
   const { data, status } = useMorningStreak()
-  const maxSteak = 7
 
   return (
     <div className="flex flex-row gap-x-1 justify-between items-center leading-tight">
@@ -50,17 +69,10 @@ function MorningStreak() {
       {status === 'pending' || !data ? (
         <DotsLoader />
       ) : (
-        <>
-          {Array.from(Array(data.morningStreak)).map(() => (
-            <span>🔥</span>
-          ))}
-          {Array.from(Array(maxSteak - data.morningStreak)).map(() => (
-            <span className="grayscale">🔥</span>
-          ))}
-        </>
+        <StreakTime {...data} />
       )}
       <Tooltip
-        content="For 1-6th days you get 50HATs. For 7th you get 500 HATs. Click the floating button when it appears"
+        content="Click the fire button when it appears"
         className="!bg-pale-purple text-primary-bright w-40"
       >
         <FaqIcon small />
@@ -125,7 +137,7 @@ export default function ({
 
   return (
     <DefaultModal
-      headerText="Your account"
+      header="Your account"
       bodyContent={<BodyContent address={address} />}
       footerContent={
         <ModalFooter

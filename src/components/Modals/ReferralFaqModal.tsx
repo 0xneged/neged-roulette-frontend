@@ -9,7 +9,7 @@ export default function ({
 }: ModalProps & { address?: string }) {
   return (
     <DefaultModal
-      headerText="About your ref"
+      header="About your ref"
       bodyContent={
         <span className="text-primary">
           A user can attract referrals using an invite link. In case the user

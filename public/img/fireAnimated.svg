@@ -1,0 +1,29 @@
+	<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<filter id="turb" x="-100%" y="-100%" width="300%" height="300%">
+				<feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="2.5" result="turbulence" seed="69" />
+				<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="35" />
+			</filter>
+			<filter id="turb2" x="-100%" y="-100%" width="300%" height="300%">
+				<feTurbulence type="turbulence" baseFrequency="0.08" numOctaves="1" result="turbulence" seed="169" />
+				<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="35" />
+			</filter>
+			<radialGradient id="grad" cx="50%" cy="100%">
+				<stop offset="0%" stop-color="blue" />
+				<stop offset="20%" stop-color="gold" />
+				<stop offset="60%" stop-color="gold" />
+				<stop offset="100%" stop-color="red" />
+		</radialGradient>
+		</defs>
+		<g>
+			<!--fire ellipse shape with turbulence applied -->
+			<!-- 		<ellipse cx="100" cy="100" rx="33" ry="50" filter="url(#turb)" fill="url(#grad)">
+				<animate attributeName="cy" values="100; 7100" dur="100s" begin="0s" repeatCount="indefinite" />
+			</ellipse> -->
+			<!--fire triangle shape with turbulence applied -->
+			<path d="M70 200 h60 l-30 -90z" filter="url(#turb)" fill="url(#grad)">
+				<animate attributeName="d" values="M70 200 h60 l-30 -90z; M70 7200 h60 l-30 -90z" dur="100s" begin="0s" repeatCount="indefinite" />
+			</path>
+			<animateTransform attributeName="transform" attributeType="XML" type="translate" values="0 0; 0 -7000" dur="100s" begin="0s" repeatCount="indefinite" />
+		</g>
+	</svg>

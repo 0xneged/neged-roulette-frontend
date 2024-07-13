@@ -112,7 +112,7 @@ export default function ({
 
   return (
     <DefaultModal
-      headerText="Place a bet"
+      header="Place a bet"
       bodyContent={BodyContent}
       footerContent={FooterContent}
       modalOpen={modalOpen}
