@@ -55,33 +55,34 @@ export default function () {
     }
   }, [round?.startTime, round?.endTime, round, roundHasStarted])
 
+  const transformStyle = roundType
+    ? 'transition-transform'
+    : 'scale-90 transition-transform'
+
   return (
     <div className="relative">
-      <img
-        src="img/neged-hat.png"
-        className={
-          roundType ? 'transition-transform' : 'scale-90 transition-transform'
-        }
-      />
-      {roundHasStarted ? (
-        <>
-          <div
-            style={{
-              height: 100 - roundProgress + '%',
-              backgroundColor: '#F9BC6080',
-            }}
-            className="absolute w-full top-0 mask-hat"
-          />
-          <div
-            style={{
-              height: roundProgress + '%',
-              backgroundColor: '#60F0F980',
-              maskPosition: 'bottom',
-            }}
-            className="absolute w-full bottom-0 mask-hat"
-          />
-        </>
-      ) : null}
+      <div className={transformStyle}>
+        <img src="img/neged-hat.png" />
+        {roundHasStarted ? (
+          <>
+            <div
+              style={{
+                height: 100 - roundProgress + '%',
+                backgroundColor: '#F9BC6080',
+              }}
+              className="absolute w-full top-0 mask-hat"
+            />
+            <div
+              style={{
+                height: roundProgress + '%',
+                backgroundColor: '#60F0F980',
+                maskPosition: 'bottom',
+              }}
+              className="absolute w-full bottom-0 mask-hat"
+            />
+          </>
+        ) : null}
+      </div>
 
       <div className="absolute top-1/2 flex flex-col justify-center w-full items-center">
         {round ? (
