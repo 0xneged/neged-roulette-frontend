@@ -1,3 +1,3 @@
 export default function (num: number, size = 2) {
-  return ('000000000' + num).substr(-size)
+  return String(num).padStart(size, '0')
 }

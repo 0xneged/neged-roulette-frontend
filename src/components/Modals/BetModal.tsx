@@ -1,22 +1,20 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
+import { RoundParams } from 'types/Round'
 import { TargetedEvent } from 'preact/compat'
+import { placeBet } from 'helpers/api/round'
 import { toast } from 'react-toastify'
 import { useCallback, useState } from 'preact/hooks'
 import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
 import Input from 'components/Input'
 import ModalProps from 'types/ModalProps'
-import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
-import useSocket from 'helpers/hooks/useSocket'
 
-interface BetModalProps extends ModalProps {
+interface BetModalProps extends ModalProps, RoundParams {
   address: EthAddress | string | undefined
   userHats: number | undefined | null
   userDeposit: { amount: number; chance: string }
 }
-
-const maxDeposit = env.MAX_DEPOSIT_PER_PLAYER
 
 export default function ({
   address,
@@ -24,49 +22,68 @@ export default function ({
   setModalOpen,
   userHats,
   userDeposit,
+  minBet,
+  maxBet,
 }: BetModalProps) {
-  const socket = useSocket()
-  const [betValue, setBetValue] = useState(1)
+  const min = userDeposit.amount >= minBet ? 1 : minBet
+
+  const [betValue, setBetValue] = useState(min)
+  const [loading, setLoading] = useState(false)
 
   const closeModal = useCallback(() => {
     setModalOpen(false)
   }, [setModalOpen])
 
-  const disabled = !userHats || betValue > userHats || betValue > maxDeposit
+  const addedValue = userDeposit.amount + betValue
+  const disabled =
+    !userHats ||
+    addedValue < minBet ||
+    betValue > userHats ||
+    addedValue > maxBet ||
+    loading
 
-  const placeBet = useCallback(() => {
+  const placeBetOnClick = useCallback(async () => {
+    if (!address) {
+      toast.error('Unauthorized')
+      closeModal()
+    }
+    if (betValue < 1 || addedValue < minBet) {
+      toast.error("Can't bet that low")
+      return
+    }
     if (!userHats || betValue > userHats) {
       toast.error("You don't have enough HATs")
       closeModal()
     }
-    if (userDeposit.amount + betValue > maxDeposit) {
-      toast.error(`You can't deposit more than ${maxDeposit} HATs`)
+    if (addedValue > maxBet) {
+      toast.error(`You can't deposit more than ${maxBet} HATs`)
       closeModal()
     }
 
-    if (socket && address && betValue > 0) {
-      socket.emit('placeBet', { address, amount: betValue })
-
-      // Wait for DB update
-      setTimeout(async () => {
-        await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
-      }, 500)
+    try {
+      setLoading(true)
+      await placeBet(betValue)
+      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
       closeModal()
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
     }
-  }, [address, betValue, closeModal, socket, userDeposit.amount, userHats])
+  }, [addedValue, address, betValue, closeModal, maxBet, minBet, userHats])
 
   const max = userHats
-    ? userHats > maxDeposit
-      ? maxDeposit
+    ? userHats > maxBet
+      ? maxBet
       : Math.floor(userHats)
     : 1000
 
   const commonInputProps = {
     value: betValue,
-    min: 1,
+    min,
     max,
     onChange: (e: TargetedEvent<HTMLInputElement>) =>
-      setBetValue(e.currentTarget.valueAsNumber),
+      setBetValue(e.currentTarget.valueAsNumber || 1),
   }
 
   const BodyContent = (
@@ -81,7 +98,7 @@ export default function ({
         {...commonInputProps}
       />
       <span class="text-sm text-gray-400 absolute start-0 -bottom-6">
-        1 Hat
+        {min} Hat
       </span>
       <span class="text-sm text-gray-400 absolute end-0 -bottom-6">
         {max} Hats
@@ -102,7 +119,7 @@ export default function ({
       </div>
 
       {FlowBiteButton({
-        onClick: placeBet,
+        onClick: placeBetOnClick,
         color: 'purple',
         children: 'Accept',
         disabled,

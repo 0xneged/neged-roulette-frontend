@@ -6,9 +6,9 @@ import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 export default function () {
   const { data, status } = useRoundHistory()
 
-  if (status !== 'success') return <HatIcon rotateAnimation />
+  if (status === 'pending') return <HatIcon rotateAnimation />
 
-  if (!data)
+  if (!data?.length)
     return (
       <span className="text-center">No plays yet, let's make some 🍆🍑</span>
     )

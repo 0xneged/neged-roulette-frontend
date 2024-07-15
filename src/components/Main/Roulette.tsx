@@ -1,8 +1,11 @@
-import { RoundWithTotal } from 'types/BetsProps'
 import DarkCard from 'components/DarkCard'
 import RouletteRoller from 'components/Main/RouletteRoller'
+import useRound from 'helpers/hooks/useRound'
 
-export default function ({ round, totalDeposits }: RoundWithTotal) {
+export default function () {
+  const { data, totalDeposits } = useRound()
+
+  const round = data?.currentRound
   const hasDeposits = !!round?.deposits.length
 
   if (hasDeposits)

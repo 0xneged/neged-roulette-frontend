@@ -3,15 +3,18 @@ export default function ({
   rotateAnimation = false,
   purple = false,
   small,
+  fullWidth,
 }: {
   rotate?: number
   purple?: boolean
   rotateAnimation?: boolean
   small?: boolean | undefined
+  fullWidth?: boolean
 }) {
-  const className = `${rotateAnimation && 'rotate-animation'}`
+  const animation = rotateAnimation ? 'rotate-animation' : ''
+  const className = `${animation}`
 
-  return small ? (
+  const svgComponent = small ? (
     <svg
       width="11"
       height="11"
@@ -49,5 +52,11 @@ export default function ({
         fill="currentColor"
       />
     </svg>
+  )
+
+  return fullWidth ? (
+    <div className="flex w-full justify-center">{svgComponent}</div>
+  ) : (
+    svgComponent
   )
 }

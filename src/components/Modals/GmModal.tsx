@@ -8,6 +8,7 @@ import HatIcon from 'components/icons/HatIcon'
 import ModalLoader from 'components/Modals/ModalLoader'
 import ModalProps from 'types/ModalProps'
 import MorningStreakResponse from 'types/MorningStreak'
+import padZeros from 'helpers/numbers/padZeros'
 import useMorningStreak from 'helpers/hooks/useMorningStreak'
 
 function StreakTime({ morningStreakTimeout }: MorningStreakResponse) {
@@ -23,7 +24,7 @@ function StreakTime({ morningStreakTimeout }: MorningStreakResponse) {
 
   return (
     <span>
-      Until next claim {hours}:{minutes}:{seconds}
+      Until next claim {padZeros(hours)}:{padZeros(minutes)}:{padZeros(seconds)}
     </span>
   )
 }

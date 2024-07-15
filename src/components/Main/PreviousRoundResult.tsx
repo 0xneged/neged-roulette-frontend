@@ -1,6 +1,5 @@
 import { Winner } from 'types/Round'
-import { getPreviousWinner } from 'helpers/api/round'
-import { useQuery } from '@tanstack/react-query'
+import { useRoundHistory } from 'helpers/hooks/useRoundHistory'
 import HatIcon from 'components/icons/HatIcon'
 import ParticipantData from 'components/Main/ParticipantData'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
@@ -39,20 +38,14 @@ export function PreviousRoundComponent({
 }
 
 export default function () {
-  const { data } = useQuery({
-    queryKey: ['prevWinner'],
-    queryFn: getPreviousWinner,
-  })
+  const { data } = useRoundHistory()
 
-  if (
-    !data ||
-    !data.deposits.length ||
-    !data.winner ||
-    !data.winner.winnerAmount
-  )
-    return null
+  const latest = data?.[0]
 
-  const total = getTotalDeposits(data.deposits)
+  if (!latest || !latest.winner || !latest.winner.winnerAmount)
+    return <span>This is the first round in history!</span>
 
-  return <PreviousRoundComponent {...data} topText="Winner" total={total} />
+  const total = getTotalDeposits(latest.deposits)
+
+  return <PreviousRoundComponent {...latest} topText="Winner" total={total} />
 }

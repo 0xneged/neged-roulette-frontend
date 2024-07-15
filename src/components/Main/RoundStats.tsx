@@ -1,12 +1,13 @@
+import { RoundWithTime } from 'types/Round'
 import { Suspense } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
 import BiPeople from 'components/icons/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
-import Round, { RoundWithTime } from 'types/Round'
 import getPercentFromTime from 'helpers/numbers/getPercentFromTime'
 import padZeros from 'helpers/numbers/padZeros'
 import useCountDown from 'helpers/hooks/useCountDown'
+import useRound from 'helpers/hooks/useRound'
 
 function InnerComponent({ round }: { round: RoundWithTime }) {
   const { minutes, seconds } = useCountDown(round.endTime)
@@ -29,9 +30,11 @@ function InnerComponent({ round }: { round: RoundWithTime }) {
   )
 }
 
-export default function ({ round }: { round: Round | null }) {
+export default function () {
+  const { data, roundType } = useRound()
   const [roundProgress, setRoundProgress] = useState(0)
 
+  const round = data?.currentRound
   const roundHasStarted = round && round.startTime && round.endTime
 
   useEffect(() => {
@@ -52,28 +55,34 @@ export default function ({ round }: { round: Round | null }) {
     }
   }, [round?.startTime, round?.endTime, round, roundHasStarted])
 
+  const transformStyle = roundType
+    ? 'transition-transform'
+    : 'scale-90 transition-transform'
+
   return (
     <div className="relative">
-      <img src="img/neged-hat.png" />
-      {roundHasStarted ? (
-        <>
-          <div
-            style={{
-              height: 100 - roundProgress + '%',
-              backgroundColor: '#F9BC6080',
-            }}
-            className="absolute w-full top-0 mask-hat"
-          />
-          <div
-            style={{
-              height: roundProgress + '%',
-              backgroundColor: '#60F0F980',
-              maskPosition: 'bottom',
-            }}
-            className="absolute w-full bottom-0 mask-hat"
-          />
-        </>
-      ) : null}
+      <div className={transformStyle}>
+        <img src="img/neged-hat.png" />
+        {roundHasStarted ? (
+          <>
+            <div
+              style={{
+                height: 100 - roundProgress + '%',
+                backgroundColor: '#F9BC6080',
+              }}
+              className="absolute w-full top-0 mask-hat"
+            />
+            <div
+              style={{
+                height: roundProgress + '%',
+                backgroundColor: '#60F0F980',
+                maskPosition: 'bottom',
+              }}
+              className="absolute w-full bottom-0 mask-hat"
+            />
+          </>
+        ) : null}
+      </div>
 
       <div className="absolute top-1/2 flex flex-col justify-center w-full items-center">
         {round ? (

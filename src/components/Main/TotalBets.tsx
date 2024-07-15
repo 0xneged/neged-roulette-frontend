@@ -1,8 +1,11 @@
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
 import roundNumber from 'helpers/numbers/roundNumber'
+import useRound from 'helpers/hooks/useRound'
 
-export default function ({ totalDeposits }: { totalDeposits: number }) {
+export default function () {
+  const { totalDeposits } = useRound()
+
   return (
     <Button bgHat styles="!rounded-b-lg !rounded-t-none w-full">
       <span>Total</span>

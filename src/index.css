@@ -4,7 +4,7 @@
 
 :root {
   /* Actual value is fetched and set from the backend in the code */
-  --round-timeout: 5000ms;
+  --round-timeout: 9250ms;
   --selection: #ac60f94d;
   --secondary: #f4b862;
   --primary: #7f60f9;

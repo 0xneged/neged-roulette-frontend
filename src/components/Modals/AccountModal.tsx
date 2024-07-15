@@ -1,4 +1,5 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
+import { invalidateManyQueries } from 'helpers/queryClient'
 import { useCallback } from 'preact/compat'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
@@ -29,11 +30,7 @@ function YourReferrer({ address }: AddressProp) {
   return (
     <div className="flex flex-row gap-x-2 justify-between items-center">
       <span>Your referrer</span>
-      {status === 'pending' || !data ? (
-        <DotsLoader />
-      ) : (
-        <StyledAddress address={data} />
-      )}
+      {status === 'pending' ? <DotsLoader /> : <StyledAddress address={data} />}
     </div>
   )
 }
@@ -91,13 +88,18 @@ export default function ({
     setModalOpen(false)
   }, [setModalOpen])
 
+  const onLogout = useCallback(async () => {
+    await logout()
+    await invalidateManyQueries(['morningStreak', 'hatsCounter', 'referrer'])
+  }, [logout])
+
   return (
     <DefaultModal
       header="Your account"
       bodyContent={<BodyContent address={address} />}
       footerContent={
         <ModalFooter
-          logout={logout}
+          logout={onLogout}
           address={address}
           closeModal={closeModal}
           setOpenShareFaq={() => {

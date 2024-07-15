@@ -1,8 +1,12 @@
+import { usePrivy } from '@privy-io/react-auth'
 import { useState } from 'preact/hooks'
 import GmModal from 'components/Modals/GmModal'
 
 export default function () {
+  const { ready, authenticated } = usePrivy()
   const [modalOpen, setModalOpen] = useState(false)
+
+  if (!ready || !authenticated) return null
 
   return (
     <>

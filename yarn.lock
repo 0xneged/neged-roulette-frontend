@@ -8192,6 +8192,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-confetti@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "js-confetti@npm:0.12.0"
+  checksum: 10c0/2193967fae725e12e2d132b53d075c0ba4a100cedba6b039ba70c9776e0ea7743cd8e7167931c0f3960df104e1a21e9b3a9d7ffc32127437d089c82e8ddd627f
+  languageName: node
+  linkType: hard
+
 "js-cookie@npm:^3.0.5":
   version: 3.0.5
   resolution: "js-cookie@npm:3.0.5"
@@ -8998,6 +9005,7 @@ __metadata:
     flowbite-react: "npm:^0.10.1"
     globals: "npm:^15.7.0"
     jotai: "npm:^2.8.3"
+    js-confetti: "npm:^0.12.0"
     postcss: "npm:^8.4.38"
     preact: "npm:^10.22.0"
     prettier: "npm:^3.3.2"
