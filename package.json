@@ -19,6 +19,7 @@
     "axios": "^1.7.2",
     "flowbite-react": "^0.10.1",
     "jotai": "^2.8.3",
+    "js-confetti": "^0.12.0",
     "preact": "^10.22.0",
     "react-promise-suspense": "^0.3.4",
     "react-timer-hook": "^3.0.7",

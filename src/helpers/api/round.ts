@@ -1,13 +1,19 @@
-import { RoundWithTime } from 'types/Round'
+import { RoundService, RoundType, RoundWithTime } from 'types/Round'
+import { readAtom } from 'helpers/stores/atomStore'
+import { toast } from 'react-toastify'
 import axios from 'axios'
 import env from 'helpers/env'
+import roundTypeAtom from 'helpers/atoms/roundTypeAtom'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/round'
 
-export async function getTopWinOfTheDay(): Promise<RoundWithTime | null> {
+export async function getTopWinOfTheDay(
+  roundType: RoundType
+): Promise<RoundWithTime | null> {
   try {
     const { data } = await axios.get<RoundWithTime>(
-      backendEndpoint + '/mostWin'
+      backendEndpoint + '/mostWin',
+      { params: { roundType } }
     )
     return data || null
   } catch (e) {
@@ -16,22 +22,11 @@ export async function getTopWinOfTheDay(): Promise<RoundWithTime | null> {
   }
 }
 
-export async function getPreviousWinner() {
-  try {
-    const { data } = await axios.get<RoundWithTime>(
-      `${backendEndpoint}/prevWinner`
-    )
-    return data
-  } catch (e) {
-    console.error(e)
-    return null
-  }
-}
-
-export async function getRoundHistory() {
+export async function getRoundHistory(roundType: RoundType) {
   try {
     const { data } = await axios.get<RoundWithTime[]>(
-      `${backendEndpoint}/roundHistory`
+      `${backendEndpoint}/roundHistory`,
+      { params: { roundType } }
     )
     return data
   } catch (e) {
@@ -40,17 +35,45 @@ export async function getRoundHistory() {
   }
 }
 
-export async function getPlayerHistory(userAddress?: string) {
+export async function getPlayerHistory(
+  roundType: RoundType,
+  userAddress?: string
+) {
   if (!userAddress) return []
 
   try {
     const { data } = await axios.get<RoundWithTime[]>(
       `${backendEndpoint}/playerHistory`,
-      { params: { userAddress: userAddress.toLowerCase() } }
+      { params: { userAddress: userAddress.toLowerCase(), roundType } }
     )
     return data
   } catch (e) {
     console.error(e)
     return []
+  }
+}
+
+export async function placeBet(amount: number) {
+  try {
+    const roundType = readAtom(roundTypeAtom)
+    if (!amount) throw 'Amount is 0 or less'
+
+    await axios.post(`${backendEndpoint}/placeBet`, { amount, roundType })
+  } catch (e) {
+    toast.error('Error while placing a bet, please try again')
+    console.error(e)
+  }
+}
+
+export async function getRoundStatus(roundType: RoundType) {
+  try {
+    const { data } = await axios.get<RoundService>(
+      `${backendEndpoint}/roundStatus`,
+      { params: { roundType } }
+    )
+    return data
+  } catch (e) {
+    console.error(e)
+    return null
   }
 }

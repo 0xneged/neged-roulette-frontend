@@ -1,12 +1,13 @@
+import { RoundWithTime } from 'types/Round'
 import { Suspense } from 'preact/compat'
 import { useEffect, useState } from 'preact/hooks'
 import BiPeople from 'components/icons/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
-import Round, { RoundWithTime } from 'types/Round'
 import getPercentFromTime from 'helpers/numbers/getPercentFromTime'
 import padZeros from 'helpers/numbers/padZeros'
 import useCountDown from 'helpers/hooks/useCountDown'
+import useRound from 'helpers/hooks/useRound'
 
 function InnerComponent({ round }: { round: RoundWithTime }) {
   const { minutes, seconds } = useCountDown(round.endTime)
@@ -29,9 +30,11 @@ function InnerComponent({ round }: { round: RoundWithTime }) {
   )
 }
 
-export default function ({ round }: { round: Round | null }) {
+export default function () {
+  const { data, roundType } = useRound()
   const [roundProgress, setRoundProgress] = useState(0)
 
+  const round = data?.currentRound
   const roundHasStarted = round && round.startTime && round.endTime
 
   useEffect(() => {
@@ -54,7 +57,12 @@ export default function ({ round }: { round: Round | null }) {
 
   return (
     <div className="relative">
-      <img src="img/neged-hat.png" />
+      <img
+        src="img/neged-hat.png"
+        className={
+          roundType ? 'transition-transform' : 'scale-90 transition-transform'
+        }
+      />
       {roundHasStarted ? (
         <>
           <div

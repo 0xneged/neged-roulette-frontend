@@ -6,6 +6,6 @@ export default interface BetsProps {
 }
 
 export type RoundWithTotal = {
-  round: Round | null
+  round: Round | null | undefined
   totalDeposits: number
 }

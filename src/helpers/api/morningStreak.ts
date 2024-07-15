@@ -1,49 +1,51 @@
-import { getAccessToken } from '@privy-io/react-auth'
 import { invalidateManyQueries } from 'helpers/queryClient'
 import { toast } from 'react-toastify'
 import MorningStreakResponse from 'types/MorningStreak'
 import axios from 'axios'
+import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
 import roundNumber from 'helpers/numbers/roundNumber'
 
 const backendEndpoint = env.VITE_BACKEND_URL
 
 export async function addToMorningStreak() {
-  const authToken = await getAccessToken()
+  try {
+    const authToken = await checkAuthToken()
 
-  if (!authToken) {
-    toast.error(
-      'Looks like your wallet lost connection, please reconnect using our button 🙏'
+    const { data } = await axios.post<{ success: boolean; balance: number }>(
+      `${backendEndpoint}/gm`,
+      {},
+      { headers: { Authorization: `Bearer ${authToken}` } }
     )
-    return
+
+    if (data.success) {
+      toast.success(
+        'Nice 🔥 Your balance is ' +
+          roundNumber(data.balance) +
+          ' 🎩 Comeback in 24h'
+      )
+      await invalidateManyQueries(['hatsCounter', 'morningStreak'])
+    }
+
+    return data
+  } catch (e) {
+    console.error(e)
+    return null
   }
-
-  const { data } = await axios.post<{ success: boolean; balance: number }>(
-    `${backendEndpoint}/gm`,
-    {},
-    { headers: { Authorization: `Bearer ${authToken}` } }
-  )
-
-  if (data.success) {
-    toast.success(
-      'Nice 🔥 Your balance is ' +
-        roundNumber(data.balance) +
-        ' 🎩 Comeback in 24h'
-    )
-    await invalidateManyQueries(['hatsCounter', 'morningStreak'])
-  }
-
-  return data
 }
+
 export async function getMorningStreak() {
-  const authToken = await getAccessToken()
+  try {
+    const authToken = await checkAuthToken()
 
-  if (!authToken) return
+    const { data } = await axios.get<MorningStreakResponse>(
+      `${backendEndpoint}/gm`,
+      { headers: { Authorization: `Bearer ${authToken}` } }
+    )
 
-  const { data } = await axios.get<MorningStreakResponse>(
-    `${backendEndpoint}/gm`,
-    { headers: { Authorization: `Bearer ${authToken}` } }
-  )
-
-  return data
+    return data
+  } catch (e) {
+    console.error(e)
+    return null
+  }
 }

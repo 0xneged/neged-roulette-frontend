@@ -29,6 +29,11 @@ export default function () {
         supportedChains: [base as never],
         defaultChain: base as never,
         loginMethods: ['wallet'],
+        externalWallets: {
+          coinbaseWallet: {
+            connectionOptions: 'all',
+          },
+        },
       }}
       appId={env.VITE_PRIVY_APP_ID}
       clientId={env.DEV ? env.VITE_DEV_CLIENT_ID : env.VITE_PROD_CLIENT_ID}

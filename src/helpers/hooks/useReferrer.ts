@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export default function (userAddress: string) {
   return useQuery({
-    queryKey: ['referrer' + userAddress],
+    queryKey: ['referrer'],
     queryFn: () => getReferrer(userAddress),
   })
 }

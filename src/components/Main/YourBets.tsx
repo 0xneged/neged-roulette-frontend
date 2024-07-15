@@ -1,5 +1,4 @@
 import { RoundStatus } from 'types/Round'
-import { RoundWithTotal } from 'types/BetsProps'
 import { toast } from 'react-toastify'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
@@ -10,15 +9,22 @@ import HatIcon from 'components/icons/HatIcon'
 import HatInCircle from 'components/icons/HatInCircle'
 import env from 'helpers/env'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
+import roundNumber from 'helpers/numbers/roundNumber'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
+import useRound from 'helpers/hooks/useRound'
 
-export default function ({ round, totalDeposits }: RoundWithTotal) {
+export default function () {
+  const { data, totalDeposits } = useRound()
   const { authenticated, login, ready, user } = usePrivy()
   const address = user?.wallet?.address.toLowerCase()
   const hats = useHatsCounter(address)
 
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
   const [modalOpen, setModalOpen] = useState(false)
+
+  const round = data?.currentRound
+  const minBet = data?.roundParams.minBet
+  const maxBet = data?.roundParams.maxBet
 
   const noSeats = round ? round.deposits.length >= env.VITE_MAX_PLAYERS : false
   const roundEnded = round?.roundStatus === RoundStatus.ended
@@ -74,16 +80,23 @@ export default function ({ round, totalDeposits }: RoundWithTotal) {
           {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}
         </BigButton>
         <div className="flex flex-row gap-x-1 w-full items-center justify-center">
-          <span>Bet limits are 1 - 50K</span> <HatIcon />
+          <span>
+            Bet limits are {minBet} - {roundNumber(maxBet)}
+          </span>
+          <HatIcon />
         </div>
       </div>
-      <BetModal
-        address={address}
-        modalOpen={modalOpen}
-        setModalOpen={setModalOpen}
-        userHats={hats}
-        userDeposit={userDeposit}
-      />
+      {typeof minBet === 'number' && typeof maxBet === 'number' ? (
+        <BetModal
+          address={address}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          userHats={hats}
+          userDeposit={userDeposit}
+          minBet={minBet}
+          maxBet={maxBet}
+        />
+      ) : null}
     </>
   )
 }

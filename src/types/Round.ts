@@ -12,6 +12,11 @@ export enum RoundStatus {
   ongoing,
   ended,
 }
+export enum RoundType {
+  hamster,
+  whale,
+}
+export type RoundTypeProp = { roundType: RoundType }
 
 export default interface Round {
   startTime?: string
@@ -19,6 +24,16 @@ export default interface Round {
   deposits: Deposit[]
   winner: Winner
   roundStatus: RoundStatus
+  roundType: RoundType
+}
+
+export type RoundParams = { minBet: number; maxBet: number }
+export type RoundService = {
+  previousRoundEndTime: string | undefined
+  nextRoundTimeout: number
+  currentRound: Round | null
+  roundDuration: number
+  roundParams: RoundParams
 }
 
 export interface RoundWithTime extends Round {
