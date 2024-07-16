@@ -1,7 +1,7 @@
 import { usePrivy } from '@privy-io/react-auth'
 import { useState } from 'preact/hooks'
 import AccountModal from 'components/Modals/AccountModal'
-import ConvertModal from 'components/Modals/ConvertModal'
+import ConvertModal from 'components/Modals/Convert'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'

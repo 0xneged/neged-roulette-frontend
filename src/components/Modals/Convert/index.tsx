@@ -1,4 +1,3 @@
-import { TargetedEvent } from 'preact/compat'
 import { base } from 'viem/chains'
 import { convertTokensHats } from 'helpers/api/token'
 import { readContract, writeContract } from '@wagmi/core'
@@ -7,12 +6,9 @@ import { useCallback, useState } from 'preact/hooks'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
 import { waitForTransactionReceipt } from '@wagmi/core'
 import BigButton from 'components/BigButton'
-import CoinToHats from 'components/Convert/CoinToHats'
+import Body from 'components/Modals/Convert/Body'
 import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
-import ExchangerBlock from 'components/Convert/ExchangerBlock'
-import HatsQuantity from 'components/Convert/HatsQuantity'
-import Input from 'components/Input'
 import ModalProps from 'types/ModalProps'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
@@ -90,7 +86,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       const res = await convertTokensHats(amount, isWithdraw)
       if (typeof res !== 'number') return
 
-      toast.success('Converted 🎉')
+      toast.success("Converted 🎉 You'll receive your assets soon ⌚")
     } catch (e) {
       console.error(e)
       toast.error('Something went wrong when converting 🧟 Please try again 🥺')
@@ -123,58 +119,21 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     </BigButton>
   )
 
-  const onInputChange = useCallback(
-    ({ currentTarget }: TargetedEvent<HTMLInputElement>) => {
-      if (!isWithdraw) setAmount(currentTarget.valueAsNumber || 0)
-
-      setAmount(currentTarget.valueAsNumber || 0)
-    },
-    [isWithdraw]
-  )
-
-  const onReversePress = useCallback(() => {
-    setIsWithdraw((isWithdraw) => {
-      isWithdraw
-        ? setAmount(1000)
-        : setAmount(Math.floor(Number(hats)) || minimumWithdrawal)
-
-      return !isWithdraw
-    })
-  }, [hats])
-
-  const inputProps = {
-    value: amount,
-    onChange: onInputChange,
-    type: 'number',
-    min: isWithdraw ? minimumWithdrawal : 1,
+  const bodyProps = {
+    amount,
+    hats,
+    setIsWithdraw,
+    isWithdraw,
+    setAmount,
+    minimumWithdrawal,
   }
-
-  const Body = (
-    <div className="flex flex-col items-center gap-y-7 text-white">
-      <div className="text-4xl text-primary font-bold">
-        <Input {...inputProps} />
-        <span>{isWithdraw ? 'Hats' : 'negeD'}</span>
-      </div>
-      {isWithdraw ? (
-        <span className="font-semibold opacity-70 text-center">
-          Minimum withdrawal amount is {minimumWithdrawal} HATs
-        </span>
-      ) : null}
-      <ExchangerBlock label="You Receive">
-        <HatsQuantity isReversed={isWithdraw} {...inputProps} />
-      </ExchangerBlock>
-      <ExchangerBlock label="Exchange">
-        <CoinToHats isReversed={isWithdraw} onReverse={onReversePress} />
-      </ExchangerBlock>
-    </div>
-  )
 
   return (
     <DefaultModal
       header="Convert"
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
-      bodyContent={Body}
+      bodyContent={<Body {...bodyProps} />}
       footerContent={Footer}
     />
   )
