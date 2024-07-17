@@ -1,8 +1,10 @@
 import { Dispatch, StateUpdater, useCallback, useState } from 'preact/hooks'
 import { TargetedEvent } from 'preact/compat'
-import CoinToHats from 'components/Modals/Convert/CoinToHats'
-import ExchangerBlock from 'components/Modals/Convert/ExchangerBlock'
+import DotsLoader from 'components/icons/DotsLoader'
+import HatInCircle from 'components/icons/HatInCircle'
 import Input from 'components/Input'
+import ReverseButton from 'components/Modals/Convert/ReverseButton'
+import TokenWithBalance from 'components/Modals/Convert/TokenWithBalance'
 
 interface BodyProps {
   setIsWithdraw: Dispatch<StateUpdater<boolean>>
@@ -50,25 +52,44 @@ export default function ({
   }
 
   return (
-    <div className="flex flex-col items-center gap-y-7 text-white">
-      <div className="text-4xl text-primary font-bold">
-        <Input {...inputProps} />
-        <span>{isWithdraw ? 'Hats' : 'negeD'}</span>
-      </div>
-      {isWithdraw ? (
-        <span className="font-semibold opacity-70 text-center">
-          Minimum withdrawal amount is {minimumWithdrawal} HATs
-        </span>
-      ) : null}
+    <div className="flex flex-col items-center gap-y-2 text-white">
+      <span className="font-semibold opacity-70 text-center">
+        <span>Minimum withdrawal amount is {minimumWithdrawal} HATs</span>
+        <br />
+        <span>You can only withdrawal to negeD for now</span>
+      </span>
 
-      <ExchangerBlock label="Exchange">
-        <CoinToHats
-          tokenIndex={tokenIndex}
-          setTokenIndex={setTokenIndex}
-          isReversed={isWithdraw}
-          onReverse={onReversePress}
-        />
-      </ExchangerBlock>
+      <div class="flex flex-col w-full gap-y-1">
+        <div className="z-40">
+          <div class="flex justify-between items-center bg-hat p-4 rounded-t-lg">
+            <div>
+              <p class="text-sm opacity-50">From</p>
+              <Input textColor="text-white" {...inputProps} />
+            </div>
+            <TokenWithBalance
+              tokenIndex={tokenIndex}
+              setTokenIndex={setTokenIndex}
+              isWithdraw={isWithdraw}
+            />
+          </div>
+
+          <ReverseButton onReversePress={onReversePress} />
+        </div>
+
+        <div class="flex justify-between items-center bg-hat-alt p-4 rounded-b-lg">
+          <div>
+            <p class="text-sm opacity-50">To</p>
+            <p class="text-4xl">
+              <DotsLoader />
+            </p>
+          </div>
+
+          <div className="flex items-center gap-x-2 w-32 justify-end">
+            <span>{isWithdraw ? 'negeD' : 'Hats'}</span>
+            <HatInCircle darkBg={isWithdraw} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

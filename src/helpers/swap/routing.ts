@@ -24,9 +24,9 @@ import { fromReadableAmount } from 'helpers/swap/conversion'
 import { ethers } from 'ethers'
 import { ChainId } from '@uniswap/sdk-core'
 
-export async function generateRoute(): Promise<SwapRoute | null> {
+export async function generateRoute(tokenIn: Token, tokenOut: Token): Promise<SwapRoute | null> {
   const router = new AlphaRouter({
-    chainId: ChainId.MAINNET,
+    chainId: ChainId.BASE,
     provider: getMainnetProvider(),
   })
 
