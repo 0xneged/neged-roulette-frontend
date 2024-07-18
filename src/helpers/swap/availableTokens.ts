@@ -1,11 +1,16 @@
-import { Token } from '@uniswap/sdk-core'
+import EthAddress from 'types/EthAddress'
 
-export interface TokenWithLogo extends Token {
+export interface TokenWithLogo {
+  chainId: number
+  address: EthAddress
+  name: string
+  symbol: string
+  decimals: number
   logoURI: string
 }
 
 // WARNING: keep neged at 0 index
-const list = [
+export default [
   {
     chainId: 8453,
     address: '0x4229c271c19CA5F319fb67b4BC8A40761A6d6299',
@@ -37,6 +42,15 @@ const list = [
         },
       },
     },
+  },
+  {
+    name: 'Farther',
+    address: '0x8ad5b9007556749DE59E088c88801a3Aaa87134B',
+    symbol: 'Farther',
+    decimals: 18,
+    chainId: 8453,
+    logoURI:
+      'https://cdn.dexscreener.com/fetch?src=https%3A%2F%2Fcoin-images.coingecko.com%2Fcoins%2Fimages%2F37870%2Flarge%2Ffarther-logo.png',
   },
   {
     chainId: 8453,
@@ -171,8 +185,3 @@ const list = [
     },
   },
 ] as TokenWithLogo[]
-
-export default list.map(
-  ({ chainId, address, decimals, symbol, name }) =>
-    new Token(chainId, address, decimals, symbol, name)
-)

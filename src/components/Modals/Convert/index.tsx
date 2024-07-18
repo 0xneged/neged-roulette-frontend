@@ -10,16 +10,17 @@ import Body from 'components/Modals/Convert/Body'
 import DefaultModal from 'components/Modals/DefaultModal'
 import EthAddress from 'types/EthAddress'
 import ModalProps from 'types/ModalProps'
+import availableTokens from 'helpers/swap/availableTokens'
 import bep20abi from 'helpers/bep20abi'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import walletConfig from 'helpers/walletConfig'
 
-const decimals = 18
 const minimumWithdrawal = 2000
 
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
+  const [tokenIndex, setTokenIndex] = useState(0)
   const { login, authenticated, ready, connectWallet, user } = usePrivy()
   const hats = useHatsCounter()
   const { wallets, ready: walletsReady } = useWallets()
@@ -44,7 +45,8 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
     if (!address || amount <= 0 || loading) return
 
-    const convertedAmount = amount * 10 ** decimals
+    const currentToken = availableTokens[tokenIndex]
+    const convertedAmount = amount * 10 ** currentToken.decimals
 
     try {
       setLoading(true)
@@ -58,7 +60,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
       if (!isWithdraw) {
         const res = await readContract(walletConfig, {
-          address: env.VITE_TOKEN_ADDRESS as EthAddress,
+          address: currentToken.address as EthAddress,
           abi: bep20abi,
           functionName: 'allowance',
           args: [address, env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress],
@@ -67,9 +69,9 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
 
         if (Number(res) < convertedAmount) {
           const hash = await writeContract(walletConfig, {
-            address: env.VITE_TOKEN_ADDRESS as EthAddress,
+            address: currentToken.address as EthAddress,
             abi: bep20abi,
-            functionName: 'increaseAllowance',
+            functionName: 'increaseAllowance', // TODO: this may not work, check ERC20 for this fn
             args: [
               env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress,
               BigInt(convertedAmount),
@@ -95,16 +97,17 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
       setLoading(false)
     }
   }, [
-    connectWallet,
     ready,
+    walletsReady,
     authenticated,
-    amount,
-    loading,
-    login,
-    isWithdraw,
     user?.wallet?.address,
     wallets,
-    walletsReady,
+    amount,
+    loading,
+    tokenIndex,
+    login,
+    connectWallet,
+    isWithdraw,
     hats,
   ])
 
@@ -126,6 +129,8 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     isWithdraw,
     setAmount,
     minimumWithdrawal,
+    tokenIndex,
+    setTokenIndex,
   }
 
   return (

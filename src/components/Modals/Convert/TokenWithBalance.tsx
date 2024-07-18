@@ -8,7 +8,7 @@ export default function ({
   setTokenIndex,
   isWithdraw,
   balance,
-}: BodyDropDownProps & { balance?: string | undefined }) {
+}: BodyDropDownProps & { balance?: string | undefined | null }) {
   return (
     <div class="flex flex-col items-end gap-y-2">
       <div class="flex bg-primary-bright rounded-full">

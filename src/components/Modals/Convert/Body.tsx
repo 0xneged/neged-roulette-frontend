@@ -1,4 +1,4 @@
-import { Dispatch, StateUpdater, useCallback, useState } from 'preact/hooks'
+import { Dispatch, StateUpdater, useCallback } from 'preact/hooks'
 import { TargetedEvent } from 'preact/compat'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import HatInCircle from 'components/icons/HatInCircle'
@@ -15,6 +15,8 @@ interface BodyProps {
   setAmount: (value: number) => void
   amount: number
   hats: number | null | undefined
+  tokenIndex: number
+  setTokenIndex: (value: number) => void
 }
 
 export default function ({
@@ -24,10 +26,11 @@ export default function ({
   setAmount,
   amount,
   hats,
+  tokenIndex,
+  setTokenIndex,
 }: BodyProps) {
   const [parent] = useAutoAnimate()
-  const [tokenIndex, setTokenIndex] = useState(0)
-  const { tokenInBalance } = useSwap(tokenIndex)
+  const { tokenInBalance, tokenOutData } = useSwap(tokenIndex)
   const tokeInNeged = tokenIndex === 0
 
   const onInputChange = useCallback(
@@ -89,7 +92,14 @@ export default function ({
           <div>
             <p class="text-sm opacity-50">To</p>
             <p class="text-4xl">
-              {isWithdraw || tokeInNeged ? amount : <TokenOutAmount />}
+              {isWithdraw || tokeInNeged ? (
+                amount
+              ) : (
+                <TokenOutAmount
+                  inputAmount={amount}
+                  tokenOutData={tokenOutData}
+                />
+              )}
             </p>
           </div>
 
