@@ -36,6 +36,7 @@ export default function ({
   isWithdraw,
 }: BodyDropDownProps) {
   const sizes = isWithdraw ? 'w-fit' : 'w-32'
+  tokenIndex = isWithdraw ? 0 : tokenIndex
 
   if (isWithdraw)
     return (

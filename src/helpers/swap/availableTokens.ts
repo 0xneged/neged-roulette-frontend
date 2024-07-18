@@ -4,7 +4,8 @@ export interface TokenWithLogo extends Token {
   logoURI: string
 }
 
-export default [
+// WARNING: keep neged at 0 index
+const list = [
   {
     chainId: 8453,
     address: '0x4229c271c19CA5F319fb67b4BC8A40761A6d6299',
@@ -16,7 +17,7 @@ export default [
   },
   {
     chainId: 8453,
-    address: '',
+    address: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed',
     name: 'Degen',
     symbol: 'DEGEN',
     decimals: 18,
@@ -170,3 +171,8 @@ export default [
     },
   },
 ] as TokenWithLogo[]
+
+export default list.map(
+  ({ chainId, address, decimals, symbol, name }) =>
+    new Token(chainId, address, decimals, symbol, name)
+)

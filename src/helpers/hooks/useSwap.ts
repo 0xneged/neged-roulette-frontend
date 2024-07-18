@@ -1,55 +1,82 @@
-import { useCallback, useEffect, useState } from 'react'
-import { Environment, CurrentConfig } from 'helpers/swap/config'
-import { getCurrencyBalance, wrapETH } from 'helpers/swap/wallet'
-import {
-  connectBrowserExtensionWallet,
-  getProvider,
-  getWalletAddress,
-  TransactionState,
-} from 'helpers/swap/providers'
-import { executeRoute, generateRoute } from 'helpers/swap/routing'
 import { SwapRoute } from '@uniswap/smart-order-router'
-import useOnBlockUpdated from 'helpers/hooks/useOnBlockUpdated'
-import { toast } from 'react-toastify'
+import { executeRoute, generateRoute } from 'helpers/swap/routing'
+import { getCurrencyBalance } from 'helpers/swap/wallet'
+import { useCallback, useEffect, useState } from 'react'
+import TxState from 'types/TxState'
 import availableTokens from 'helpers/swap/availableTokens'
+import useOnBlockUpdated from 'helpers/hooks/useOnBlockUpdated'
+import useProvider from 'helpers/swap/usePrivyProvider'
 
 export default function (tokenIndex: number) {
   const currentTokenIn = availableTokens[tokenIndex]
+  const negedAsTokenOut = availableTokens[0]
+
+  const { provider, address } = useProvider()
 
   const [tokenInBalance, setTokenInBalance] = useState<string>()
   const [tokenOutBalance, setTokenOutBalance] = useState<string>()
-  const [txState, setTxState] = useState<TransactionState>(TransactionState.New)
+  const [txState, setTxState] = useState<TxState>(TxState.New)
   const [route, setRoute] = useState<SwapRoute | null>(null)
+  const [routeLoading, setRouteLoading] = useState(false)
 
   const refreshBalances = useCallback(async () => {
-    const provider = getProvider()
-    const address = getWalletAddress()
-    if (!address || !provider) {
-      return
-    }
+    if (!provider || !address) return
 
     setTokenInBalance(
       await getCurrencyBalance(provider, address, currentTokenIn)
     )
     setTokenOutBalance(
-      await getCurrencyBalance(provider, address, CurrentConfig.tokens.out)
+      await getCurrencyBalance(provider, address, negedAsTokenOut)
     )
-  }, [])
+  }, [address, currentTokenIn, negedAsTokenOut, provider])
+
+  useEffect(() => {
+    setTokenInBalance(undefined)
+    void refreshBalances()
+  }, [refreshBalances, tokenIndex])
   useOnBlockUpdated(refreshBalances)
 
   useEffect(() => {
-    void generateRoute(currentTokenIn, )
-  }, [tokenIndex])
+    async function generate() {
+      if (!provider || !address || !tokenInBalance || !tokenOutBalance) return
+      try {
+        const routeResult = await generateRoute({
+          provider,
+          tokenIn: { data: currentTokenIn, amount: Number(tokenInBalance) },
+          tokenOut: { data: negedAsTokenOut },
+          address,
+        })
 
-  const executeSwap = useCallback(async (route: SwapRoute | null) => {
-    if (!route) {
-      toast.error('Route not selected')
-      return
+        setRoute(routeResult)
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setRouteLoading(false)
+      }
     }
 
-    setTxState(TransactionState.Sending)
-    setTxState(await executeRoute(route))
-  }, [])
+    void generate()
+  }, [
+    address,
+    currentTokenIn,
+    negedAsTokenOut,
+    provider,
+    tokenInBalance,
+    tokenIndex,
+    tokenOutBalance,
+  ])
+
+  const executeSwap = useCallback(
+    async (route: SwapRoute | null) => {
+      if (!provider || !address || !route) return
+
+      setTxState(TxState.Sending)
+      setTxState(
+        await executeRoute({ route, address, provider, token: currentTokenIn })
+      )
+    },
+    [address, currentTokenIn, provider]
+  )
 
   return {
     tokenInBalance,
@@ -57,5 +84,6 @@ export default function (tokenIndex: number) {
     txState,
     route,
     executeSwap,
+    routeLoading,
   }
 }

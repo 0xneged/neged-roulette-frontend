@@ -1,18 +1,10 @@
 import {
   AlphaRouter,
-  SwapOptionsSwapRouter02,
+  SwapOptions,
   SwapRoute,
   SwapType,
 } from '@uniswap/smart-order-router'
 import { TradeType, CurrencyAmount, Percent, Token } from '@uniswap/sdk-core'
-import { CurrentConfig } from 'helpers/swap/config'
-import {
-  getMainnetProvider,
-  getWalletAddress,
-  sendTransaction,
-  TransactionState,
-  getProvider,
-} from 'helpers/swap/providers'
 import {
   MAX_FEE_PER_GAS,
   MAX_PRIORITY_FEE_PER_GAS,
@@ -23,58 +15,80 @@ import {
 import { fromReadableAmount } from 'helpers/swap/conversion'
 import { ethers } from 'ethers'
 import { ChainId } from '@uniswap/sdk-core'
+import TxState from 'types/TxState'
+import { ProviderWithAddress } from 'types/ProviderWithAddress'
+import { sendTransaction } from './wallet'
 
-export async function generateRoute(tokenIn: Token, tokenOut: Token): Promise<SwapRoute | null> {
-  const router = new AlphaRouter({
-    chainId: ChainId.BASE,
-    provider: getMainnetProvider(),
-  })
-
-  const options: SwapOptionsSwapRouter02 = {
-    recipient: CurrentConfig.wallet.address,
-    slippageTolerance: new Percent(50, 10_000),
-    deadline: Math.floor(Date.now() / 1000 + 1800),
-    type: SwapType.SWAP_ROUTER_02,
-  }
-
-  const route = await router.route(
-    CurrencyAmount.fromRawAmount(
-      CurrentConfig.tokens.in,
-      fromReadableAmount(
-        CurrentConfig.tokens.amountIn,
-        CurrentConfig.tokens.in.decimals
-      ).toString()
-    ),
-    CurrentConfig.tokens.out,
-    TradeType.EXACT_INPUT,
-    options
-  )
-
-  return route
+type GenerateRouteProps = ProviderWithAddress & {
+  tokenIn: { data: Token; amount: number }
+  tokenOut: { data: Token }
 }
 
-export async function executeRoute(
+export async function generateRoute({
+  provider,
+  address,
+  tokenIn,
+  tokenOut,
+}: GenerateRouteProps): Promise<SwapRoute | null> {
+  try {
+    const router = new AlphaRouter({
+      chainId: ChainId.BASE,
+      provider,
+    })
+
+    const options: SwapOptions = {
+      recipient: address,
+      slippageTolerance: new Percent(50, 10_000),
+      deadline: Math.floor(Date.now() / 1000 + 1800),
+      type: SwapType.SWAP_ROUTER_02,
+    }
+
+    const route = await router.route(
+      CurrencyAmount.fromRawAmount(
+        tokenIn.data,
+        fromReadableAmount(tokenIn.amount, tokenIn.data.decimals).toString()
+      ),
+      tokenOut.data,
+      TradeType.EXACT_INPUT,
+      options
+    )
+
+    return route
+  } catch (e) {
+    console.error(e)
+    return null
+  }
+}
+
+type ExecuteRouteProps = ProviderWithAddress & {
   route: SwapRoute
-): Promise<TransactionState> {
-  const walletAddress = getWalletAddress()
-  const provider = getProvider()
+  token: Token
+}
 
-  if (!walletAddress || !provider) {
+export async function executeRoute({
+  route,
+  address,
+  provider,
+  token,
+}: ExecuteRouteProps) {
+  if (!address || !provider)
     throw new Error('Cannot execute a trade without a connected wallet')
+
+  const tokenApproval = await getTokenTransferApproval({
+    token,
+    provider,
+    address,
+  })
+
+  if (tokenApproval !== TxState.Sent || !route.methodParameters) {
+    return TxState.Failed
   }
 
-  const tokenApproval = await getTokenTransferApproval(CurrentConfig.tokens.in)
-
-  // Fail if transfer approvals do not go through
-  if (tokenApproval !== TransactionState.Sent || !route.methodParameters) {
-    return TransactionState.Failed
-  }
-
-  const res = await sendTransaction({
+  const res = await sendTransaction(provider, {
     data: route.methodParameters.calldata,
     to: V3_SWAP_ROUTER_ADDRESS,
     value: route.methodParameters.value,
-    from: walletAddress,
+    from: address,
     maxFeePerGas: MAX_FEE_PER_GAS,
     maxPriorityFeePerGas: MAX_PRIORITY_FEE_PER_GAS,
   })
@@ -82,16 +96,11 @@ export async function executeRoute(
   return res
 }
 
-export async function getTokenTransferApproval(
-  token: Token
-): Promise<TransactionState> {
-  const provider = getProvider()
-  const address = getWalletAddress()
-  if (!provider || !address) {
-    console.log('No Provider Found')
-    return TransactionState.Failed
-  }
-
+export async function getTokenTransferApproval({
+  address,
+  provider,
+  token,
+}: { token: Token } & ProviderWithAddress): Promise<TxState> {
   try {
     const tokenContract = new ethers.Contract(
       token.address,
@@ -107,12 +116,12 @@ export async function getTokenTransferApproval(
       ).toString()
     )
 
-    return sendTransaction({
+    return sendTransaction(provider, {
       ...transaction,
       from: address,
     })
   } catch (e) {
     console.error(e)
-    return TransactionState.Failed
+    return TxState.Failed
   }
 }

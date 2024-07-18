@@ -1,11 +1,16 @@
-import { getProvider } from 'helpers/swap/providers'
-import { useState, useEffect } from 'preact/hooks'
+import { useEffect } from 'preact/hooks'
+import useProvider from 'helpers/swap/usePrivyProvider'
 
 export default function (callback: (blockNumber: number) => void) {
+  const { provider } = useProvider()
+
   useEffect(() => {
-    const subscription = getProvider()?.on('block', callback)
+    if (!provider) return
+
+    const subscription = provider.on('block', callback)
+
     return () => {
-      subscription?.removeAllListeners()
+      subscription.off('block', callback)
     }
-  })
+  }, [callback, provider])
 }
