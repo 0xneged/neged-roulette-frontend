@@ -27,7 +27,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     tokenInStatus === 'pending' && tokenOutStatus === 'pending'
 
   const disabledWhenBalanceLow = isWithdraw
-    ? (hats || amount) < minimumWithdrawal
+    ? (hats || 0) < minimumWithdrawal || amount < minimumWithdrawal
     : amount > (Number(tokenInBalance) || 0)
 
   const processExchange = useCallback(() => {

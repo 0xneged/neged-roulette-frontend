@@ -41,7 +41,7 @@ export default function ({
 
   const onInputChange = useCallback(
     ({ currentTarget }: TargetedEvent<HTMLInputElement>) => {
-      setAmount(currentTarget.valueAsNumber)
+      setAmount(currentTarget.valueAsNumber || 0)
     },
     [setAmount]
   )
