@@ -1,6 +1,6 @@
 import { Suspense } from 'preact/compat'
 import EmojiAvatar from 'components/EmojiAvatar'
-import PfpWithFallback from 'components/PfpWithFallback'
+import ImageWithFallback from 'components/ImageWithFallback'
 import useFcAccount from 'helpers/hooks/useFcAccount'
 
 type FcPfpProps = {
@@ -11,12 +11,12 @@ type FcPfpProps = {
 function SuspendedFcPfp({ address }: { address: string }) {
   const { data } = useFcAccount(address)
 
-  return <PfpWithFallback address={address} pfpUrl={data?.fcPfpLink} />
+  return <ImageWithFallback address={address} imgUrl={data?.fcPfpLink} />
 }
 
 export default function ({ address, pfpUrl }: FcPfpProps) {
   if (!address) return null
-  if (pfpUrl) return <PfpWithFallback address={address} pfpUrl={pfpUrl} />
+  if (pfpUrl) return <ImageWithFallback address={address} imgUrl={pfpUrl} />
 
   return (
     <Suspense fallback={<EmojiAvatar address={address} />}>

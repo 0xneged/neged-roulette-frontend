@@ -14,6 +14,9 @@ module.exports = {
   plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
   theme: {
     extend: {
+      rotate: {
+        360: '360deg',
+      },
       screens: {
         se: '375px',
       },

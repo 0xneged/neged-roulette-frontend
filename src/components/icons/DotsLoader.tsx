@@ -1,3 +1,3 @@
 export default function () {
-  return <div className="dots-loader" />
+  return <div className="inline-block dots-loader" />
 }

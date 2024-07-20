@@ -1,4 +1,3 @@
-import { Suspense } from 'preact/compat'
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
 import roundNumber from 'helpers/numbers/roundNumber'
@@ -9,10 +8,10 @@ interface HatsCounterProps {
   setModalOpen: (is: boolean) => void
 }
 
-function SuspendedHatsCounter({ address, setModalOpen }: HatsCounterProps) {
-  const hats = useHatsCounter(address)
+export default function ({ address, setModalOpen }: HatsCounterProps) {
+  const { data, status } = useHatsCounter(address)
 
-  const hasData = typeof hats === 'number'
+  const hasData = status === 'success'
 
   return (
     <Button
@@ -21,15 +20,7 @@ function SuspendedHatsCounter({ address, setModalOpen }: HatsCounterProps) {
       disabled={!hasData}
       bgHat
     >
-      <HatIcon rotateAnimation={!hasData} /> {hasData && roundNumber(hats)}
+      <HatIcon rotateAnimation={!hasData} /> {data && roundNumber(data)}
     </Button>
-  )
-}
-
-export default function (props: HatsCounterProps) {
-  return (
-    <Suspense fallback={<HatIcon rotateAnimation />}>
-      <SuspendedHatsCounter {...props} />
-    </Suspense>
   )
 }
