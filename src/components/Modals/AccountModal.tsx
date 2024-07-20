@@ -1,6 +1,6 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
+import { PropsWithChildren, useCallback } from 'preact/compat'
 import { invalidateManyQueries } from 'helpers/queryClient'
-import { useCallback } from 'preact/compat'
 import DefaultModal from 'components/Modals/DefaultModal'
 import DotsLoader from 'components/icons/DotsLoader'
 import FaqIcon from 'components/icons/FaqIcon'
@@ -18,20 +18,31 @@ interface AccountModalInner extends AddressProp {
 
 interface AccountModalProps extends AccountModalInner, ModalProps {}
 
-function StyledAddress({ address }: { address?: string | undefined }) {
+function StyledAddress({
+  label,
+  children,
+}: PropsWithChildren & { label: string }) {
   return (
-    <span className="!text-primary font-bold text-lg truncate">{address}</span>
+    <div className="flex flex-row gap-x-2 justify-between items-center">
+      <span>{label}</span>
+      <span className="!text-primary font-bold text-lg truncate">
+        {children}
+      </span>
+    </div>
   )
+}
+
+function YourAddress({ address }: AddressProp) {
+  return <StyledAddress label="Your address">{address}</StyledAddress>
 }
 
 function YourReferrer({ address }: AddressProp) {
   const { data, status } = useReferrer(address)
 
   return (
-    <div className="flex flex-row gap-x-2 justify-between items-center">
-      <span>Your referrer</span>
-      {status === 'pending' ? <DotsLoader /> : <StyledAddress address={data} />}
-    </div>
+    <StyledAddress label="Your referrer">
+      {status === 'pending' ? <DotsLoader /> : data}
+    </StyledAddress>
   )
 }
 
@@ -39,6 +50,7 @@ function BodyContent({ address }: AddressProp) {
   return (
     <div className="flex flex-col w-full gap-y-2 text-white leading-tight">
       <YourReferrer address={address} />
+      <YourAddress address={address} />
     </div>
   )
 }

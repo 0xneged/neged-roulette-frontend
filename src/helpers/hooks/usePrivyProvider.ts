@@ -1,9 +1,8 @@
 import { Web3Provider } from '@ethersproject/providers'
 import { useEffect, useState } from 'preact/hooks'
-import { useWallets, usePrivy } from '@privy-io/react-auth'
+import { useWallets } from '@privy-io/react-auth'
 
 export default function () {
-  const { sendTransaction } = usePrivy()
   const { ready, wallets } = useWallets()
   const [data, setData] = useState<{
     provider: Web3Provider | undefined

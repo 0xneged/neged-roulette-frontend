@@ -1,11 +1,15 @@
+import { Suspense, lazy } from 'preact/compat'
 import { usePrivy } from '@privy-io/react-auth'
 import { useState } from 'preact/hooks'
-import AccountModal from 'components/Modals/AccountModal'
-import ConvertModal from 'components/Modals/Convert'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
-import ReferralFaqModal from 'components/Modals/ReferralFaqModal'
+
+const AccountModal = lazy(() => import('components/Modals/AccountModal'))
+const ReferralFaqModal = lazy(
+  () => import('components/Modals/ReferralFaqModal')
+)
+const ConvertModal = lazy(() => import('components/Modals/Convert/index'))
 
 export default function () {
   const { logout, user } = usePrivy()
@@ -32,22 +36,24 @@ export default function () {
       </div>
       {address ? (
         <>
-          <AccountModal
-            modalOpen={accountModal}
-            setModalOpen={setAccountModal}
-            address={address}
-            logout={logout}
-            setOpenShareFaq={() => setRefFaqModalOpen(true)}
-          />
-          <ReferralFaqModal
-            modalOpen={refFaqModalOpen}
-            setModalOpen={setRefFaqModalOpen}
-            address={address}
-          />
-          <ConvertModal
-            modalOpen={convertModalOpen}
-            setModalOpen={setConvertModalOpen}
-          />
+          <Suspense fallback="">
+            <AccountModal
+              modalOpen={accountModal}
+              setModalOpen={setAccountModal}
+              address={address}
+              logout={logout}
+              setOpenShareFaq={() => setRefFaqModalOpen(true)}
+            />
+            <ReferralFaqModal
+              modalOpen={refFaqModalOpen}
+              setModalOpen={setRefFaqModalOpen}
+              address={address}
+            />
+            <ConvertModal
+              modalOpen={convertModalOpen}
+              setModalOpen={setConvertModalOpen}
+            />
+          </Suspense>
         </>
       ) : null}
     </>

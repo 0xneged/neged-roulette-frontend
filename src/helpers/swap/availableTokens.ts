@@ -7,9 +7,14 @@ export interface TokenWithLogo {
   symbol: string
   decimals: number
   logoURI: string
+  isNative?: boolean
 }
 
+export const WETH_CONTRACT_ADDRESS =
+  '0x4200000000000000000000000000000000000006'
+
 // WARNING: keep neged at 0 index
+// ipfs:// links are not supported
 export default [
   {
     chainId: 8453,
@@ -29,12 +34,13 @@ export default [
     logoURI: 'https://basescan.org/token/images/degentips_32.png',
   },
   {
-    name: 'Wrapped Ether',
-    address: '0x4200000000000000000000000000000000000006',
-    symbol: 'WETH',
+    name: 'Ether',
+    address: WETH_CONTRACT_ADDRESS,
+    symbol: 'ETH',
+    isNative: true,
     decimals: 18,
     chainId: 8453,
-    logoURI: 'https://ethereum-optimism.github.io/data/WETH/logo.png',
+    logoURI: '/img/ethBase.jpg',
     extensions: {
       bridgeInfo: {
         '1': {
@@ -128,7 +134,8 @@ export default [
     symbol: 'UNI',
     decimals: 18,
     chainId: 8453,
-    logoURI: 'ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg',
+    logoURI:
+      'https://cdn.dexscreener.com/fetch?src=https%3A%2F%2Fcoin-images.coingecko.com%2Fcoins%2Fimages%2F12504%2Flarge%2Funiswap-logo.png',
     extensions: {
       bridgeInfo: {
         '1': {

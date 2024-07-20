@@ -1,5 +1,6 @@
 import DotsLoader from 'components/icons/DotsLoader'
 import TokenQuotes from 'types/TokenQuotes'
+import toFixedFloor from 'helpers/numbers/toFixedFloor'
 
 export default function ({
   tokenOutData,
@@ -12,5 +13,5 @@ export default function ({
 
   const { ratio } = tokenOutData
 
-  return <span>{ratio * inputAmount}</span>
+  return <>{toFixedFloor(ratio * inputAmount)}</>
 }

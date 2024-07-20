@@ -17,7 +17,8 @@ export default function () {
   const { data, totalDeposits } = useRound()
   const { authenticated, login, ready, user } = usePrivy()
   const address = user?.wallet?.address.toLowerCase()
-  const hats = useHatsCounter(address)
+  const { data: hats, status: hatsLoaderStatus } = useHatsCounter(address)
+  const fetchinsHats = hatsLoaderStatus === 'pending'
 
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
   const [modalOpen, setModalOpen] = useState(false)
@@ -45,15 +46,20 @@ export default function () {
       login()
       return
     }
+    if (fetchinsHats) {
+      toast.warn("We're fetching your balance, please wait 🕰️")
+      return
+    }
     if (!hats || hats < 1) {
       toast.warn('Please top up your balance 🪙')
       return
     }
 
     setModalOpen(true)
-  }, [ready, authenticated, hats, login, noSeats, roundEnded])
+  }, [noSeats, roundEnded, ready, authenticated, fetchinsHats, hats, login])
 
   const isUserDeposited = userDeposit.amount > 0
+  const isMax = userDeposit.amount >= (maxBet || 0)
 
   return (
     <>
@@ -74,10 +80,14 @@ export default function () {
 
         <BigButton
           onClick={onClick}
-          disabled={roundEnded || noSeats}
-          loading={!ready || modalOpen}
+          disabled={roundEnded || noSeats || isMax}
+          loading={!ready || modalOpen || fetchinsHats}
         >
-          {isUserDeposited ? 'ADD MORE' : 'TRY YOUR LUCK'}
+          {isUserDeposited
+            ? isMax
+              ? 'MAXED OUT'
+              : 'ADD MORE'
+            : 'TRY YOUR LUCK'}
         </BigButton>
         <div className="flex flex-row gap-x-1 w-full items-center justify-center">
           <span>

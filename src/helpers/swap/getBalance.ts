@@ -1,22 +1,26 @@
-import { ERC20_ABI } from 'helpers/swap/constants'
 import { TokenWithLogo } from 'helpers/swap/availableTokens'
 import { base } from 'viem/chains'
-import { formatUnits } from 'viem'
+import { erc20Abi, formatUnits } from 'viem'
 import { readContract } from '@wagmi/core'
+import EthAddress from 'types/EthAddress'
 import walletConfig from 'helpers/walletConfig'
 
-export default async function (currency: TokenWithLogo, address?: string) {
-  console.log(address)
-  if (!address) return null
+export default async function <
+  A extends string | null,
+  R = A extends string ? { format: string; raw: bigint } : null,
+>(currency: TokenWithLogo, address?: A): Promise<R> {
+  if (!address) return null as R
 
   const balance = await readContract(walletConfig, {
     address: currency.address,
-    abi: ERC20_ABI,
+    abi: erc20Abi,
     functionName: 'balanceOf',
-    args: [address],
+    args: [address as EthAddress],
     chainId: base.id,
   })
 
-  console.log(balance)
-  return formatUnits(balance as bigint, currency.decimals)
+  return {
+    format: formatUnits(balance as bigint, currency.decimals),
+    raw: balance,
+  } as R
 }

@@ -26,7 +26,7 @@ export default function ({ onClick, rotate, noBg }: ArrowProps) {
       >
         <path
           d="M10.5 1L16.5 7M16.5 7L10.5 13M16.5 7L1.5 7"
-          stroke="#8B5CF6"
+          stroke="currentColor"
           stroke-width="1.6"
           stroke-linecap="round"
         />

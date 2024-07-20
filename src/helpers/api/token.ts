@@ -7,7 +7,11 @@ import env from 'helpers/env'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 
-export async function convertTokensHats(amount: number, withdraw: boolean) {
+export async function convertTokensHats(
+  tokenIndex: number,
+  amount: number,
+  withdraw: boolean
+) {
   if (amount <= 0) return
 
   try {
@@ -22,12 +26,15 @@ export async function convertTokensHats(amount: number, withdraw: boolean) {
 
     const result = await axios.post<{ balance: number | undefined }>(
       `${backendEndpoint}/convert`,
-      { amount, withdraw: Number(withdraw) },
+      { tokenIndex, amount, withdraw: Number(withdraw) },
       { headers: { Authorization: `Bearer ${authToken}` } }
     )
     return result.data.balance
   } catch (e) {
-    toast.error('Failed to swap tokens', e)
+    toast.error(
+      'Failed to swap tokens 😵 If transaction succeeded, please save tx hash and send it to us',
+      e
+    )
   }
 }
 
