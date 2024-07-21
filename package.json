@@ -9,7 +9,8 @@
     "pretty": "prettier --check src",
     "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
     "lint-fix": "yarn eslint ./src/ --fix",
-    "preview": "yarn build && yarn vite preview"
+    "preview": "yarn build && yarn vite preview",
+    "prod": "serve -p 57 -s dist"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
@@ -24,6 +25,7 @@
     "react-promise-suspense": "^0.3.4",
     "react-timer-hook": "^3.0.7",
     "react-toastify": "^10.0.5",
+    "serve": "^14.2.3",
     "socket.io-client": "^4.7.5",
     "viem": "^2.16.0",
     "wagmi": "^2.10.4",
