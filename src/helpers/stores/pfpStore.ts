@@ -1,5 +1,5 @@
 import persistedAtom from 'helpers/stores/persistedAtom'
 
-export type PfpStore = { [address: string]: { color: string; emoji: string } }
+type PfpStore = { [address: string]: { color: string; emoji: string } }
 
-export default persistedAtom('pfp-store', '')
+export default persistedAtom<PfpStore>('pfp-store', {})
