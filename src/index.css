@@ -45,11 +45,6 @@ input[type='range']::-webkit-slider-thumb {
   background-color: var(--selection);
 }
 
-a {
-  color: white !important;
-  text-decoration: none !important;
-}
-
 .rotate-animation {
   animation: rotate 3s linear infinite;
 }
@@ -97,7 +92,7 @@ a {
 }
 
 .mask-hat {
-  mask-image: url('/img/neged-hat.png');
+  mask-image: url('/img/neged-hat.webp');
   mask-size: cover;
 }
 
@@ -112,9 +107,23 @@ a {
 .gm-button {
   will-change: filter;
   transition: filter 0.2s ease-out;
-  animation: bg-fire 2s linear infinite;
-  filter: drop-shadow(0px 0px 5px var(--secondary));
+  animation: hueRotation 12s linear infinite;
+  filter: hue-rotate(0deg) drop-shadow(0px 0px 0.5rem var(--primary-dark));
 }
 .gm-button:actitve {
-  filter: drop-shadow(0px 0px 7px var(--primary-dark));
+  filter: drop-shadow(0px 0px 1rem var(--secondary));
+}
+.gm-button:hover {
+  animation-play-state: paused;
+  filter: drop-shadow(0px 0px 14px var(--secondary));
+}
+
+@keyframes hueRotation {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) drop-shadow(0px 0px 0.5rem var(--primary-dark));
+  }
+  50% {
+    filter: hue-rotate(360deg) drop-shadow(0px 0px 0.5rem var(--secondary));
+  }
 }

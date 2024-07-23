@@ -29,6 +29,25 @@ function StreakTime({ morningStreakTimeout }: MorningStreakResponse) {
   )
 }
 
+function Announcement() {
+  return (
+    <div className="flex flex-col items-center justify-center mt-4 text-white bg-hat py-2 px-3 rounded-3xl">
+      <h2 className="text-xl font-bold">50,000 Hats daily raffle! </h2>
+      <p className="text-center">
+        🎲 Every day at <b>15:00 UTC</b>, we will randomly select one player who
+        has participated in the Based Hat game. Winners will be announced here:
+        <a
+          href="https://warpcast.com/neged"
+          target="_blank"
+          className="underline"
+        >
+          {' '}
+          https://warpcast.com/neged
+        </a>
+      </p>
+    </div>
+  )
+}
 function HatGridBlock({
   amount = 50,
   claimed,
@@ -75,16 +94,19 @@ function ModalBody({
   const onTimeout = new Date(morningStreakTimeout) > new Date()
 
   return (
-    <div className="grid grid-cols-4 gap-2 items-center justify-center">
-      {Array.from(Array(maxSteak)).map((_val, index) => (
-        <HatGridBlock
-          claimed={morningStreak > index}
-          currentClaim={morningStreak === index}
-          amount={index === 6 ? 500 : 50}
-          onTimeout={onTimeout}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-4 gap-2 items-center justify-center">
+        {Array.from(Array(maxSteak)).map((_val, index) => (
+          <HatGridBlock
+            claimed={morningStreak > index}
+            currentClaim={morningStreak === index}
+            amount={index === 6 ? 500 : 50}
+            onTimeout={onTimeout}
+          />
+        ))}
+      </div>
+      <Announcement />
+    </>
   )
 }
 

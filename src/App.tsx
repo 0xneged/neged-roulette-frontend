@@ -12,18 +12,13 @@ import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
 
 export default function () {
-  if (!env.DEV)
-    alert(
-      'The game is currently in test mode.\nBy playing it, you accept the fact that there might be some bugs or malfunctions'
-    )
-
   return (
     <PrivyProvider
       config={{
         appearance: {
-          logo: '/logo.jpeg',
+          logo: '/logo.webp',
           accentColor: '#B66DFF',
-          landingHeader: "Let's a roll",
+          landingHeader: "Let's a roll 🎲",
           theme: 'dark',
         },
         supportedChains: [base as never],
@@ -41,7 +36,7 @@ export default function () {
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={walletConfig}>
           <Header />
-          <div className="container mx-auto max-w-prose p-4 prose min-h-screen text-white">
+          <div className="container mx-auto max-w-prose p-4 min-h-screen text-white">
             <Switch>
               <Route path="/" component={Main} />
               <Route component={NotFound} />

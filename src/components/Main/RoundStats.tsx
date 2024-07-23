@@ -62,7 +62,7 @@ export default function () {
   return (
     <div className="relative">
       <div className={transformStyle}>
-        <img src="img/neged-hat.png" />
+        <img src="img/neged-hat.webp" />
         {roundHasStarted ? (
           <>
             <div
