@@ -35,7 +35,7 @@ export default function ({
             header
           )}
         </Modal.Header>
-        <Modal.Body className="bg-primary-bg p-3 md:p-6 overflow-hidden">
+        <Modal.Body className="bg-primary-bg p-3 md:p-6">
           {bodyContent}
         </Modal.Body>
         <Modal.Footer className="bg-primary-bg rounded-b-2xl justify-between p-3 md:p-6">

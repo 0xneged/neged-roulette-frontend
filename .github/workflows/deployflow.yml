@@ -24,6 +24,12 @@ jobs:
         run: yarn
         shell: bash
       - name: Build code
+        env:
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+          VITE_PRIVY_APP_ID: ${{ secrets.VITE_PRIVY_APP_ID }}
+          VITE_PROD_CLIENT_ID: ${{ secrets.VITE_PROD_CLIENT_ID }}
+          VITE_TOKEN_RECEIVER_CONTRACT: ${{ secrets.VITE_TOKEN_RECEIVER_CONTRACT }}
+          VITE_TOKEN_ADDRESS: ${{ secrets.VITE_TOKEN_ADDRESS }}
         run: yarn build
         shell: bash
       - name: Setup Pages

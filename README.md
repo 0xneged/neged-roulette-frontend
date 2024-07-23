@@ -1,3 +1,5 @@
+[![Build and deploy app](https://github.com/0xneged/neged-roulette-frontend/actions/workflows/deployflow.yml/badge.svg)](https://github.com/0xneged/neged-roulette-frontend/actions/workflows/deployflow.yml)
+
 # Local launch
 
 1. Install dependencies with `yarn`
