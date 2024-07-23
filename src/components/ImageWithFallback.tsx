@@ -32,6 +32,7 @@ export default function ({
         onError={() => {
           setImgLoadError(true)
         }}
+        loading="lazy"
       />
       <div className={`absolute z-0 ${imageStyles}`}>{fallback(address)}</div>
     </div>
