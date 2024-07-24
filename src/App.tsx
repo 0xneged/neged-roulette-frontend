@@ -1,9 +1,10 @@
 import { PrivyProvider } from '@privy-io/react-auth'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { Route, Switch } from 'wouter-preact'
+import { Route, Router, Switch } from 'wouter-preact'
 import { ToastContainer } from 'react-toastify'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { base } from 'viem/chains'
+import { useHashLocation } from 'wouter-preact/use-hash-location'
 import Admin from 'pages/Admin'
 import Header from 'components/Header'
 import Main from 'pages/Main'
@@ -38,11 +39,13 @@ export default function () {
         <WagmiProvider config={walletConfig}>
           <Header />
           <div className="container mx-auto max-w-prose p-4 min-h-screen text-white">
-            <Switch>
-              <Route path="/" component={Main} />
-              <Route path="/admin" component={Admin} />
-              <Route component={NotFound} />
-            </Switch>
+            <Router hook={useHashLocation}>
+              <Switch>
+                <Route path="/" component={Main} />
+                <Route path="/admin" component={Admin} />
+                <Route component={NotFound} />
+              </Switch>
+            </Router>
           </div>
           <ToastContainer
             draggable
