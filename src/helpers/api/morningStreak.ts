@@ -10,12 +10,12 @@ const backendEndpoint = env.VITE_BACKEND_URL
 
 export async function addToMorningStreak() {
   try {
-    const authToken = await checkAuthToken()
+    const { headers } = await checkAuthToken()
 
     const { data } = await axios.post<{ success: boolean; balance: number }>(
       `${backendEndpoint}/gm`,
       {},
-      { headers: { Authorization: `Bearer ${authToken}` } }
+      { headers }
     )
 
     if (data.success) {
@@ -36,11 +36,11 @@ export async function addToMorningStreak() {
 
 export async function getMorningStreak() {
   try {
-    const authToken = await checkAuthToken()
+    const { headers } = await checkAuthToken()
 
     const { data } = await axios.get<MorningStreakResponse>(
       `${backendEndpoint}/gm`,
-      { headers: { Authorization: `Bearer ${authToken}` } }
+      { headers }
     )
 
     return data

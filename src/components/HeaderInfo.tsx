@@ -5,7 +5,7 @@ import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
 
-const AccountModal = lazy(() => import('components/Modals/AccountModal'))
+const AccountModal = lazy(() => import('components/Modals/AccountModal/index'))
 const ReferralFaqModal = lazy(
   () => import('components/Modals/ReferralFaqModal')
 )

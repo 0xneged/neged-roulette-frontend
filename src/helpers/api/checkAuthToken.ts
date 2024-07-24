@@ -10,5 +10,5 @@ export default async function () {
     toast.error(err)
     throw err
   }
-  return authToken
+  return { authToken, headers: { Authorization: `Bearer ${authToken}` } }
 }
