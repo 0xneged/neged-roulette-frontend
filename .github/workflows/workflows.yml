@@ -1,8 +1,4 @@
 name: Build and lint code
-description: Action that installs dependencies, builds and lints the code
-branding:
-  icon: 'check'
-  color: 'green'
 on:
   pull_request:
     types: [synchronize, opened]
@@ -10,18 +6,4 @@ jobs:
   build-and-lint-code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-      - name: Install modules
-        run: yarn
-        shell: bash
-      - name: Build code
-        run: yarn build
-        shell: bash
-      - name: Lint code
-        run: yarn lint
-        shell: bash
+      - uses: Borodutch/build-and-lint-code@v1.0.4
