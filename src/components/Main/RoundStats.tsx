@@ -61,7 +61,7 @@ export default function () {
 
   return (
     <div className="relative">
-      <div className={transformStyle}>
+      <div className={transformStyle + ' my-4'}>
         <img src="img/neged-hat.webp" />
         {roundHasStarted ? (
           <>
