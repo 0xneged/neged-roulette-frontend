@@ -4,6 +4,7 @@ import { Route, Switch } from 'wouter-preact'
 import { ToastContainer } from 'react-toastify'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { base } from 'viem/chains'
+import Admin from 'pages/Admin'
 import Header from 'components/Header'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
@@ -39,6 +40,7 @@ export default function () {
           <div className="container mx-auto max-w-prose p-4 min-h-screen text-white">
             <Switch>
               <Route path="/" component={Main} />
+              <Route path="/admin" component={Admin} />
               <Route component={NotFound} />
             </Switch>
           </div>
