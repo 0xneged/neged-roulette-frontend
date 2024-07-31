@@ -1,7 +1,7 @@
 import { Suspense } from 'preact/compat'
 import DotsLoader from 'components/icons/DotsLoader'
 import truncateString from 'helpers/truncateString'
-import useFcAccount from 'helpers/hooks/useFcAccount'
+import useUserAccount from 'helpers/hooks/useUserAccount'
 
 interface FcNameProps {
   address?: string | undefined
@@ -17,7 +17,7 @@ function Name({ name }: { name?: string | undefined }) {
 }
 
 function FcName({ address }: { address: string }) {
-  const { data } = useFcAccount(address)
+  const { data } = useUserAccount(address)
 
   const name = data?.fcUsername || address
 

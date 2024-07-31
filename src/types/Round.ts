@@ -1,8 +1,7 @@
-export type Deposit = {
+import User from 'types/User'
+
+export type Deposit = Omit<User, 'bannedFromChat'> & {
   amount: number
-  address: string
-  fcPfpLink: string | undefined
-  fcUsername: string | undefined
 }
 export type Winner = Deposit & {
   winnerAmount: number

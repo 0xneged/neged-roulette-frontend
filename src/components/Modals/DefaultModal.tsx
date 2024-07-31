@@ -5,6 +5,7 @@ import ModalProps from 'types/ModalProps'
 interface DefaultModalProps extends ModalProps {
   header: JSX.Element | string
   bodyContent: JSX.Element
+  bodyId?: string
   footerContent: JSX.Element | null
 }
 
@@ -13,6 +14,7 @@ export default function ({
   setModalOpen,
   header,
   bodyContent,
+  bodyId,
   footerContent,
 }: DefaultModalProps) {
   return (
@@ -22,7 +24,10 @@ export default function ({
         show={modalOpen}
         onClose={() => setModalOpen(false)}
         theme={{
-          content: { inner: 'rounded-2xl', base: 'relative h-auto w-full p-4' },
+          content: {
+            inner: 'rounded-2xl',
+            base: 'relative h-auto w-full p-4',
+          },
           root: { base: 'backdrop-blur-lg transition-all z-30' },
         }}
       >
@@ -35,7 +40,10 @@ export default function ({
             header
           )}
         </Modal.Header>
-        <Modal.Body className="bg-primary-bg p-3 md:p-6">
+        <Modal.Body
+          className="bg-primary-bg p-3 md:p-6 scroll-smooth relative"
+          id={bodyId}
+        >
           {bodyContent}
         </Modal.Body>
         <Modal.Footer className="bg-primary-bg rounded-b-2xl justify-between p-3 md:p-6">

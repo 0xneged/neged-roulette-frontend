@@ -1,4 +1,5 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
+import FloatingChatButton from 'components/FloatingChatButton'
 import FloatingGmButton from 'components/FloatingGmButton'
 import Roulette from 'components/Main/Roulette'
 import RoundStats from 'components/Main/RoundStats'
@@ -25,6 +26,7 @@ export default function () {
         <RoundTab />
       </div>
       <FloatingGmButton />
+      <FloatingChatButton />
     </>
   )
 }
