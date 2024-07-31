@@ -1,6 +1,6 @@
 import User from 'types/User'
 
-export type Deposit = User & {
+export type Deposit = Omit<User, 'bannedFromChat'> & {
   amount: number
 }
 export type Winner = Deposit & {
