@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import farcaster from 'helpers/api/farcaster'
+import getUser from 'helpers/api/user'
 
 export default function (address: string) {
   const { data } = useQuery({
-    queryKey: ['fcUser' + address],
-    queryFn: () => farcaster(address),
+    queryKey: ['user' + address],
+    queryFn: () => getUser(address),
   })
 
   return { data, address }
