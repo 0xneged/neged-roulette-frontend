@@ -51,7 +51,7 @@ export default function () {
   const address = user?.wallet?.address
   const { data, status } = usePlayerHistory(address)
 
-  if (status === 'pending') return <HatIcon rotateAnimation fullWidth />
+  if (status === 'pending') return <HatIcon rotateAnimation centered />
 
   const component = data?.length ? (
     data.map((round) => (
