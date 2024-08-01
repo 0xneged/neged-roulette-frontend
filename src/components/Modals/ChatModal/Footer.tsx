@@ -35,6 +35,7 @@ function ChatInput({
         onKeyDown={(e) => {
           if (e.key === 'Enter') onSend()
         }}
+        enterkeyhint="send"
       />
       <span className="min-w-14 md:min-w-20 text-xs md:text-base text-center ">
         {value.length}/{max}
