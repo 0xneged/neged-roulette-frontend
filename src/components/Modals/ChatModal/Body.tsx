@@ -17,7 +17,7 @@ function Body({
   const isAdmin = userAddress === env.VITE_ADMIN_ADDRESS
 
   return (
-    <div className="flex flex-col-reverse relative overflow-auto h-[70vh] md:h-[60vh] text-white gap-y-2">
+    <div className="flex flex-col-reverse relative overflow-auto h-[70dvh] md:h-[60dvh] text-white gap-y-2">
       {messages.length ? (
         messages
           .toReversed()

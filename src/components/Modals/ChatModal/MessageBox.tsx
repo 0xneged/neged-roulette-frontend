@@ -53,14 +53,14 @@ export default function ({
 
   return (
     <div
-      className={`flex gap-x-1 max-w-96 ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-all transition-opacity duration-${threshold}`}
+      className={`flex gap-x-1 max-w-64 se:max-w-80 sm:max-w-96 h-full ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-words transition-opacity duration-${threshold}`}
       onDblClick={onDoubleClick}
       {...bind()}
     >
       <a href={getAccountLink(user.address, user.fcUsername)} target="_blank">
         <ImageWithFallback address={user.address} imgUrl={user.fcPfpLink} />
       </a>
-      <span className="max-w-80">{text}</span>
+      <span className="max-w-48 se:max-w-64 sm:max-w-80">{text}</span>
     </div>
   )
 }

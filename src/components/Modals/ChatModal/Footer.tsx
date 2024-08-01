@@ -33,7 +33,7 @@ function ChatInput({
         disabled={isBanned}
         placeholder={isBanned ? "You're banned ⛔" : "Let's roll 🎲"}
         onKeyDown={(e) => {
-          e.key === 'Enter'
+          if (e.key === 'Enter') onSend()
         }}
       />
       <span className="min-w-14 md:min-w-20 text-xs md:text-base text-center ">
