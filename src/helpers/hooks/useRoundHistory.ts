@@ -14,7 +14,7 @@ export function useRoundHistory() {
 export function usePlayerHistory(address?: string) {
   const roundType = useAtomValue(roundTypeAtom)
   return useQuery({
-    queryKey: ['playerHistory' + roundType],
+    queryKey: [`playerHistory-${roundType}`],
     queryFn: () => getPlayerHistory(roundType, address),
   })
 }

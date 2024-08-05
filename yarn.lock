@@ -9282,6 +9282,7 @@ __metadata:
     postcss: "npm:^8.4.38"
     preact: "npm:^10.22.0"
     prettier: "npm:^3.3.2"
+    react-parallax-tilt: "npm:^1.7.234"
     react-promise-suspense: "npm:^0.3.4"
     react-timer-hook: "npm:^3.0.7"
     react-toastify: "npm:^10.0.5"
@@ -10556,6 +10557,16 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/9399929f2b598a66634c4663fa7703144eeab10c7027f72de7e9af6da6d96f12ead1cc2fdbb09b9aab4d1410b0578d11aa5b7c3db70ffa92fb0329cf181099a5
+  languageName: node
+  linkType: hard
+
+"react-parallax-tilt@npm:^1.7.234":
+  version: 1.7.234
+  resolution: "react-parallax-tilt@npm:1.7.234"
+  peerDependencies:
+    react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/7f4150182acf7ca1eb8cffc6edb9a14e598896236f8b0264b2ac856bea9c259244cd57406d4edc17a722a73ffd009af3d0ea3959d6a34ef6b16575b41b0e83fa
   languageName: node
   linkType: hard
 

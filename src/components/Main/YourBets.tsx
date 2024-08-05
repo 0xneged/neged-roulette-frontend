@@ -1,4 +1,5 @@
 import { RoundStatus } from 'types/Round'
+import { placeBet } from 'helpers/api/round'
 import { toast } from 'react-toastify'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
@@ -18,7 +19,7 @@ export default function () {
   const { authenticated, login, ready, user } = usePrivy()
   const address = user?.wallet?.address.toLowerCase()
   const { data: hats, status: hatsLoaderStatus } = useHatsCounter(address)
-  const fetchinsHats = hatsLoaderStatus === 'pending'
+  const fetchingHats = hatsLoaderStatus === 'pending'
 
   const [userDeposit, setUserDeposit] = useState({ amount: 0, chance: '0' })
   const [modalOpen, setModalOpen] = useState(false)
@@ -46,7 +47,7 @@ export default function () {
       login()
       return
     }
-    if (fetchinsHats) {
+    if (fetchingHats) {
       toast.warn("We're fetching your balance, please wait 🕰️")
       return
     }
@@ -56,15 +57,15 @@ export default function () {
     }
 
     setModalOpen(true)
-  }, [noSeats, roundEnded, ready, authenticated, fetchinsHats, hats, login])
+  }, [noSeats, roundEnded, ready, authenticated, fetchingHats, hats, login])
 
-  const isUserDeposited = userDeposit.amount > 0
+  const didUserDeposit = userDeposit.amount > 0
   const isMax = userDeposit.amount >= (maxBet || 0)
 
   return (
     <>
       <div className="flex flex-col gap-y-3">
-        {isUserDeposited ? (
+        {didUserDeposit ? (
           <div className="flex flex-row items-center justify-center gap-x-2">
             <DashedCard subtitle="your bets">
               <div className="flex gap-x-2">
@@ -81,9 +82,9 @@ export default function () {
         <BigButton
           onClick={onClick}
           disabled={roundEnded || noSeats || isMax}
-          loading={!ready || modalOpen || fetchinsHats}
+          loading={!ready || modalOpen || fetchingHats}
         >
-          {isUserDeposited
+          {didUserDeposit
             ? isMax
               ? 'MAXED OUT'
               : 'ADD MORE'
@@ -98,11 +99,12 @@ export default function () {
       </div>
       {typeof minBet === 'number' && typeof maxBet === 'number' ? (
         <BetModal
-          address={address}
+          userAddress={address}
+          onBet={placeBet}
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           userHats={hats}
-          userDeposit={userDeposit}
+          userDeposit={userDeposit.amount}
           minBet={minBet}
           maxBet={maxBet}
         />

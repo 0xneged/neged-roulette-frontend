@@ -1,31 +1,36 @@
 import { Button as FlowBiteButton } from 'flowbite-react'
 import { RoundParams } from 'types/Round'
 import { TargetedEvent } from 'preact/compat'
-import { placeBet } from 'helpers/api/round'
 import { toast } from 'react-toastify'
 import { useCallback, useState } from 'preact/hooks'
 import DefaultModal from 'components/Modals/DefaultModal'
-import EthAddress from 'types/EthAddress'
 import Input from 'components/Input'
 import ModalProps from 'types/ModalProps'
 import queryClient from 'helpers/queryClient'
 
 interface BetModalProps extends ModalProps, RoundParams {
-  address: EthAddress | string | undefined
+  userAddress?: string | undefined
   userHats: number | undefined | null
-  userDeposit: { amount: number; chance: string }
+  userDeposit: number
+  onBet: (betValue: number) => Promise<void>
 }
 
 export default function ({
-  address,
+  userAddress,
   modalOpen,
   setModalOpen,
   userHats,
   userDeposit,
   minBet,
   maxBet,
+  onBet,
 }: BetModalProps) {
-  const min = userDeposit.amount >= minBet ? 1 : minBet
+  const min = userDeposit >= minBet ? 1 : minBet
+  const max = userHats
+    ? userHats > maxBet
+      ? maxBet
+      : Math.floor(userHats)
+    : 1000
 
   const [betValue, setBetValue] = useState(min)
   const [loading, setLoading] = useState(false)
@@ -34,7 +39,7 @@ export default function ({
     setModalOpen(false)
   }, [setModalOpen])
 
-  const addedValue = userDeposit.amount + betValue
+  const addedValue = userDeposit + betValue
   const disabled =
     !userHats ||
     addedValue < minBet ||
@@ -43,9 +48,9 @@ export default function ({
     loading
 
   const placeBetOnClick = useCallback(async () => {
-    if (!address) {
-      toast.error('Unauthorized')
-      closeModal()
+    if (!userAddress) {
+      toast.error("You're not logged in")
+      return
     }
     if (betValue < 1 || addedValue < minBet) {
       toast.error("Can't bet that low")
@@ -62,21 +67,26 @@ export default function ({
 
     try {
       setLoading(true)
-      await placeBet(betValue)
-      await queryClient.invalidateQueries({ queryKey: ['hatsCounter'] })
+      await onBet(betValue)
+      await queryClient.invalidateQueries({
+        queryKey: ['hatsCounter' + userAddress],
+      })
       closeModal()
     } catch (e) {
       console.error(e)
     } finally {
       setLoading(false)
     }
-  }, [addedValue, address, betValue, closeModal, maxBet, minBet, userHats])
-
-  const max = userHats
-    ? userHats > maxBet
-      ? maxBet
-      : Math.floor(userHats)
-    : 1000
+  }, [
+    addedValue,
+    betValue,
+    closeModal,
+    maxBet,
+    minBet,
+    onBet,
+    userAddress,
+    userHats,
+  ])
 
   const commonInputProps = {
     value: betValue,

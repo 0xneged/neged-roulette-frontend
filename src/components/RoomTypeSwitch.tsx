@@ -1,18 +1,21 @@
 import { RoundType } from 'types/Round'
-import { invalidateManyQueries } from 'helpers/queryClient'
 import { useCallback } from 'preact/hooks'
 import TabButton from 'components/TabButton'
-import useRound from 'helpers/hooks/useRound'
 
-const tabHeaders = ['Newbie Hat (1-1K)', 'Based Hat (1K-50K)']
+interface RoundSwitcherProps {
+  roundType: number
+  setRoundType: (index: number) => void
+  tabHeaders: string[]
+}
 
-export default function () {
-  const { roundType, setRoundType } = useRound()
-
+export default function ({
+  roundType,
+  setRoundType,
+  tabHeaders,
+}: RoundSwitcherProps) {
   const changeRoundType = useCallback(
     (index: RoundType) => {
-      setRoundType(index ? RoundType.whale : RoundType.hamster)
-      void invalidateManyQueries(['roundHistory', 'playerHistory'])
+      setRoundType(index)
     },
     [setRoundType]
   )

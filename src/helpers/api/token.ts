@@ -1,8 +1,8 @@
 import { TokenWithLogo } from 'helpers/swap/availableTokens'
-import { getAccessToken } from '@privy-io/react-auth'
 import { toast } from 'react-toastify'
 import TokenQuotes from 'types/TokenQuotes'
 import axios from 'axios'
+import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
@@ -15,21 +15,14 @@ export async function convertTokensHats(
   if (amount <= 0) return
 
   try {
-    const authToken = await getAccessToken()
+    const { headers } = await checkAuthToken()
 
-    if (!authToken) {
-      toast.error(
-        'Looks like your wallet lost connection, please reconnect using our button 🙏'
-      )
-      return
-    }
-
-    const result = await axios.post<{ balance: number | undefined }>(
+    const { data } = await axios.post<{ balance: number | undefined }>(
       `${backendEndpoint}/convert`,
       { tokenIndex, amount, withdraw: Number(withdraw) },
-      { headers: { Authorization: `Bearer ${authToken}` } }
+      { headers }
     )
-    return result.data.balance
+    return data.balance
   } catch (e) {
     toast.error(
       'Failed to swap tokens 😵 If transaction succeeded, please save tx hash and send it to us',
