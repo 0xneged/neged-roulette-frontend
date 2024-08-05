@@ -1,9 +1,9 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useState } from 'preact/hooks'
 import AllBetters from 'components/Main/AllBetters'
 import PlayerHistory from 'components/Main/PlayerHistory'
 import RoundHistory from 'components/Main/RoundHistory'
 import TabButton from 'components/TabButton'
+import { useState } from 'preact/hooks'
 
 const tabHeaders = ['Player bets', 'Round history', 'Your history']
 const tabs = [<AllBetters />, <RoundHistory />, <PlayerHistory />]

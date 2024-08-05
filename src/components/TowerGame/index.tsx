@@ -1,3 +1,10 @@
+import HatIcon from 'components/icons/HatIcon'
+import GridWrapper from 'components/TowerGame/GridWrapper'
+import TowerCard from 'components/TowerGame/TowerCard'
+import towerHeight from 'components/TowerGame/towerHeight'
+import { guess } from 'helpers/api/towerGame'
+import { useCallback } from 'preact/hooks'
+import { toast } from 'react-toastify'
 import {
   TowerCardStatus,
   TowerGame,
@@ -5,13 +12,6 @@ import {
   TypeToGuessMax,
   TypeToMultipliers,
 } from 'types/TowerGame'
-import { guess } from 'helpers/api/towerGame'
-import { toast } from 'react-toastify'
-import { useCallback } from 'preact/hooks'
-import GridWrapper from 'components/TowerGame/GridWrapper'
-import HatIcon from 'components/icons/HatIcon'
-import TowerCard from 'components/TowerGame/TowerCard'
-import towerHeight from 'components/TowerGame/towerHeight'
 
 const statusToElement = (hatAmount: string) => ({
   [TowerCardStatus.hidden]: (

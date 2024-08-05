@@ -1,14 +1,14 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useEffect } from 'preact/hooks'
-import RoomTypeSwitch from 'components/RoomTypeSwitch'
 import Roulette from 'components/Main/Roulette'
 import RoundStats from 'components/Main/RoundStats'
 import RoundTab from 'components/Main/RoundTab'
-import TopWin from 'components/TopWin'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
+import RoomTypeSwitch from 'components/RoomTypeSwitch'
+import TopWin from 'components/TopWin'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useRound from 'helpers/hooks/useRound'
+import { useEffect } from 'preact/hooks'
 
 export default function () {
   useAuthToken()

@@ -1,5 +1,5 @@
-import { useEffect } from 'preact/hooks'
 import usePrivyProvider from 'helpers/hooks/usePrivyProvider'
+import { useEffect } from 'preact/hooks'
 
 export default function (callback: (blockNumber: number) => void) {
   const { provider } = usePrivyProvider()

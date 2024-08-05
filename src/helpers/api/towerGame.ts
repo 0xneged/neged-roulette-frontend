@@ -1,10 +1,10 @@
-import { TowerGame, TowerType } from 'types/TowerGame'
-import ServerResponse from 'types/ServerResponse'
 import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
 import handleError from 'helpers/handleError'
 import queryClient from 'helpers/queryClient'
+import ServerResponse from 'types/ServerResponse'
+import { TowerGame, TowerType } from 'types/TowerGame'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/tower'
 

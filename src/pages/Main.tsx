@@ -1,7 +1,7 @@
-import { navigate } from 'wouter-preact/use-hash-location'
 import HashLink from 'components/HashLink'
 import HatIcon from 'components/icons/HatIcon'
 import TowerCard from 'components/TowerGame/TowerCard'
+import { navigate } from 'wouter-preact/use-hash-location'
 
 export default function () {
   const linkStyle = 'font-bold font-script text-3xl flex flex-col items-center'

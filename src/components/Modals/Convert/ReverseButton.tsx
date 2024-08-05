@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'preact/hooks'
 import ArrowRight from 'components/icons/ArrowRight'
+import { useCallback, useState } from 'preact/hooks'
 
 export default function ({
   onReversePress,

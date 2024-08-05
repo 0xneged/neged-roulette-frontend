@@ -1,6 +1,6 @@
+import useSocket from 'helpers/hooks/useSocket'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import ChatMessage from 'types/ChatMessage'
-import useSocket from 'helpers/hooks/useSocket'
 
 export default function () {
   const [messages, setMessages] = useState<ChatMessage[]>([])

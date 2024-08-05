@@ -1,7 +1,7 @@
-import { getPlayerHistory, getRoundHistory } from 'helpers/api/round'
-import { useAtomValue } from 'jotai'
 import { useQuery } from '@tanstack/react-query'
+import { getPlayerHistory, getRoundHistory } from 'helpers/api/round'
 import roundTypeAtom from 'helpers/atoms/roundTypeAtom'
+import { useAtomValue } from 'jotai'
 
 export function useRoundHistory() {
   const roundType = useAtomValue(roundTypeAtom)

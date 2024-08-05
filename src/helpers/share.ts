@@ -1,5 +1,5 @@
-import { toast } from 'react-toastify'
 import isMobile from 'helpers/isMobile'
+import { toast } from 'react-toastify'
 
 export default async function (url: string) {
   if (isMobile) {

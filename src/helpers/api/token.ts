@@ -1,9 +1,9 @@
-import { TokenWithLogo } from 'helpers/swap/availableTokens'
-import { toast } from 'react-toastify'
-import TokenQuotes from 'types/TokenQuotes'
 import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
+import { TokenWithLogo } from 'helpers/swap/availableTokens'
+import { toast } from 'react-toastify'
+import TokenQuotes from 'types/TokenQuotes'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/token`
 

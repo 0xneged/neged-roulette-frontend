@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'preact/hooks'
 import Body from 'components/Modals/ChatModal/Body'
-import DefaultModal from 'components/Modals/DefaultModal'
 import Footer from 'components/Modals/ChatModal/Footer'
 import Header from 'components/Modals/ChatModal/Header'
-import ModalProps from 'types/ModalProps'
+import DefaultModal from 'components/Modals/DefaultModal'
 import useChat from 'helpers/hooks/useChat'
+import { useCallback, useState } from 'preact/hooks'
+import ModalProps from 'types/ModalProps'
 
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
   const { messages, sendMessage, deleteMessage } = useChat()

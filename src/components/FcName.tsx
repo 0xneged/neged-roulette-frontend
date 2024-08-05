@@ -1,7 +1,7 @@
-import { Suspense } from 'preact/compat'
 import DotsLoader from 'components/icons/DotsLoader'
-import truncateString from 'helpers/truncateString'
 import useUserAccount from 'helpers/hooks/useUserAccount'
+import truncateString from 'helpers/truncateString'
+import { Suspense } from 'preact/compat'
 
 interface FcNameProps {
   address?: string | undefined

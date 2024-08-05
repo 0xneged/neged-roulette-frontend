@@ -1,12 +1,12 @@
-import { Button as FlowBiteButton } from 'flowbite-react'
-import { RoundParams } from 'types/Round'
-import { TargetedEvent } from 'preact/compat'
-import { toast } from 'react-toastify'
-import { useCallback, useState } from 'preact/hooks'
-import DefaultModal from 'components/Modals/DefaultModal'
 import Input from 'components/Input'
-import ModalProps from 'types/ModalProps'
+import DefaultModal from 'components/Modals/DefaultModal'
+import { Button as FlowBiteButton } from 'flowbite-react'
 import queryClient from 'helpers/queryClient'
+import { TargetedEvent } from 'preact/compat'
+import { useCallback, useState } from 'preact/hooks'
+import { toast } from 'react-toastify'
+import ModalProps from 'types/ModalProps'
+import { RoundParams } from 'types/Round'
 
 interface BetModalProps extends ModalProps, RoundParams {
   userAddress?: string | undefined

@@ -1,6 +1,6 @@
 import SingleBetter from 'components/Main/SingleBetter'
-import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 import useRound from 'helpers/hooks/useRound'
+import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 
 export default function () {
   const { data, status } = useRound()

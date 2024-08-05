@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
-import roundNumber from 'helpers/numbers/roundNumber'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
+import roundNumber from 'helpers/numbers/roundNumber'
 
 interface HatsCounterProps {
   address?: string | undefined

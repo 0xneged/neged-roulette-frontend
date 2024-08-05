@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'preact/compat'
-import { TowerCardStatus } from 'types/TowerGame'
 import Tilt from 'react-parallax-tilt'
+import { TowerCardStatus } from 'types/TowerGame'
 
 const statusToBg = {
   [TowerCardStatus.hidden]: '',

@@ -1,6 +1,6 @@
-import { PreviousRoundComponent } from 'components/Main/PreviousRoundResult'
-import DashedCard from 'components/Main/DashedCard'
 import HatIcon from 'components/icons/HatIcon'
+import DashedCard from 'components/Main/DashedCard'
+import { PreviousRoundComponent } from 'components/Main/PreviousRoundResult'
 import useTopWin from 'helpers/hooks/useTopWin'
 
 export default function () {

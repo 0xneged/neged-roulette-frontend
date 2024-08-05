@@ -1,10 +1,10 @@
-import { Winner } from 'types/Round'
-import { useRoundHistory } from 'helpers/hooks/useRoundHistory'
 import HatIcon from 'components/icons/HatIcon'
 import ParticipantData from 'components/Main/ParticipantData'
+import { useRoundHistory } from 'helpers/hooks/useRoundHistory'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 import roundNumber from 'helpers/numbers/roundNumber'
+import { Winner } from 'types/Round'
 
 export function PreviousRoundComponent({
   total,

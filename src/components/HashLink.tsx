@@ -1,5 +1,5 @@
-import { Link, LinkProps } from 'wouter-preact'
 import { PropsWithChildren } from 'preact/compat'
+import { Link, LinkProps } from 'wouter-preact'
 import { navigate } from 'wouter-preact/use-hash-location'
 
 export default function ({

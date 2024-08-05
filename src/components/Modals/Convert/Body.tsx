@@ -1,14 +1,14 @@
-import { Dispatch, StateUpdater, useCallback } from 'preact/hooks'
-import { TargetedEvent } from 'preact/compat'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import HatInCircle from 'components/icons/HatInCircle'
 import Input from 'components/Input'
 import ReverseButton from 'components/Modals/Convert/ReverseButton'
 import TokenOutAmount from 'components/Modals/Convert/TokenOutAmount'
-import TokenQuotes from 'types/TokenQuotes'
 import TokenWithBalance from 'components/Modals/Convert/TokenWithBalance'
 import availableTokens from 'helpers/swap/availableTokens'
 import minimumWithdrawal from 'helpers/swap/minimumWithdrawal'
+import { TargetedEvent } from 'preact/compat'
+import { Dispatch, StateUpdater, useCallback } from 'preact/hooks'
+import TokenQuotes from 'types/TokenQuotes'
 
 interface BodyProps {
   setIsWithdraw: Dispatch<StateUpdater<boolean>>

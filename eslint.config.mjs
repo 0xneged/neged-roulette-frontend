@@ -1,9 +1,6 @@
 import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
-import react from 'eslint-plugin-react'
-import reactHooks from 'eslint-plugin-react-hooks'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import prettier from 'eslint-plugin-prettier'
-import sortImportsEs6Autofix from 'eslint-plugin-sort-imports-es6-autofix'
 import _import from 'eslint-plugin-import'
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import globals from 'globals'
@@ -12,6 +9,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import js from '@eslint/js'
 import { FlatCompat } from '@eslint/eslintrc'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import reactHooks from 'eslint-plugin-react-hooks'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -41,11 +40,10 @@ export default [
   ),
   {
     plugins: {
-      react: fixupPluginRules(react),
-      'react-hooks': fixupPluginRules(reactHooks),
+      'simple-import-sort': simpleImportSort,
+      'react-hooks': reactHooks,
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       prettier: fixupPluginRules(prettier),
-      'sort-imports-es6-autofix': sortImportsEs6Autofix,
       import: fixupPluginRules(_import),
       'no-relative-import-paths': noRelativeImportPaths,
     },
@@ -65,6 +63,8 @@ export default [
     },
 
     rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       'no-relative-import-paths/no-relative-import-paths': [
         'error',
         {
@@ -86,15 +86,6 @@ export default [
           semi: false,
           singleQuote: true,
           endOfLine: 'auto',
-        },
-      ],
-
-      'sort-imports-es6-autofix/sort-imports-es6': [
-        2,
-        {
-          ignoreCase: false,
-          ignoreMemberSort: false,
-          memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         },
       ],
 

@@ -1,7 +1,7 @@
-import { isAddress } from 'viem'
-import { useEffect } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
 import updateReferral from 'helpers/api/referral'
+import { useEffect } from 'preact/hooks'
+import { isAddress } from 'viem'
 
 export default function (referrer: string) {
   const { user } = usePrivy()

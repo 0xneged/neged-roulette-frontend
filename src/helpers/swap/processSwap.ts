@@ -1,22 +1,22 @@
+import { ConnectedWallet } from '@privy-io/react-auth'
+import {
+  readContract,
+  waitForTransactionReceipt,
+  writeContract,
+} from '@wagmi/core'
 import { convertTokensHats } from 'helpers/api/token'
 import bep20abi from 'helpers/contracts/bep20abi'
-import queryClient, { invalidateManyQueries } from 'helpers/queryClient'
+import wrapEth from 'helpers/contracts/wrapEth'
+import env from 'helpers/env'
+import { invalidateManyQueries } from 'helpers/queryClient'
+import availableTokens from 'helpers/swap/availableTokens'
+import getBalance from 'helpers/swap/getBalance'
+import minimumWithdrawal from 'helpers/swap/minimumWithdrawal'
 import walletConfig from 'helpers/walletConfig'
 import { toast } from 'react-toastify'
 import EthAddress from 'types/EthAddress'
 import { erc20Abi } from 'viem'
-import {
-  readContract,
-  writeContract,
-  waitForTransactionReceipt,
-} from '@wagmi/core'
 import { base } from 'viem/chains'
-import availableTokens from './availableTokens'
-import minimumWithdrawal from './minimumWithdrawal'
-import env from 'helpers/env'
-import { ConnectedWallet } from '@privy-io/react-auth'
-import getBalance from './getBalance'
-import wrapEth from 'helpers/contracts/wrapEth'
 
 interface SwapProps {
   amount: number

@@ -1,5 +1,5 @@
-import { Dropdown, DropdownItem } from 'flowbite-react'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { Dropdown, DropdownItem } from 'flowbite-react'
 import availableTokens from 'helpers/swap/availableTokens'
 
 export interface BodyDropDownProps {

@@ -1,9 +1,9 @@
-import { Suspense, lazy } from 'preact/compat'
 import { usePrivy } from '@privy-io/react-auth'
-import { useState } from 'preact/hooks'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
+import { lazy, Suspense } from 'preact/compat'
+import { useState } from 'preact/hooks'
 
 const AccountModal = lazy(() => import('components/Modals/AccountModal/index'))
 const ReferralFaqModal = lazy(

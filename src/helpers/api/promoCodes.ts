@@ -1,9 +1,9 @@
-import { toast } from 'react-toastify'
-import PromoCode from 'types/PromoCode'
 import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
-import env from 'helpers/env'
 import toastResponseError from 'helpers/api/toastResponseError'
+import env from 'helpers/env'
+import { toast } from 'react-toastify'
+import PromoCode from 'types/PromoCode'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/promoCode'
 

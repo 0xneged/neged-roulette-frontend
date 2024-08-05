@@ -1,6 +1,6 @@
 import DotsLoader from 'components/icons/DotsLoader'
-import TokenQuotes from 'types/TokenQuotes'
 import toFixedFloor from 'helpers/numbers/toFixedFloor'
+import TokenQuotes from 'types/TokenQuotes'
 
 export default function ({
   tokenOutData,

@@ -1,9 +1,9 @@
-import { TokenWithLogo } from 'helpers/swap/availableTokens'
-import { base } from 'viem/chains'
-import { erc20Abi, formatUnits } from 'viem'
 import { readContract } from '@wagmi/core'
-import EthAddress from 'types/EthAddress'
+import { TokenWithLogo } from 'helpers/swap/availableTokens'
 import walletConfig from 'helpers/walletConfig'
+import EthAddress from 'types/EthAddress'
+import { erc20Abi, formatUnits } from 'viem'
+import { base } from 'viem/chains'
 
 export default async function <
   A extends string | null,

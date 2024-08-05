@@ -1,7 +1,7 @@
-import { Socket, io } from 'socket.io-client'
-import { useEffect, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
 import env from 'helpers/env'
+import { useEffect, useState } from 'preact/hooks'
+import { io, Socket } from 'socket.io-client'
 
 export default function () {
   const { getAccessToken, ready } = usePrivy()

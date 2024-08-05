@@ -1,6 +1,6 @@
-import { RoundType } from 'types/Round'
-import { useCallback } from 'preact/hooks'
 import TabButton from 'components/TabButton'
+import { useCallback } from 'preact/hooks'
+import { RoundType } from 'types/Round'
 
 interface RoundSwitcherProps {
   roundType: number

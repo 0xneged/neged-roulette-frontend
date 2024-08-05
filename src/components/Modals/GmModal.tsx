@@ -1,15 +1,15 @@
+import BigButton from 'components/BigButton'
+import HatIcon from 'components/icons/HatIcon'
+import DefaultModal from 'components/Modals/DefaultModal'
+import ModalLoader from 'components/Modals/ModalLoader'
 import { addToMorningStreak } from 'helpers/api/morningStreak'
-import { toast } from 'react-toastify'
+import useMorningStreak from 'helpers/hooks/useMorningStreak'
+import padZeros from 'helpers/numbers/padZeros'
 import { useCallback, useState } from 'preact/hooks'
 import { useTimer } from 'react-timer-hook'
-import BigButton from 'components/BigButton'
-import DefaultModal from 'components/Modals/DefaultModal'
-import HatIcon from 'components/icons/HatIcon'
-import ModalLoader from 'components/Modals/ModalLoader'
+import { toast } from 'react-toastify'
 import ModalProps from 'types/ModalProps'
 import MorningStreakResponse from 'types/MorningStreak'
-import padZeros from 'helpers/numbers/padZeros'
-import useMorningStreak from 'helpers/hooks/useMorningStreak'
 
 function StreakTime({ morningStreakTimeout }: MorningStreakResponse) {
   const dateTimeout = new Date(morningStreakTimeout)

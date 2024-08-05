@@ -1,7 +1,7 @@
-import { getOnlineUsers } from 'helpers/api/chat'
 import { useQuery } from '@tanstack/react-query'
 import DotsLoader from 'components/icons/DotsLoader'
 import PulseSphere from 'components/PulseSphere'
+import { getOnlineUsers } from 'helpers/api/chat'
 
 export default function () {
   const { data, status } = useQuery({

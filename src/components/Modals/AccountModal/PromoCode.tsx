@@ -1,8 +1,8 @@
-import { sendPromoCode } from 'helpers/api/promoCodes'
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'preact/hooks'
 import Button from 'components/Button'
 import Input from 'components/Input'
+import { sendPromoCode } from 'helpers/api/promoCodes'
+import { useState } from 'preact/hooks'
 
 export default function () {
   const [code, setCode] = useState('')

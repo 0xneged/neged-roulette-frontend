@@ -1,7 +1,7 @@
-import { useCallback } from 'preact/hooks'
 import Button from 'components/Button'
 import Share from 'components/icons/Share'
 import share from 'helpers/share'
+import { useCallback } from 'preact/hooks'
 
 export default function ({ address }: { address?: string | undefined }) {
   const shareRef = useCallback(async () => {

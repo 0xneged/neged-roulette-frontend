@@ -1,5 +1,5 @@
-import { base } from 'viem/chains'
 import { createConfig } from '@privy-io/wagmi'
+import { base } from 'viem/chains'
 import { http } from 'wagmi'
 
 export default createConfig({

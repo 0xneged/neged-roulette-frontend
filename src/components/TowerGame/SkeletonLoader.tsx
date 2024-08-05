@@ -1,6 +1,6 @@
-import { TowerType, TypeToGuessMax } from 'types/TowerGame'
 import GridWrapper from 'components/TowerGame/GridWrapper'
 import towerHeight from 'components/TowerGame/towerHeight'
+import { TowerType, TypeToGuessMax } from 'types/TowerGame'
 
 export default function ({ towerType }: { towerType: TowerType }) {
   const cardsInRow = TypeToGuessMax[towerType] + 1
