@@ -71,16 +71,13 @@ export async function guess(props: {
   }
 }
 
-export async function exitTower({ towerType }: { towerType: TowerType }) {
+export async function exitTower(_id: string) {
   try {
     const { headers } = await checkAuthToken()
 
     const { data } = await axios.post<{ balance: number }>(
       backendEndpoint + '/exit',
-      {
-        towerType,
-        guess,
-      },
+      { _id },
       { headers }
     )
     toast.success(

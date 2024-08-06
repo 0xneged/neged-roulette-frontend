@@ -38,10 +38,12 @@ export default function () {
       return
     }
 
+    console.log(isFinished, data?.betAmount)
+
     if (!isFinished && data?.betAmount) {
       try {
         setInteractionLoading(true)
-        await exitTower({ towerType })
+        await exitTower(data._id)
         await queryClient.invalidateQueries({
           queryKey: ['hatsCounter' + address],
         })
@@ -54,13 +56,13 @@ export default function () {
 
     setBetModalOpen(true)
   }, [
+    authenticated,
     isFinished,
     data?.betAmount,
-    refetch,
-    towerType,
-    address,
-    authenticated,
+    data?._id,
     login,
+    address,
+    refetch,
   ])
 
   return (
