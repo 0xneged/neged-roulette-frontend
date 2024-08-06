@@ -1,3 +1,4 @@
+import ColoredEmoji from 'components/ColoredEmoji'
 import HashLink from 'components/HashLink'
 import HatIcon from 'components/icons/HatIcon'
 import TowerCard from 'components/TowerGame/TowerCard'
@@ -18,17 +19,7 @@ export default function () {
         <HashLink href="/towerGame" className={linkStyle}>
           Tower Game
         </HashLink>
-        <span
-          style={{
-            color: 'transparent',
-            textShadow: '0 0 0 white',
-            fontSize: '1.25rem',
-            lineHeight: '1rem',
-            marginBottom: '0.5rem',
-          }}
-        >
-          🗼
-        </span>
+        <ColoredEmoji>🗼</ColoredEmoji>
       </TowerCard>
     </div>
   )
