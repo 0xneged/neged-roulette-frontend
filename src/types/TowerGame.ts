@@ -19,9 +19,9 @@ export enum TowerGameStatus {
 }
 
 export enum TowerCardStatus {
-  hidden,
-  win,
   lose,
+  win,
+  hidden,
 }
 
 export type TowerGame = {
@@ -29,6 +29,7 @@ export type TowerGame = {
   status: TowerGameStatus
   betAmount: number
   guesses: number[]
+  cardStatuses: TowerCardStatus[][]
   _id: string
 }
 

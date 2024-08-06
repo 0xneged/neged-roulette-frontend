@@ -10,9 +10,10 @@ import { exitTower, placeTowerBet } from 'helpers/api/towerGame'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import useTowerGame from 'helpers/hooks/useTowerGame'
+import roundNumber from 'helpers/numbers/roundNumber'
 import queryClient from 'helpers/queryClient'
 import { useCallback, useState } from 'preact/hooks'
-import { TowerType } from 'types/TowerGame'
+import { TowerGameStatus, TowerType, TypeToMultipliers } from 'types/TowerGame'
 
 export default function () {
   useAuthToken()
@@ -25,11 +26,14 @@ export default function () {
   const { data: hats, status: hatsStatus } = useHatsCounter(address)
   const [interactionLoading, setInteractionLoading] = useState(false)
 
-  const gameLoading = status === 'pending' || !ready
-  const hatsLoading = hatsStatus === 'pending'
+  const gameLoading = !ready || status === 'pending' || hatsStatus === 'pending'
+
+  const step = (data?.guesses?.length || 1) - 1
+  const multiplier = TypeToMultipliers[towerType][step]
+  const isFinished = data?.status === TowerGameStatus.finished
 
   const onBigButtonPress = useCallback(async () => {
-    if (data?.betAmount) {
+    if (!isFinished && data?.betAmount) {
       try {
         setInteractionLoading(true)
         await exitTower({ towerType })
@@ -44,7 +48,7 @@ export default function () {
     }
 
     setBetModalOpen(true)
-  }, [data?.betAmount, refetch, towerType, address])
+  }, [isFinished, data?.betAmount, refetch, towerType, address])
 
   return (
     <div ref={parent}>
@@ -60,7 +64,12 @@ export default function () {
       >
         {data?.betAmount ? (
           <span className="flex flex-row items-center gap-x-2">
-            <span>Exit with {data.betAmount}</span> <HatIcon />
+            <span>
+              {isFinished
+                ? 'Finished! Try again?'
+                : `Exit with ${roundNumber(data.betAmount * multiplier)}`}
+            </span>{' '}
+            <HatIcon />
           </span>
         ) : (
           'Place bet'
@@ -74,10 +83,11 @@ export default function () {
           game={data}
           towerType={towerType}
           loading={interactionLoading}
+          setLoading={setInteractionLoading}
         />
       )}
 
-      {hatsLoading ? null : (
+      {gameLoading ? null : (
         <BetModal
           userAddress={address}
           onBet={(betAmount) => placeTowerBet({ betAmount, towerType })}

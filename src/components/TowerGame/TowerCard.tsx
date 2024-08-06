@@ -3,16 +3,17 @@ import Tilt from 'react-parallax-tilt'
 import { TowerCardStatus } from 'types/TowerGame'
 
 const statusToBg = {
-  [TowerCardStatus.hidden]: '',
   [TowerCardStatus.lose]: 'bg-primary-dark',
   [TowerCardStatus.win]: 'bg-primary-bright',
+  [TowerCardStatus.hidden]: 'bg-transparent',
 }
 
 interface TowerCardProps extends PropsWithChildren {
-  status?: TowerCardStatus
+  status?: TowerCardStatus | undefined
   onClick?: () => void
   animated?: boolean
   disabled?: boolean
+  glow?: boolean
 }
 
 export default function ({
@@ -21,8 +22,10 @@ export default function ({
   children,
   animated,
   disabled,
+  glow,
 }: TowerCardProps) {
   const bg = statusToBg[status]
+  const boxShadow = glow ? 'shadow-card shadow-hat' : ''
   const opacity = disabled ? 'opacity-70' : 'opacity-100'
   const animation = animated ? 'bg-scroll' : 'hover:bg-scroll'
   const cursor = disabled ? 'cursor-not-allowed' : 'cursor-pointer'
@@ -33,11 +36,12 @@ export default function ({
 
   return (
     <Tilt
-      className={`${bg} ${animation} ${opacity} ${cursor} rounded-lg border-2 border-primary-dark transition-all w-full h-20`}
+      className={`${bg} ${animation} ${opacity} ${cursor} ${boxShadow} rounded-lg border-2 border-primary-dark transition-all w-full h-20`}
       style={{
         transformStyle: 'preserve-3d',
         background: 'url(img/hatsBg.svg)',
         backgroundSize: '120%',
+        backgroundOpacity: '70%',
         backgroundPosition: 'center center',
         backgroundRepeat: 'repeat-x',
       }}

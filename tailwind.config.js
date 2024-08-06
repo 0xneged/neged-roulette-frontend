@@ -24,6 +24,9 @@ module.exports = {
         sans: ['Inter', 'sans-serif'],
         script: ['"Nanum Pen Script"', 'cursive'],
       },
+      boxShadow: {
+        card: '0 0 0.75rem 0 var(--tw-shadow-color)',
+      },
       colors: {
         primary: '#7f60f9',
         'primary-bright': '#B66DFF',

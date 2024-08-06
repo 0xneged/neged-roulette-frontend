@@ -2,7 +2,9 @@ import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
 import handleError from 'helpers/handleError'
+import roundNumber from 'helpers/numbers/roundNumber'
 import queryClient from 'helpers/queryClient'
+import { toast } from 'react-toastify'
 import ServerResponse from 'types/ServerResponse'
 import { TowerGame, TowerType } from 'types/TowerGame'
 
@@ -72,7 +74,7 @@ export async function exitTower({ towerType }: { towerType: TowerType }) {
   try {
     const { headers } = await checkAuthToken()
 
-    const { data } = await axios.post<ServerResponse>(
+    const { data } = await axios.post<{ balance: number }>(
       backendEndpoint + '/exit',
       {
         towerType,
@@ -80,7 +82,9 @@ export async function exitTower({ towerType }: { towerType: TowerType }) {
       },
       { headers }
     )
-    return data
+    toast.success(
+      `You exited 🛼 your balance now is ${roundNumber(data.balance)}`
+    )
   } catch (e) {
     handleError(e, 'Failed to exit the tower, please try again 😥')
   }

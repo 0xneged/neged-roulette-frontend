@@ -9,7 +9,7 @@ interface BigButtonProps extends PropsWithChildren, OnClick {
 }
 
 const commonStyles =
-  'text-2xl text-center text-white px-16 py-6 font-bold rounded-2xl flex items-center justify-center transition-all '
+  'text-2xl text-center text-white p-6 font-bold rounded-2xl flex items-center justify-center transition-all '
 
 export default function ({
   children,
