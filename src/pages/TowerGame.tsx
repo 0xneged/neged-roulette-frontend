@@ -7,9 +7,9 @@ import RoomTypeSwitch from 'components/RoomTypeSwitch'
 import TowerGame from 'components/TowerGame/index'
 import SkeletonLoader from 'components/TowerGame/SkeletonLoader'
 import { exitTower, placeTowerBet } from 'helpers/api/towerGame'
+import useTowerGame from 'helpers/hooks/tower//useTowerGame'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
-import useTowerGame from 'helpers/hooks/useTowerGame'
 import roundNumber from 'helpers/numbers/roundNumber'
 import queryClient from 'helpers/queryClient'
 import { useCallback, useState } from 'preact/hooks'
@@ -19,9 +19,9 @@ export default function () {
   useAuthToken()
   const [parent] = useAutoAnimate()
   const [towerType, setTowerType] = useState(TowerType.easy)
-  const { data, status, refetch } = useTowerGame(towerType)
   const [betModalOpen, setBetModalOpen] = useState(false)
-  const { user, ready } = usePrivy()
+  const { user, ready, authenticated, login } = usePrivy()
+  const { data, status, refetch } = useTowerGame(towerType)
   const address = user?.wallet?.address.toLowerCase()
   const { data: hats, status: hatsStatus } = useHatsCounter(address)
   const [interactionLoading, setInteractionLoading] = useState(false)
@@ -33,6 +33,11 @@ export default function () {
   const isFinished = data?.status === TowerGameStatus.finished
 
   const onBigButtonPress = useCallback(async () => {
+    if (!authenticated) {
+      login()
+      return
+    }
+
     if (!isFinished && data?.betAmount) {
       try {
         setInteractionLoading(true)
@@ -48,7 +53,15 @@ export default function () {
     }
 
     setBetModalOpen(true)
-  }, [isFinished, data?.betAmount, refetch, towerType, address])
+  }, [
+    isFinished,
+    data?.betAmount,
+    refetch,
+    towerType,
+    address,
+    authenticated,
+    login,
+  ])
 
   return (
     <div ref={parent}>
@@ -62,17 +75,21 @@ export default function () {
         onClick={onBigButtonPress}
         loading={gameLoading || interactionLoading}
       >
-        {data?.betAmount ? (
-          <span className="flex flex-row items-center gap-x-2">
-            <span>
-              {isFinished
-                ? 'Finished! Try again?'
-                : `Exit with ${roundNumber(data.betAmount * multiplier)}`}
-            </span>{' '}
-            <HatIcon />
-          </span>
+        {authenticated ? (
+          data?.betAmount ? (
+            <span className="flex flex-row items-center gap-x-2">
+              <span>
+                {isFinished
+                  ? 'Finished! Try again?'
+                  : `Exit with ${roundNumber(data.betAmount * multiplier)}`}
+              </span>{' '}
+              <HatIcon />
+            </span>
+          ) : (
+            'Place bet'
+          )
         ) : (
-          'Place bet'
+          'Login'
         )}
       </BigButton>
 
@@ -86,6 +103,8 @@ export default function () {
           setLoading={setInteractionLoading}
         />
       )}
+
+      {/* {authenticated ? <TowerTabs towerType={towerType} /> : null} */}
 
       {gameLoading ? null : (
         <BetModal

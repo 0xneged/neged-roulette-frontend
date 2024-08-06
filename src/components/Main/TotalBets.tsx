@@ -1,6 +1,6 @@
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
-import useRound from 'helpers/hooks/useRound'
+import useRound from 'helpers/hooks/hatGame/useRound'
 import roundNumber from 'helpers/numbers/roundNumber'
 
 export default function () {

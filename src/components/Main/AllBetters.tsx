@@ -1,5 +1,5 @@
 import SingleBetter from 'components/Main/SingleBetter'
-import useRound from 'helpers/hooks/useRound'
+import useRound from 'helpers/hooks/hatGame/useRound'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 
 export default function () {

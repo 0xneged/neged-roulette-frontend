@@ -1,7 +1,7 @@
 import { usePrivy } from '@privy-io/react-auth'
 import HatIcon from 'components/icons/HatIcon'
 import SingleBetter from 'components/Main/SingleBetter'
-import { usePlayerHistory } from 'helpers/hooks/useRoundHistory'
+import { usePlayerHistory } from 'helpers/hooks/hatGame/useRoundHistory'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 import { RoundWithTime } from 'types/Round'
 

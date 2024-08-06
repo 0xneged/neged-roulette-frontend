@@ -41,7 +41,7 @@ export default [
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
-      'react-hooks': reactHooks,
+      'react-hooks': fixupPluginRules(reactHooks),
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       prettier: fixupPluginRules(prettier),
       import: fixupPluginRules(_import),

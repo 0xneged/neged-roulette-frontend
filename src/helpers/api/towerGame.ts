@@ -7,6 +7,7 @@ import queryClient from 'helpers/queryClient'
 import { toast } from 'react-toastify'
 import ServerResponse from 'types/ServerResponse'
 import { TowerGame, TowerType } from 'types/TowerGame'
+import User from 'types/User'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/tower'
 
@@ -20,7 +21,7 @@ export async function getLastTower(towerType: TowerType) {
     })
     return data
   } catch (e) {
-    handleError(e, 'Failed to fetch your last tower 😥')
+    handleError(e, 'Failed to fetch your tower 🗼🦖')
     return null
   }
 }
@@ -87,5 +88,28 @@ export async function exitTower({ towerType }: { towerType: TowerType }) {
     )
   } catch (e) {
     handleError(e, 'Failed to exit the tower, please try again 😥')
+  }
+}
+
+export interface TowerHistoryProps {
+  towerType: TowerType
+  address?: string | undefined
+}
+
+type TowerWithUser = TowerGame & { user: User }
+
+export async function getTowerHistory({
+  towerType,
+  address,
+}: TowerHistoryProps) {
+  try {
+    const { data } = await axios.get<TowerWithUser[]>(
+      backendEndpoint + '/towerHistory',
+      { params: { towerType, address } }
+    )
+    return data
+  } catch (e) {
+    handleError(e, 'Failed to fetch tower history 🗼🦖')
+    return null
   }
 }

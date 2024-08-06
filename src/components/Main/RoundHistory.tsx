@@ -1,6 +1,6 @@
 import HatIcon from 'components/icons/HatIcon'
 import SingleBetter from 'components/Main/SingleBetter'
-import { useRoundHistory } from 'helpers/hooks/useRoundHistory'
+import { useRoundHistory } from 'helpers/hooks/hatGame/useRoundHistory'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
 
 export default function () {

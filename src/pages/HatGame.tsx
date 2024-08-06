@@ -1,13 +1,13 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
+import HatGameTabs from 'components/Main/HatGameTabs'
 import Roulette from 'components/Main/Roulette'
 import RoundStats from 'components/Main/RoundStats'
-import RoundTab from 'components/Main/RoundTab'
 import TotalBets from 'components/Main/TotalBets'
 import YourBets from 'components/Main/YourBets'
 import RoomTypeSwitch from 'components/RoomTypeSwitch'
 import TopWin from 'components/TopWin'
+import useRound from 'helpers/hooks/hatGame/useRound'
 import useAuthToken from 'helpers/hooks/useAuthToken'
-import useRound from 'helpers/hooks/useRound'
 import { useEffect } from 'preact/hooks'
 
 export default function () {
@@ -33,7 +33,7 @@ export default function () {
       <TotalBets />
       <RoundStats />
       <YourBets />
-      <RoundTab />
+      <HatGameTabs />
     </div>
   )
 }

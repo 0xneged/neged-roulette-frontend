@@ -1,6 +1,6 @@
 import DarkCard from 'components/DarkCard'
 import RouletteRoller from 'components/Main/RouletteRoller'
-import useRound from 'helpers/hooks/useRound'
+import useRound from 'helpers/hooks/hatGame/useRound'
 
 export default function () {
   const { data, totalDeposits } = useRound()

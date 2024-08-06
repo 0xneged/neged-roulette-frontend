@@ -1,6 +1,6 @@
 import { useWallets } from '@privy-io/react-auth'
-import useTokenQuotes from 'helpers/hooks/useHatSwap'
-import useOnBlockUpdated from 'helpers/hooks/useOnBlockUpdated'
+import useTokenQuotes from 'helpers/hooks/swap/useHatSwap'
+import useOnBlockUpdated from 'helpers/hooks/swap/useOnBlockUpdated'
 import queryClient from 'helpers/queryClient'
 import availableTokens from 'helpers/swap/availableTokens'
 import walletConfig from 'helpers/walletConfig'

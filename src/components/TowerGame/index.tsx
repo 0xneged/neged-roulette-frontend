@@ -47,6 +47,8 @@ function CardRow({
   cardStatuses: TowerCardStatus[]
   guess?: number
 }) {
+  const elements = statusToElement(hatAmount)
+
   const cards = [...Array(rowLength)].map((_, index) => (
     <TowerCard
       onClick={() => onClick(index)}
@@ -54,7 +56,7 @@ function CardRow({
       disabled={disabled}
       glow={guess === index}
     >
-      {statusToElement(hatAmount)[cardStatuses[index]]}
+      {elements[cardStatuses[index]]}
     </TowerCard>
   ))
   return <>{cards}</>
@@ -105,7 +107,7 @@ export default function ({
         setLoading(false)
       }
     },
-    [game, towerType]
+    [game?._id, setLoading, towerType]
   )
 
   return (
@@ -120,7 +122,7 @@ export default function ({
           cardStatuses={cardStatuses[index]}
           guess={guesses[index]}
           hatAmount={
-            betAmount
+            betAmount && !isFinished
               ? betAmount * multipliers[index]
               : `x${multipliers[index]}`
           }
