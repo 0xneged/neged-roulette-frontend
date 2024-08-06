@@ -9,14 +9,14 @@ export default function () {
 
   return (
     <div className="h-96 flex flex-row gap-x-4">
-      <TowerCard onClick={() => navigate('/hatGame')} animated>
-        <HashLink href="/hatGame" className={linkStyle}>
+      <TowerCard onClick={() => navigate('/hat-game')} animated>
+        <HashLink href="/hat-game" className={linkStyle}>
           <span>Hat Game</span>
           <HatIcon />
         </HashLink>
       </TowerCard>
-      <TowerCard onClick={() => navigate('/towerGame')} animated>
-        <HashLink href="/towerGame" className={linkStyle}>
+      <TowerCard onClick={() => navigate('/tower-game')} animated>
+        <HashLink href="/tower-game" className={linkStyle}>
           Tower Game
         </HashLink>
         <ColoredEmoji>🗼</ColoredEmoji>
