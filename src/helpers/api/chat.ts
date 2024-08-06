@@ -1,7 +1,7 @@
-import { toast } from 'react-toastify'
 import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
+import { toast } from 'react-toastify'
 
 const backendEndpoint = env.VITE_BACKEND_URL + '/chat'
 

@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'preact/compat'
 import emojiAvatarForAddress from 'helpers/emojiAvatarForAddress'
+import { PropsWithChildren } from 'preact/compat'
 
 interface DashedCardProps extends PropsWithChildren {
   subtitle?: string

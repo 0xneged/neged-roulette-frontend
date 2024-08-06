@@ -1,7 +1,7 @@
+import DotsLoader from 'components/icons/DotsLoader'
 import BodyDropdown, {
   BodyDropDownProps,
 } from 'components/Modals/Convert/BodyDropdown'
-import DotsLoader from 'components/icons/DotsLoader'
 import toFixedFloor from 'helpers/numbers/toFixedFloor'
 
 export default function ({

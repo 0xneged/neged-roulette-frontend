@@ -1,11 +1,11 @@
-import { getAvailablePromoCodes, updatePromoCode } from 'helpers/api/promoCodes'
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useCallback, useState } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
 import Button from 'components/Button'
 import Input from 'components/Input'
-import PromoCode from 'types/PromoCode'
+import { getAvailablePromoCodes, updatePromoCode } from 'helpers/api/promoCodes'
 import useAuthToken from 'helpers/hooks/useAuthToken'
+import { useCallback, useState } from 'preact/hooks'
+import PromoCode from 'types/PromoCode'
 
 export default function () {
   useAuthToken()

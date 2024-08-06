@@ -1,13 +1,13 @@
-import { RoundWithTime } from 'types/Round'
-import { Suspense } from 'preact/compat'
-import { useEffect, useState } from 'preact/hooks'
 import BiPeople from 'components/icons/BiPeople'
 import HatIcon from 'components/icons/HatIcon'
 import PreviousRoundResult from 'components/Main/PreviousRoundResult'
+import useRound from 'helpers/hooks/hatGame/useRound'
+import useCountDown from 'helpers/hooks/useCountDown'
 import getPercentFromTime from 'helpers/numbers/getPercentFromTime'
 import padZeros from 'helpers/numbers/padZeros'
-import useCountDown from 'helpers/hooks/useCountDown'
-import useRound from 'helpers/hooks/useRound'
+import { Suspense } from 'preact/compat'
+import { useEffect, useState } from 'preact/hooks'
+import { RoundWithTime } from 'types/Round'
 
 function InnerComponent({ round }: { round: RoundWithTime }) {
   const { minutes, seconds } = useCountDown(round.endTime)

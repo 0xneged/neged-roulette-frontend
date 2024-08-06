@@ -1,13 +1,13 @@
-import { RoundService, RoundType } from 'types/Round'
-import { getRoundHistory, getRoundStatus } from 'helpers/api/round'
-import { invalidateManyQueries } from 'helpers/queryClient'
-import { useAtom } from 'jotai'
 import { usePrivy } from '@privy-io/react-auth'
 import { useQuery } from '@tanstack/react-query'
+import { getRoundHistory, getRoundStatus } from 'helpers/api/round'
+import roundTypeAtom from 'helpers/atoms/roundTypeAtom'
 import checkRoundTimeout from 'helpers/numbers/checkRoundTimeout'
 import getTotalDeposits from 'helpers/numbers/getTotalDeposits'
-import roundTypeAtom from 'helpers/atoms/roundTypeAtom'
+import { invalidateManyQueries } from 'helpers/queryClient'
 import shootConfetti from 'helpers/shootConfetti'
+import { useAtom } from 'jotai'
+import { RoundService, RoundType } from 'types/Round'
 
 let isSpinning = false
 let cachedRound: RoundService | null

@@ -1,6 +1,6 @@
 import { usePrivy } from '@privy-io/react-auth'
-import { useState } from 'preact/hooks'
 import ChatModal from 'components/Modals/ChatModal'
+import { useState } from 'preact/hooks'
 
 export default function () {
   const { ready, authenticated } = usePrivy()

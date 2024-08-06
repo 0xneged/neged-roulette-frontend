@@ -1,14 +1,15 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useState } from 'preact/hooks'
-import AllBetters from 'components/Main/AllBetters'
-import PlayerHistory from 'components/Main/PlayerHistory'
-import RoundHistory from 'components/Main/RoundHistory'
 import TabButton from 'components/TabButton'
+import { useState } from 'preact/hooks'
+import { JSX } from 'preact/jsx-runtime'
 
-const tabHeaders = ['Player bets', 'Round history', 'Your history']
-const tabs = [<AllBetters />, <RoundHistory />, <PlayerHistory />]
-
-export default function () {
+export default function ({
+  tabHeaders,
+  tabComponents,
+}: {
+  tabHeaders: string[]
+  tabComponents: JSX.Element[]
+}) {
   const [tab, setTab] = useState(0)
   const [parent] = useAutoAnimate()
 
@@ -25,7 +26,7 @@ export default function () {
       </div>
 
       <div className="flex flex-col w-full gap-y-2" ref={parent}>
-        {tabs[tab]}
+        {tabComponents[tab]}
       </div>
     </div>
   )

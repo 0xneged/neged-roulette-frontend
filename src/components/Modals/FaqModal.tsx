@@ -1,8 +1,8 @@
-import { Button as FlowBiteButton } from 'flowbite-react'
 import DefaultModal from 'components/Modals/DefaultModal'
-import ModalProps from 'types/ModalProps'
+import { Button as FlowBiteButton } from 'flowbite-react'
 import baseScanAddress from 'helpers/baseScanAddress'
 import env from 'helpers/env'
+import ModalProps from 'types/ModalProps'
 
 function BodyContent() {
   const subHeaderStyle = 'font-script text-primary-bright text-3xl'

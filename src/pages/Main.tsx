@@ -1,32 +1,26 @@
-import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import FloatingChatButton from 'components/FloatingChatButton'
-import FloatingGmButton from 'components/FloatingGmButton'
-import Roulette from 'components/Main/Roulette'
-import RoundStats from 'components/Main/RoundStats'
-import RoundTab from 'components/Main/RoundTab'
-import RoundTypeSwitch from 'components/Main/RoundTypeSwitch'
-import TopWin from 'components/TopWin'
-import TotalBets from 'components/Main/TotalBets'
-import YourBets from 'components/Main/YourBets'
-import useAuthToken from 'helpers/hooks/useAuthToken'
+import ColoredEmoji from 'components/ColoredEmoji'
+import HashLink from 'components/HashLink'
+import HatIcon from 'components/icons/HatIcon'
+import TowerCard from 'components/TowerGame/TowerCard'
+import { navigate } from 'wouter-preact/use-hash-location'
 
 export default function () {
-  useAuthToken()
-  const [parent] = useAutoAnimate()
+  const linkStyle = 'font-bold font-script text-3xl flex flex-col items-center'
 
   return (
-    <>
-      <div ref={parent}>
-        <TopWin />
-        <RoundTypeSwitch />
-        <Roulette />
-        <TotalBets />
-        <RoundStats />
-        <YourBets />
-        <RoundTab />
-      </div>
-      <FloatingGmButton />
-      <FloatingChatButton />
-    </>
+    <div className="h-96 flex flex-row gap-x-4">
+      <TowerCard onClick={() => navigate('/hatGame')} animated>
+        <HashLink href="/hatGame" className={linkStyle}>
+          <span>Hat Game</span>
+          <HatIcon />
+        </HashLink>
+      </TowerCard>
+      <TowerCard onClick={() => navigate('/towerGame')} animated>
+        <HashLink href="/towerGame" className={linkStyle}>
+          Tower Game
+        </HashLink>
+        <ColoredEmoji>🗼</ColoredEmoji>
+      </TowerCard>
+    </div>
   )
 }

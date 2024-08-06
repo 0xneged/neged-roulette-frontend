@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'preact/compat'
 import HatIcon from 'components/icons/HatIcon'
+import { PropsWithChildren } from 'preact/compat'
 import OnClick from 'types/OnClick'
 
 interface ButtonProps extends PropsWithChildren, OnClick {
@@ -10,7 +10,7 @@ interface ButtonProps extends PropsWithChildren, OnClick {
 }
 
 const basicButtonStyles =
-  'flex-row flex cursor-pointer items-center justify-center gap-x-2 text-lg text-white font-medium px-4 py-2 rounded-md disabled:opacity-20 enabled:active:scale-105 transition-all enabled:hover:hue-rotate-15 '
+  'flex-row flex cursor-pointer disabled:cursor-default items-center justify-center gap-x-2 text-lg text-white font-medium px-4 py-2 rounded-md disabled:opacity-20 enabled:active:scale-105 transition-all enabled:hover:hue-rotate-15 '
 
 export default function ({
   children,

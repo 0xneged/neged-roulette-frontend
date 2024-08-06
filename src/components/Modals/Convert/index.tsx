@@ -1,13 +1,13 @@
-import { useCallback, useState } from 'preact/hooks'
 import { usePrivy, useWallets } from '@privy-io/react-auth'
 import Body from 'components/Modals/Convert/Body'
-import DefaultModal from 'components/Modals/DefaultModal'
 import Footer from 'components/Modals/Convert/Footer'
-import ModalProps from 'types/ModalProps'
+import DefaultModal from 'components/Modals/DefaultModal'
+import useSwap from 'helpers/hooks/swap/useSwap'
+import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import minimumWithdrawal from 'helpers/swap/minimumWithdrawal'
 import processSwap from 'helpers/swap/processSwap'
-import useHatsCounter from 'helpers/hooks/useHatsCounter'
-import useSwap from 'helpers/hooks/useSwap'
+import { useCallback, useState } from 'preact/hooks'
+import ModalProps from 'types/ModalProps'
 
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
   const { login, authenticated, ready, connectWallet, user } = usePrivy()

@@ -1,6 +1,6 @@
-import User from 'types/User'
 import axios from 'axios'
 import env from 'helpers/env'
+import User from 'types/User'
 
 const backendEndpoint = `${env.VITE_BACKEND_URL}/user`
 

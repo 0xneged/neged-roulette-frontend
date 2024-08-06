@@ -1,7 +1,7 @@
-import { PreviousRoundComponent } from 'components/Main/PreviousRoundResult'
-import DashedCard from 'components/Main/DashedCard'
 import HatIcon from 'components/icons/HatIcon'
-import useTopWin from 'helpers/hooks/useTopWin'
+import DashedCard from 'components/Main/DashedCard'
+import { PreviousRoundComponent } from 'components/Main/PreviousRoundResult'
+import useTopWin from 'helpers/hooks/hatGame/useTopWin'
 
 export default function () {
   const { data } = useTopWin()

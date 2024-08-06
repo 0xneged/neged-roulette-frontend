@@ -1,11 +1,11 @@
-import { Deposit } from 'types/Round'
-import { JSX, PropsWithChildren } from 'preact/compat'
 import FcPfp from 'components/FcPfp'
 import HatInCircle from 'components/icons/HatInCircle'
 import Username from 'components/Username'
 import getAccountLink from 'helpers/getAccountLink'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
 import roundNumber from 'helpers/numbers/roundNumber'
+import { JSX, PropsWithChildren } from 'preact/compat'
+import { Deposit } from 'types/Round'
 
 interface BetterProps extends Deposit, PropsWithChildren {
   totalDeposits: number

@@ -1,11 +1,11 @@
-import { banUser } from 'helpers/api/chat'
-import { toast } from 'react-toastify'
-import { useCallback, useState } from 'preact/hooks'
-import { useLongPress } from 'use-long-press'
-import ChatMessage from 'types/ChatMessage'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { banUser } from 'helpers/api/chat'
 import env from 'helpers/env'
 import getAccountLink from 'helpers/getAccountLink'
+import { useCallback, useState } from 'preact/hooks'
+import { toast } from 'react-toastify'
+import ChatMessage from 'types/ChatMessage'
+import { useLongPress } from 'use-long-press'
 
 export type OnDelete = (messageId: string, isAdminOrOwner: boolean) => void
 const threshold = 500
@@ -53,7 +53,7 @@ export default function ({
 
   return (
     <div
-      className={`flex gap-x-1 max-w-64 se:max-w-80 sm:max-w-96 h-full ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-words transition-opacity duration-${threshold}`}
+      className={`flex gap-x-1 max-w-64 se:max-w-80 sm:max-w-96 h-full ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-words transition-opacity duration-${threshold} leading-tight`}
       onDblClick={onDoubleClick}
       {...bind()}
     >

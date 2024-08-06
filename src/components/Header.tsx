@@ -1,11 +1,11 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useSearch } from 'wouter-preact'
-import { useState } from 'preact/hooks'
 import CustomConnectButton from 'components/CustomConnectButton'
 import FaqIcon from 'components/icons/FaqIcon'
-import FaqModal from 'components/Modals/FaqModal'
 import Logo from 'components/Logo'
+import FaqModal from 'components/Modals/FaqModal'
 import useReferralQuery from 'helpers/hooks/useReferralQuery'
+import { useState } from 'preact/hooks'
+import { useSearch } from 'wouter-preact'
 
 export default function () {
   const [parent] = useAutoAnimate()

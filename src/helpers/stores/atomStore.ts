@@ -6,4 +6,4 @@ const writeAtom = store.set
 const readAtom = store.get
 const subscribeAtom = store.sub
 
-export { writeAtom, readAtom, subscribeAtom }
+export { readAtom, subscribeAtom, writeAtom }

@@ -1,6 +1,7 @@
 import 'index.css'
 import 'react-toastify/dist/ReactToastify.css'
-import { render } from 'preact'
+
 import App from 'App'
+import { render } from 'preact'
 
 render(<App />, document.getElementById('root') as Element)

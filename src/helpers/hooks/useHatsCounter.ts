@@ -1,5 +1,5 @@
-import { getUserHats } from 'helpers/api/token'
 import { useQuery } from '@tanstack/react-query'
+import { getUserHats } from 'helpers/api/token'
 
 export default function (address?: string | undefined) {
   return useQuery({

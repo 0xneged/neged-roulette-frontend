@@ -1,6 +1,6 @@
-import { useEffect } from 'preact/hooks'
 import { usePrivy } from '@privy-io/react-auth'
 import axios from 'axios'
+import { useEffect } from 'preact/hooks'
 
 export default function () {
   const { ready, authenticated, getAccessToken } = usePrivy()

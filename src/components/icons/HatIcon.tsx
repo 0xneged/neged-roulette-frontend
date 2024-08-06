@@ -3,11 +3,13 @@ export default function ({
   rotateAnimation = false,
   color = 'currentColor',
   small,
+  size = 21,
   centered,
 }: {
   rotate?: number
   rotateAnimation?: boolean
   small?: boolean | undefined
+  size?: number
   color?: string
   centered?: boolean
 }) {
@@ -35,8 +37,8 @@ export default function ({
     </svg>
   ) : (
     <svg
-      width="21"
-      height="16"
+      width={size}
+      height={size}
       viewBox="0 0 21 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

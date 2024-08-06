@@ -1,6 +1,6 @@
-import { JSX } from 'preact/jsx-runtime'
-import { useState } from 'preact/hooks'
 import EmojiAvatar from 'components/EmojiAvatar'
+import { useState } from 'preact/hooks'
+import { JSX } from 'preact/jsx-runtime'
 
 const defaultFallback = (address?: string | undefined) => (
   <EmojiAvatar address={address} />

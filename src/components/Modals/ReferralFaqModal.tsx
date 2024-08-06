@@ -1,6 +1,6 @@
 import DefaultModal from 'components/Modals/DefaultModal'
-import ModalProps from 'types/ModalProps'
 import ShareRefButton from 'components/ShareRefButton'
+import ModalProps from 'types/ModalProps'
 
 export default function ({
   address,

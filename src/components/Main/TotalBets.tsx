@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import HatIcon from 'components/icons/HatIcon'
+import useRound from 'helpers/hooks/hatGame/useRound'
 import roundNumber from 'helpers/numbers/roundNumber'
-import useRound from 'helpers/hooks/useRound'
 
 export default function () {
   const { totalDeposits } = useRound()

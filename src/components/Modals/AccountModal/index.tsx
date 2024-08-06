@@ -1,9 +1,9 @@
+import BodyContent from 'components/Modals/AccountModal/Body'
+import Footer from 'components/Modals/AccountModal/Footer'
 import { AccountModalProps } from 'components/Modals/AccountModal/Props'
+import DefaultModal from 'components/Modals/DefaultModal'
 import { invalidateManyQueries } from 'helpers/queryClient'
 import { useCallback } from 'preact/compat'
-import BodyContent from 'components/Modals/AccountModal/Body'
-import DefaultModal from 'components/Modals/DefaultModal'
-import Footer from 'components/Modals/AccountModal/Footer'
 
 export default function ({
   address,

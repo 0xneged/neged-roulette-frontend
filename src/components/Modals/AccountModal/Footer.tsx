@@ -1,7 +1,7 @@
-import { AccountModalInner } from 'components/Modals/AccountModal/Props'
-import { Button as FlowBiteButton } from 'flowbite-react'
 import FaqIcon from 'components/icons/FaqIcon'
+import { AccountModalInner } from 'components/Modals/AccountModal/Props'
 import ShareRefButton from 'components/ShareRefButton'
+import { Button as FlowBiteButton } from 'flowbite-react'
 import vibrate from 'helpers/vibrate'
 
 export default function ({

@@ -1,7 +1,7 @@
-import AddressProp from 'types/AddressProp'
 import PromoCode from 'components/Modals/AccountModal/PromoCode'
 import StyledAddress from 'components/StyledAddress'
 import useReferrer from 'helpers/hooks/useReferrer'
+import AddressProp from 'types/AddressProp'
 
 function YourAddress({ address }: AddressProp) {
   return <StyledAddress label="Your address" address={address} />

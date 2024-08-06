@@ -1,13 +1,13 @@
-import { base } from 'viem/chains'
-import { erc20Abi, formatUnits } from 'viem'
-import { useBalance, useReadContract } from 'wagmi'
 import { useWallets } from '@privy-io/react-auth'
-import EthAddress from 'types/EthAddress'
-import availableTokens from 'helpers/swap/availableTokens'
+import useTokenQuotes from 'helpers/hooks/swap/useHatSwap'
+import useOnBlockUpdated from 'helpers/hooks/swap/useOnBlockUpdated'
 import queryClient from 'helpers/queryClient'
-import useOnBlockUpdated from 'helpers/hooks/useOnBlockUpdated'
-import useTokenQuotes from 'helpers/hooks/useHatSwap'
+import availableTokens from 'helpers/swap/availableTokens'
 import walletConfig from 'helpers/walletConfig'
+import EthAddress from 'types/EthAddress'
+import { erc20Abi, formatUnits } from 'viem'
+import { base } from 'viem/chains'
+import { useBalance, useReadContract } from 'wagmi'
 
 export default function (tokenIndex: number) {
   const currentTokenIn = availableTokens[tokenIndex]

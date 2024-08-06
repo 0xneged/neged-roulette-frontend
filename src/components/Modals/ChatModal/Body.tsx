@@ -1,9 +1,9 @@
-import { memo } from 'preact/compat'
 import { usePrivy } from '@privy-io/react-auth'
-import ChatMessage from 'types/ChatMessage'
 import HatIcon from 'components/icons/HatIcon'
 import MessageBox, { OnDelete } from 'components/Modals/ChatModal/MessageBox'
 import env from 'helpers/env'
+import { memo } from 'preact/compat'
+import ChatMessage from 'types/ChatMessage'
 
 function Body({
   messages,
