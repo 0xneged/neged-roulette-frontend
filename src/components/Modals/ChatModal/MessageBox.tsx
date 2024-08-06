@@ -53,7 +53,7 @@ export default function ({
 
   return (
     <div
-      className={`flex gap-x-1 max-w-64 se:max-w-80 sm:max-w-96 h-full ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-words transition-opacity duration-${threshold} leading-tight`}
+      className={`flex gap-x-1 max-w-64 se:max-w-80 sm:max-w-96 ${yourMessage} ${opacity} items-center p-2 rounded-xl handle text-wrap break-words transition-opacity duration-${threshold} leading-tight`}
       onDblClick={onDoubleClick}
       {...bind()}
     >
