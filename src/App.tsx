@@ -10,14 +10,15 @@ import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
 import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
+import { lazy } from 'preact/compat'
 import { ToastContainer } from 'react-toastify'
 import { base } from 'viem/chains'
 import { Route, Router, Switch } from 'wouter-preact'
 import { useHashLocation } from 'wouter-preact/use-hash-location'
 
-const HatGame = () => <Lazy path="../pages/HatGame" />
-const TowerGame = () => <Lazy path="../pages/TowerGame" />
-const Admin = () => <Lazy path="../pages/Admin" />
+const HatGame = lazy(() => import('./pages/HatGame'))
+const TowerGame = lazy(() => import('./pages/TowerGame'))
+const Admin = lazy(() => import('./pages/Admin'))
 
 export default function () {
   return (
@@ -47,10 +48,38 @@ export default function () {
           <div className="container mx-auto max-w-prose p-4 min-h-[88dvh] text-white">
             <Router hook={useHashLocation}>
               <Switch>
-                <Route path="/" component={Main} />
-                <Route path="/hatGame" component={HatGame} />
-                <Route path="/towerGame" component={TowerGame} />
-                <Route path="/admin" component={Admin} />
+                <Route
+                  path="/"
+                  component={() => (
+                    <Lazy>
+                      <Main />
+                    </Lazy>
+                  )}
+                />
+                <Route
+                  path="/hat-game"
+                  component={() => (
+                    <Lazy>
+                      <HatGame />
+                    </Lazy>
+                  )}
+                />
+                <Route
+                  path="/tower-game"
+                  component={() => (
+                    <Lazy>
+                      <TowerGame />
+                    </Lazy>
+                  )}
+                />
+                <Route
+                  path="/admin"
+                  component={() => (
+                    <Lazy>
+                      <Admin />
+                    </Lazy>
+                  )}
+                />
                 <Route component={NotFound} />
               </Switch>
             </Router>

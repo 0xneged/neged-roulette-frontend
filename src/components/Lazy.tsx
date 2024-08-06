@@ -1,12 +1,10 @@
 import HatIcon from 'components/icons/HatIcon'
-import { lazy, Suspense } from 'preact/compat'
+import { PropsWithChildren, Suspense } from 'preact/compat'
 
-export default function ({ path }: { path: string }) {
-  const Component = lazy(() => import(path))
-
+export default function ({ children }: PropsWithChildren) {
   return (
     <Suspense fallback={<HatIcon rotateAnimation centered />}>
-      <Component />
+      {children}
     </Suspense>
   )
 }
