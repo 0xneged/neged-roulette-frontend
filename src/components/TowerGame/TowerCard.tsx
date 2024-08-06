@@ -25,8 +25,9 @@ export default function ({
   glow,
 }: TowerCardProps) {
   const bg = statusToBg[status]
-  const boxShadow = glow ? 'shadow-card shadow-hat' : ''
-  const opacity = disabled ? 'opacity-70' : 'opacity-100'
+  const boxShadow = glow ? 'shadow-card shadow-secondary' : ''
+  const border = glow ? 'border-secondary' : 'border-primary-dark '
+  const opacity = disabled ? 'opacity-50' : 'opacity-100'
   const animation = animated ? 'bg-scroll' : 'hover:bg-scroll'
   const cursor = disabled ? 'cursor-not-allowed' : 'cursor-pointer'
   const transform =
@@ -36,12 +37,11 @@ export default function ({
 
   return (
     <Tilt
-      className={`${bg} ${animation} ${opacity} ${cursor} ${boxShadow} rounded-lg border-2 border-primary-dark transition-all w-full h-20`}
+      className={`${bg} ${animation} ${opacity} ${cursor} ${boxShadow} rounded-lg border-2 ${border} transition-all w-full h-20`}
       style={{
         transformStyle: 'preserve-3d',
         background: 'url(img/hatsBg.svg)',
         backgroundSize: '120%',
-        backgroundOpacity: '70%',
         backgroundPosition: 'center center',
         backgroundRepeat: 'repeat-x',
       }}

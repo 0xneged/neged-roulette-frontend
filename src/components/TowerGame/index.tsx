@@ -19,7 +19,7 @@ import {
 
 const statusToElement = (hatAmount: string | number) => ({
   [TowerCardStatus.hidden]: (
-    <div className="rounded-3xl w-28 h-12 bg-primary flex flex-row gap-x-2 items-center justify-center drop-shadow">
+    <div className="rounded-3xl w-20 md:w-28 h-12 bg-primary flex flex-row gap-x-2 items-center justify-center drop-shadow">
       {typeof hatAmount === 'number' ? roundNumber(hatAmount) : hatAmount}{' '}
       <HatIcon />
     </div>
