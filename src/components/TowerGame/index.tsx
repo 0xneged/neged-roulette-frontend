@@ -1,7 +1,6 @@
 import HatIcon from 'components/icons/HatIcon'
 import GridWrapper from 'components/TowerGame/GridWrapper'
 import TowerCard from 'components/TowerGame/TowerCard'
-import towerHeight from 'components/TowerGame/towerHeight'
 import { guess } from 'helpers/api/towerGame'
 import roundNumber from 'helpers/numbers/roundNumber'
 import queryClient from 'helpers/queryClient'
@@ -12,6 +11,7 @@ import {
   TowerCardStatus,
   TowerGame,
   TowerGameStatus,
+  towerHeight,
   TowerType,
   TypeToGuessMax,
   TypeToMultipliers,
@@ -112,7 +112,7 @@ export default function ({
 
   return (
     <GridWrapper maxInRow={maxInRow}>
-      {[...Array(towerHeight)].map((_, index) => (
+      {[...Array(towerHeight(towerType))].map((_, index) => (
         <CardRow
           rowLength={maxInRow}
           onClick={onClick}
