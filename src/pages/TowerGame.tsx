@@ -38,8 +38,6 @@ export default function () {
       return
     }
 
-    console.log(isFinished, data?.betAmount)
-
     if (!isFinished && data?.betAmount) {
       try {
         setInteractionLoading(true)
@@ -65,6 +63,12 @@ export default function () {
     refetch,
   ])
 
+  const exitWith = data?.betAmount
+    ? roundNumber(
+        data.guesses.length ? data.betAmount * multiplier : data.betAmount
+      )
+    : 0
+
   return (
     <div ref={parent}>
       <RoomTypeSwitch
@@ -81,9 +85,7 @@ export default function () {
           data?.betAmount ? (
             <span className="flex flex-row items-center gap-x-2">
               <span>
-                {isFinished
-                  ? 'Finished! Try again?'
-                  : `Exit with ${roundNumber(data.betAmount * multiplier)}`}
+                {isFinished ? 'Finished! Try again?' : `Exit with ${exitWith}`}
               </span>{' '}
               <HatIcon />
             </span>
