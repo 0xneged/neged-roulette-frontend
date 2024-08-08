@@ -110,7 +110,7 @@ function ModalBody({
   )
 }
 
-function ModalFooter(data: MorningStreakResponse) {
+function ModalFooter(data: MorningStreakResponse & { address: string }) {
   const [loading, setLoading] = useState(false)
   const onTimeout = new Date(data.morningStreakTimeout) > new Date()
 
@@ -121,14 +121,14 @@ function ModalFooter(data: MorningStreakResponse) {
     }
     try {
       setLoading(true)
-      await addToMorningStreak()
+      await addToMorningStreak(data.address)
     } catch (e) {
       console.error(e)
       toast.error('Ooof, please try GM again 😥')
     } finally {
       setLoading(false)
     }
-  }, [onTimeout])
+  }, [onTimeout, data.address])
 
   return (
     <BigButton
@@ -142,7 +142,11 @@ function ModalFooter(data: MorningStreakResponse) {
   )
 }
 
-export default function ({ modalOpen, setModalOpen }: ModalProps) {
+export default function ({
+  modalOpen,
+  setModalOpen,
+  address,
+}: ModalProps & { address: string }) {
   const { data, status } = useMorningStreak()
 
   const isPending = status === 'pending' || !data
@@ -151,7 +155,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     <DefaultModal
       header="GM Streak"
       bodyContent={isPending ? <ModalLoader /> : <ModalBody {...data} />}
-      footerContent={data ? <ModalFooter {...data} /> : null}
+      footerContent={data ? <ModalFooter {...data} address={address} /> : null}
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
     />

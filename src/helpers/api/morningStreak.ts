@@ -2,13 +2,13 @@ import axios from 'axios'
 import checkAuthToken from 'helpers/api/checkAuthToken'
 import env from 'helpers/env'
 import roundNumber from 'helpers/numbers/roundNumber'
-import { invalidateManyQueries } from 'helpers/queryClient'
+import queryClient, { setHatsQueryData } from 'helpers/queryClient'
 import { toast } from 'react-toastify'
 import MorningStreakResponse from 'types/MorningStreak'
 
 const backendEndpoint = env.VITE_BACKEND_URL
 
-export async function addToMorningStreak() {
+export async function addToMorningStreak(address: string) {
   try {
     const { headers } = await checkAuthToken()
 
@@ -24,7 +24,8 @@ export async function addToMorningStreak() {
           roundNumber(data.balance) +
           ' 🎩 Comeback in 24h'
       )
-      await invalidateManyQueries(['hatsCounter', 'morningStreak'])
+      setHatsQueryData(address, data.balance)
+      await queryClient.invalidateQueries({ queryKey: ['morningStreak'] })
     }
 
     return data

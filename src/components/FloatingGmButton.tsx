@@ -3,10 +3,12 @@ import GmModal from 'components/Modals/GmModal'
 import { useState } from 'preact/hooks'
 
 export default function () {
-  const { ready, authenticated } = usePrivy()
+  const { ready, authenticated, user } = usePrivy()
   const [modalOpen, setModalOpen] = useState(false)
 
-  if (!ready || !authenticated) return null
+  const address = user?.wallet?.address.toLowerCase()
+
+  if (!ready || !authenticated || !address) return null
 
   return (
     <>
@@ -16,7 +18,11 @@ export default function () {
       >
         🔥
       </button>
-      <GmModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <GmModal
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        address={address}
+      />
     </>
   )
 }

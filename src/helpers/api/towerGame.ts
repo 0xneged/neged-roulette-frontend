@@ -83,8 +83,10 @@ export async function exitTower(_id: string) {
     toast.success(
       `You exited 🛼 your balance now is ${roundNumber(data.balance)}`
     )
+    return data.balance
   } catch (e) {
     handleError(e, 'Failed to exit the tower, please try again 😥')
+    throw e
   }
 }
 

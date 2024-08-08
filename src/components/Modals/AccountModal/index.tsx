@@ -17,9 +17,11 @@ export default function ({
   }, [setModalOpen])
 
   const onLogout = useCallback(async () => {
+    if (!address) return
+
     await logout()
-    await invalidateManyQueries(['morningStreak', 'hatsCounter', 'referrer'])
-  }, [logout])
+    await invalidateManyQueries(['morningStreak', 'towerGame'])
+  }, [address, logout])
 
   return (
     <DefaultModal

@@ -4,7 +4,6 @@ import TowerCard from 'components/TowerGame/TowerCard'
 import { guess } from 'helpers/api/towerGame'
 import roundNumber from 'helpers/numbers/roundNumber'
 import queryClient from 'helpers/queryClient'
-import getHiddenCardStatuses from 'helpers/tower/getHiddenCardStatuses'
 import { useCallback } from 'preact/hooks'
 import { toast } from 'react-toastify'
 import {
@@ -44,21 +43,28 @@ function CardRow({
   onClick: (index: number) => void
   disabled: boolean
   hatAmount: string | number
-  cardStatuses: TowerCardStatus[]
+  cardStatuses?: TowerCardStatus[] | undefined
   guess?: number
 }) {
   const elements = statusToElement(hatAmount)
 
-  const cards = [...Array(rowLength)].map((_, index) => (
-    <TowerCard
-      onClick={() => onClick(index)}
-      status={cardStatuses[index]}
-      disabled={disabled}
-      glow={guess === index}
-    >
-      {elements[cardStatuses[index]]}
-    </TowerCard>
-  ))
+  const cards = [...Array(rowLength)].map((_, index) => {
+    const safeStatus =
+      typeof cardStatuses?.[index] === 'number'
+        ? cardStatuses[index]
+        : TowerCardStatus.hidden
+
+    return (
+      <TowerCard
+        onClick={() => onClick(index)}
+        status={safeStatus}
+        disabled={disabled}
+        glow={guess === index}
+      >
+        {elements[safeStatus]}
+      </TowerCard>
+    )
+  })
   return <>{cards}</>
 }
 
@@ -81,9 +87,6 @@ export default function ({
 
   const guesses = game?.guesses || []
   const isFinished = game?.status === TowerGameStatus.finished
-  const cardStatuses = game?.cardStatuses?.length
-    ? game.cardStatuses
-    : getHiddenCardStatuses(towerType)
   const betAmount = game?.betAmount
   const step = guesses.length
 
@@ -119,7 +122,7 @@ export default function ({
           disabled={
             loading || !betAmount || index > step || index < step || isFinished
           }
-          cardStatuses={cardStatuses[index]}
+          cardStatuses={game?.cardStatuses?.[index]}
           guess={guesses[index]}
           hatAmount={
             betAmount && !isFinished

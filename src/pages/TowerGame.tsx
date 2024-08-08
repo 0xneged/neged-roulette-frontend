@@ -11,7 +11,7 @@ import useTowerGame from 'helpers/hooks/tower//useTowerGame'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import roundNumber from 'helpers/numbers/roundNumber'
-import queryClient from 'helpers/queryClient'
+import { setHatsQueryData } from 'helpers/queryClient'
 import { useCallback, useState } from 'preact/hooks'
 import { TowerGameStatus, TowerType, TypeToMultipliers } from 'types/TowerGame'
 
@@ -38,13 +38,11 @@ export default function () {
       return
     }
 
-    if (!isFinished && data?.betAmount) {
+    if (!isFinished && data?.betAmount && address) {
       try {
         setInteractionLoading(true)
-        await exitTower(data._id)
-        await queryClient.invalidateQueries({
-          queryKey: ['hatsCounter' + address],
-        })
+        const newBalance = await exitTower(data._id)
+        await setHatsQueryData(address, newBalance)
         await refetch()
       } finally {
         setInteractionLoading(false)
