@@ -25,7 +25,7 @@ export default function () {
     <PrivyProvider
       config={{
         appearance: {
-          logo: '/logo.webp',
+          logo: 'logo.webp',
           accentColor: '#B66DFF',
           landingHeader: "Let's a roll 🎲",
           theme: 'dark',
