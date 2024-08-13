@@ -6,6 +6,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
   plugins: [preact(), tsconfigPaths(), nodePolyfills()],
+  base: '/neged-roulette-frontend/',
   build: {
     rollupOptions: {
       plugins: [

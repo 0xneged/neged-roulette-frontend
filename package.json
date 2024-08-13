@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://neged-hat.app/#",
+  "homepage": "https://0xneged.github.io/neged-roulette-frontend/#",
   "scripts": {
     "start": "NODE_ENV=development vite",
     "build": "cross-env NODE_ENV=production tsc && vite build",
