@@ -14,6 +14,15 @@ module.exports = {
   plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
   theme: {
     extend: {
+      keyframes: {
+        rotate3d: {
+          '0%, 100%': { transform: 'rotate3d(0, 1, 0, 0)' },
+          '50%': { transform: 'rotate3d(0, 1, 0, 360deg)' },
+        },
+      },
+      animation: {
+        rotate3d: 'rotate3d 3s ease-in-out infinite',
+      },
       rotate: {
         360: '360deg',
       },

@@ -2,6 +2,7 @@ import { usePrivy, useWallets } from '@privy-io/react-auth'
 import Body from 'components/Modals/Convert/Body'
 import Footer from 'components/Modals/Convert/Footer'
 import DefaultModal from 'components/Modals/DefaultModal'
+import getUserAddress from 'helpers/getUserAddress'
 import useSwap from 'helpers/hooks/swap/useSwap'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import minimumWithdrawal from 'helpers/swap/minimumWithdrawal'
@@ -11,7 +12,7 @@ import ModalProps from 'types/ModalProps'
 
 export default function ({ modalOpen, setModalOpen }: ModalProps) {
   const { login, authenticated, ready, connectWallet, user } = usePrivy()
-  const address = user?.wallet?.address.toLowerCase()
+  const address = getUserAddress(user)
   const { data: hats } = useHatsCounter(address)
   const { wallets, ready: walletsReady } = useWallets()
 

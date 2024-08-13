@@ -2,6 +2,7 @@ import { usePrivy } from '@privy-io/react-auth'
 import HatIcon from 'components/icons/HatIcon'
 import MessageBox, { OnDelete } from 'components/Modals/ChatModal/MessageBox'
 import env from 'helpers/env'
+import getUserAddress from 'helpers/getUserAddress'
 import { memo } from 'preact/compat'
 import ChatMessage from 'types/ChatMessage'
 
@@ -13,7 +14,7 @@ function Body({
   onDelete: OnDelete
 }) {
   const { user } = usePrivy()
-  const userAddress = user?.wallet?.address.toLowerCase()
+  const userAddress = getUserAddress(user)
   const isAdmin = userAddress === env.VITE_ADMIN_ADDRESS
 
   return (

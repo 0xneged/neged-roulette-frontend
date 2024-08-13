@@ -2,6 +2,7 @@ import { usePrivy } from '@privy-io/react-auth'
 import BigButton from 'components/BigButton'
 import Button from 'components/Button'
 import Input from 'components/Input'
+import getUserAddress from 'helpers/getUserAddress'
 import useUserAccount from 'helpers/hooks/useUserAccount'
 
 interface FooterProps {
@@ -49,7 +50,7 @@ function ChatInput({
 
 export default function ({ value, setValue, onSend }: FooterProps) {
   const { user, login } = usePrivy()
-  const userAddress = user?.wallet?.address.toLowerCase()
+  const userAddress = getUserAddress(user)
 
   if (!userAddress) return <BigButton onClick={login}>Login to chat</BigButton>
 

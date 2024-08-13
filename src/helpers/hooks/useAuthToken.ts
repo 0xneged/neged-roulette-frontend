@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect } from 'preact/hooks'
 
 export default function () {
-  const { ready, authenticated, getAccessToken } = usePrivy()
+  const { authenticated, ready, login, user, getAccessToken } = usePrivy()
 
   useEffect(() => {
     if (!ready || !authenticated) {
@@ -19,4 +19,6 @@ export default function () {
 
     void auth()
   }, [authenticated, getAccessToken, ready])
+
+  return { authenticated, ready, login, user }
 }

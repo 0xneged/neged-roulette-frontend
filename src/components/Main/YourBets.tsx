@@ -6,6 +6,7 @@ import DashedCard from 'components/Main/DashedCard'
 import BetModal from 'components/Modals/BetModal'
 import { placeBet } from 'helpers/api/round'
 import env from 'helpers/env'
+import getUserAddress from 'helpers/getUserAddress'
 import useRound from 'helpers/hooks/hatGame/useRound'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import getPercentFromTotal from 'helpers/numbers/getPercentFromTotal'
@@ -17,7 +18,7 @@ import { RoundStatus } from 'types/Round'
 export default function () {
   const { data, totalDeposits } = useRound()
   const { authenticated, login, ready, user } = usePrivy()
-  const address = user?.wallet?.address.toLowerCase()
+  const address = getUserAddress(user)
   const { data: hats, status: hatsLoaderStatus } = useHatsCounter(address)
   const fetchingHats = hatsLoaderStatus === 'pending'
 

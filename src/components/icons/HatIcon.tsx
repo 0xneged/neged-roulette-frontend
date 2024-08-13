@@ -5,16 +5,19 @@ export default function ({
   small,
   size = 21,
   centered,
+  rotate3dAnimation,
 }: {
   rotate?: number
   rotateAnimation?: boolean
+  rotate3dAnimation?: boolean
   small?: boolean | undefined
   size?: number
   color?: string
   centered?: boolean
 }) {
   const animation = rotateAnimation ? 'rotate-animation' : ''
-  const className = `${animation}`
+  const rotate3d = rotate3dAnimation ? 'animate-rotate3d' : ''
+  const className = `${animation} ${rotate3d}`
 
   const svgComponent = small ? (
     <svg
