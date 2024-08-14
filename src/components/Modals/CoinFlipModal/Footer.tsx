@@ -64,7 +64,7 @@ export default function ({ room }: { room: CoinFlipGame }) {
         `You need ${difference} more to join`
       ) : (
         <>
-          Join for {roundNumber(room.betAmount)} <HatIcon />
+          Join for {room.betAmount} <HatIcon />
         </>
       )}
     </BigButton>
