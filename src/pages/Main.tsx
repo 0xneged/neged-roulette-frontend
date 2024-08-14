@@ -8,7 +8,7 @@ export default function () {
   const linkStyle = 'font-bold font-script text-3xl flex flex-col items-center'
 
   return (
-    <div className="h-96 flex flex-row flex-wrap gap-4">
+    <div className="h-96 flex flex-row flex-wrap gap-2">
       <TowerCard onClick={() => navigate('/hat-game')} animated>
         <HashLink href="/hat-game" className={linkStyle}>
           <span>Hat Game</span>
@@ -21,7 +21,11 @@ export default function () {
         </HashLink>
         <ColoredEmoji animate>🗼</ColoredEmoji>
       </TowerCard>
-      <TowerCard onClick={() => navigate('/coin-flip')} animated>
+      <TowerCard
+        onClick={() => navigate('/coin-flip')}
+        animated
+        className="!h-40"
+      >
         <HashLink href="/coin-flip" className={linkStyle}>
           Coin Flip Game
         </HashLink>

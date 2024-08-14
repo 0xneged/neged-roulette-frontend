@@ -19,7 +19,7 @@ export default function () {
       <span>Promo Code</span>
       <Input
         value={code}
-        onChange={(e) => setCode(e.currentTarget.value)}
+        onInput={(e) => setCode(e.currentTarget.value)}
         className="text-2xl uppercase text-right"
         plainInput
       />

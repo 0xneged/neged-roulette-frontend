@@ -28,7 +28,7 @@ function ChatInput({
       <Input
         plainInput
         value={value}
-        onChange={(e) => setValue(e.currentTarget.value)}
+        onInput={(e) => setValue(e.currentTarget.value)}
         className="!w-full h-10"
         maxLength={max}
         disabled={isBanned}

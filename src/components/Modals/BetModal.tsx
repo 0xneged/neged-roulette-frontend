@@ -14,7 +14,7 @@ interface BetModalProps extends ModalProps, RoundParams {
   userAddress?: string | undefined
   userHats: number | undefined | null
   userDeposit: number
-  onBet: (betValue: number) => Promise<unknown>
+  onBet: (betValue: number) => Promise<unknown> | void
 }
 
 export default function ({
@@ -95,8 +95,12 @@ export default function ({
     value: betValue,
     min,
     max,
-    onChange: (e: TargetedEvent<HTMLInputElement>) =>
-      setBetValue(e.currentTarget.valueAsNumber || 1),
+    onKeyDown: async (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
+      if (e.key === 'Enter') await placeBetOnClick()
+    },
+    onInput: (e: TargetedEvent<HTMLInputElement>) => {
+      setBetValue(e.currentTarget.valueAsNumber || 1)
+    },
   }
 
   const BodyContent = (

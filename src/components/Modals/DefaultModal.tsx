@@ -7,6 +7,7 @@ interface DefaultModalProps extends ModalProps {
   bodyContent: JSX.Element
   bodyId?: string
   footerContent: JSX.Element | null
+  onCloseEx?: () => void
 }
 
 export default function ({
@@ -16,13 +17,17 @@ export default function ({
   bodyContent,
   bodyId,
   footerContent,
+  onCloseEx,
 }: DefaultModalProps) {
   return (
     <Flowbite theme={{ mode: 'dark' }}>
       <Modal
         dismissible
         show={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false)
+          onCloseEx?.()
+        }}
         theme={{
           content: {
             inner: 'rounded-2xl',

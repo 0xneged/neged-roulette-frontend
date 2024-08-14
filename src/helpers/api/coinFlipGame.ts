@@ -56,7 +56,10 @@ export async function joinRoom(_id: string) {
     })
     return data
   } catch (e) {
-    handleError({ e, toastMessage: 'Failed to get your game :(' })
+    handleError({
+      e,
+      toastMessage: e.response.data.message || 'Failed to join the room :(',
+    })
     return null
   }
 }

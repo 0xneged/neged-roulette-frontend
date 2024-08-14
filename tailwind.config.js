@@ -28,6 +28,7 @@ module.exports = {
       },
       screens: {
         se: '375px',
+        xs: '440px',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -6,5 +6,6 @@ export default function () {
   return useQuery({
     queryKey: [QueryKeys.coinFlip],
     queryFn: () => getGames({}),
+    refetchInterval: 500,
   })
 }

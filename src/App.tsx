@@ -74,10 +74,10 @@ export default function () {
                   )}
                 />
                 <Route
-                  path="/coin-flip"
-                  component={() => (
+                  path="/coin-flip/:roomId?"
+                  component={(params) => (
                     <Lazy>
-                      <CoinFlipGame />
+                      <CoinFlipGame {...params} />
                     </Lazy>
                   )}
                 />

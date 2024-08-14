@@ -4,6 +4,7 @@ import { createRoom } from 'helpers/api/coinFlipGame'
 import getUserAddress from 'helpers/getUserAddress'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
+import queryClient, { QueryKeys } from 'helpers/queryClient'
 import { useCallback, useState } from 'preact/hooks'
 
 export default function () {
@@ -24,14 +25,23 @@ export default function () {
 
   return (
     <>
-      <BigButton onClick={onClick} exClassName="w-full" loading={!ready}>
+      <BigButton
+        onClick={onClick}
+        exClassName="w-full drop-shadow-lg"
+        loading={!ready}
+      >
         Create room
       </BigButton>
 
       <BetModal
         header="Create 🪙 flip room"
         userAddress={address}
-        onBet={(betAmount) => createRoom(betAmount)}
+        onBet={async (betAmount) => {
+          await createRoom(betAmount)
+          await queryClient.invalidateQueries({
+            queryKey: [QueryKeys.coinFlip],
+          })
+        }}
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         userDeposit={0}
