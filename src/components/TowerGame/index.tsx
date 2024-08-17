@@ -57,7 +57,6 @@ function CardRow({
     return (
       <TowerCard
         onClick={() => onClick(index)}
-        status={safeStatus}
         disabled={disabled}
         glow={guess === index}
       >
