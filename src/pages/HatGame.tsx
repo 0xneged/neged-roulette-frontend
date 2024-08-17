@@ -8,18 +8,13 @@ import RoomTypeSwitch from 'components/RoomTypeSwitch'
 import TopWin from 'components/TopWin'
 import useRound from 'helpers/hooks/hatGame/useRound'
 import useAuthToken from 'helpers/hooks/useAuthToken'
-import { useEffect } from 'preact/hooks'
+import usePreloadImage from 'helpers/hooks/usePreloadImage'
 
 export default function () {
   useAuthToken()
   const [parent] = useAutoAnimate()
   const { roundType, setRoundType } = useRound()
-
-  useEffect(() => {
-    // preload
-    const img = new Image()
-    img.src = 'img/neged-hat.webp'
-  }, [])
+  usePreloadImage('img/neged-hat.webp')
 
   return (
     <div ref={parent}>

@@ -1,3 +1,4 @@
+import HatIcon from 'components/icons/HatIcon'
 import Input from 'components/Input'
 import DefaultModal from 'components/Modals/DefaultModal'
 import { Button as FlowBiteButton } from 'flowbite-react'
@@ -9,13 +10,15 @@ import ModalProps from 'types/ModalProps'
 import { RoundParams } from 'types/Round'
 
 interface BetModalProps extends ModalProps, RoundParams {
+  header?: string
   userAddress?: string | undefined
   userHats: number | undefined | null
   userDeposit: number
-  onBet: (betValue: number) => Promise<void>
+  onBet: (betValue: number) => Promise<unknown> | void
 }
 
 export default function ({
+  header = 'Place a bet',
   userAddress,
   modalOpen,
   setModalOpen,
@@ -92,14 +95,18 @@ export default function ({
     value: betValue,
     min,
     max,
-    onChange: (e: TargetedEvent<HTMLInputElement>) =>
-      setBetValue(e.currentTarget.valueAsNumber || 1),
+    onKeyDown: async (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
+      if (e.key === 'Enter') await placeBetOnClick()
+    },
+    onInput: (e: TargetedEvent<HTMLInputElement>) => {
+      setBetValue(e.currentTarget.valueAsNumber || 1)
+    },
   }
 
   const BodyContent = (
     <div class="relative mb-6">
       <label for="labels-range-input" class="sr-only">
-        Labels range
+        Select your bet
       </label>
       <input
         id="labels-range-input"
@@ -132,6 +139,8 @@ export default function ({
         onClick: placeBetOnClick,
         color: 'purple',
         children: 'Accept',
+        isProcessing: loading,
+        processingSpinner: <HatIcon rotateAnimation />,
         disabled,
       })}
     </>
@@ -139,7 +148,7 @@ export default function ({
 
   return (
     <DefaultModal
-      header="Place a bet"
+      header={header}
       bodyContent={BodyContent}
       footerContent={FooterContent}
       modalOpen={modalOpen}

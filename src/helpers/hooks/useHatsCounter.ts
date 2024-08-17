@@ -5,5 +5,6 @@ export default function (address?: string | undefined) {
   return useQuery({
     queryKey: ['hatsCounter' + address],
     queryFn: () => getUserHats(address),
+    refetchInterval: 2500,
   })
 }

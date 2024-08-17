@@ -17,7 +17,7 @@ export default function () {
   return (
     <>
       <div
-        className="sticky top-0 z-20 backdrop-blur-md backdrop-brightness-90 md:backdrop-brightness-100 px-5 py-3 flex-row flex items-center justify-between"
+        className="sticky top-0 z-20 bg-primary-bg xl:bg-transparent xl:backdrop-blur-sm backdrop-brightness-90 md:backdrop-brightness-100 px-5 py-3 flex-row flex items-center justify-between"
         ref={parent}
       >
         <Logo />

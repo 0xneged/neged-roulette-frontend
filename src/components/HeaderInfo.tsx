@@ -2,6 +2,7 @@ import { usePrivy } from '@privy-io/react-auth'
 import FcName from 'components/FcName'
 import FcPfp from 'components/FcPfp'
 import HatsCounterButton from 'components/Main/HatsCounterButton'
+import getUserAddress from 'helpers/getUserAddress'
 import { lazy, Suspense } from 'preact/compat'
 import { useState } from 'preact/hooks'
 
@@ -17,7 +18,7 @@ export default function () {
   const [convertModalOpen, setConvertModalOpen] = useState(false)
   const [refFaqModalOpen, setRefFaqModalOpen] = useState(false)
 
-  const address = user?.wallet?.address.toLowerCase()
+  const address = getUserAddress(user)
 
   return (
     <>

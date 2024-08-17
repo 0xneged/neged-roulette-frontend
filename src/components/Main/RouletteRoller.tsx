@@ -52,12 +52,16 @@ export default function ({
         ref={spinBox}
       >
         {spinArray.map(
-          ({ address, amount, fcPfpLink, fcUsername, winChance }, index) => (
+          (
+            { address, amount, fcPfpLink, fcUsername, winChance, balance },
+            index
+          ) => (
             <RouletteParticipant
               fcPfpLink={fcPfpLink}
               fcUsername={fcUsername}
               address={address}
               amount={amount}
+              balance={balance}
               key={address + index}
               width={participantBoxWidth}
               winChance={winChance}

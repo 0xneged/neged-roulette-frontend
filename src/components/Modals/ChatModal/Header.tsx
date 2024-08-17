@@ -7,7 +7,7 @@ export default function () {
   const { data, status } = useQuery({
     queryKey: ['chatOnline'],
     queryFn: getOnlineUsers,
-    refetchInterval: 3000,
+    refetchInterval: 15000,
   })
 
   return (

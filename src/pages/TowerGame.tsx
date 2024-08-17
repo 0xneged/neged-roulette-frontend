@@ -7,6 +7,7 @@ import RoomTypeSwitch from 'components/RoomTypeSwitch'
 import TowerGame from 'components/TowerGame/index'
 import SkeletonLoader from 'components/TowerGame/SkeletonLoader'
 import { exitTower, placeTowerBet } from 'helpers/api/towerGame'
+import getUserAddress from 'helpers/getUserAddress'
 import useTowerGame from 'helpers/hooks/tower//useTowerGame'
 import useAuthToken from 'helpers/hooks/useAuthToken'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
@@ -22,7 +23,7 @@ export default function () {
   const [betModalOpen, setBetModalOpen] = useState(false)
   const { user, ready, authenticated, login } = usePrivy()
   const { data, status, refetch } = useTowerGame(towerType)
-  const address = user?.wallet?.address.toLowerCase()
+  const address = getUserAddress(user)
   const { data: hats, status: hatsStatus } = useHatsCounter(address)
   const [interactionLoading, setInteractionLoading] = useState(false)
 
@@ -105,8 +106,6 @@ export default function () {
           setLoading={setInteractionLoading}
         />
       )}
-
-      {/* {authenticated ? <TowerTabs towerType={towerType} /> : null} */}
 
       {gameLoading ? null : (
         <BetModal

@@ -40,7 +40,7 @@ export default function () {
           type="password"
           id="neged-admin-password"
           value={adminPassword}
-          onChange={(e) => setAdminPassword(e.currentTarget.value)}
+          onInput={(e) => setAdminPassword(e.currentTarget.value)}
           plainInput
         />
         <Button
@@ -61,7 +61,7 @@ export default function () {
               plainInput
               className="uppercase"
               value={newCode?.secret}
-              onChange={(e) =>
+              onInput={(e) =>
                 setNewCode((prev) => ({
                   ...prev,
                   secret: e.currentTarget.value,
@@ -76,7 +76,7 @@ export default function () {
               plainInput
               value={newCode?.rewardAmount}
               type="number"
-              onChange={(e) =>
+              onInput={(e) =>
                 setNewCode((prev) => ({
                   ...prev,
                   rewardAmount: e.currentTarget.valueAsNumber,
@@ -90,7 +90,7 @@ export default function () {
               plainInput
               value={newCode.userLimit}
               type="number"
-              onChange={(e) =>
+              onInput={(e) =>
                 setNewCode((prev) => ({
                   ...prev,
                   userLimit: e.currentTarget.valueAsNumber,

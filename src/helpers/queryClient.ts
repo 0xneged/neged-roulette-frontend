@@ -11,4 +11,8 @@ export async function invalidateManyQueries(queries: string[]) {
 export const setHatsQueryData = (address: string, num: number) =>
   queryClient.setQueryData([`hatsCounter${address}`], num)
 
+export const QueryKeys = {
+  coinFlip: 'coinFlip',
+}
+
 export default queryClient

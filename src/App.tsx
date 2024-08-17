@@ -18,6 +18,7 @@ import { useHashLocation } from 'wouter-preact/use-hash-location'
 
 const HatGame = lazy(() => import('./pages/HatGame'))
 const TowerGame = lazy(() => import('./pages/TowerGame'))
+const CoinFlipGame = lazy(() => import('./pages/CoinFlipGame'))
 const Admin = lazy(() => import('./pages/Admin'))
 
 export default function () {
@@ -73,6 +74,14 @@ export default function () {
                   )}
                 />
                 <Route
+                  path="/coin-flip/:roomId?"
+                  component={(params) => (
+                    <Lazy>
+                      <CoinFlipGame {...params} />
+                    </Lazy>
+                  )}
+                />
+                <Route
                   path="/admin"
                   component={() => (
                     <Lazy>
@@ -92,6 +101,8 @@ export default function () {
             pauseOnHover
             stacked
             theme="dark"
+            closeOnClick
+            limit={3}
           />
         </WagmiProvider>
       </QueryClientProvider>

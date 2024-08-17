@@ -65,7 +65,7 @@ export default function ({
 
   const inputProps = {
     value: amount,
-    onChange: onInputChange,
+    onInput: onInputChange,
     type: 'number',
     step: 'any',
     min: isWithdraw ? minimumWithdrawal : 'any',

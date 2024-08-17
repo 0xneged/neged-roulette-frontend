@@ -1,12 +1,13 @@
 import { usePrivy } from '@privy-io/react-auth'
 import GmModal from 'components/Modals/GmModal'
+import getUserAddress from 'helpers/getUserAddress'
 import { useState } from 'preact/hooks'
 
 export default function () {
   const { ready, authenticated, user } = usePrivy()
   const [modalOpen, setModalOpen] = useState(false)
 
-  const address = user?.wallet?.address.toLowerCase()
+  const address = getUserAddress(user)
 
   if (!ready || !authenticated || !address) return null
 

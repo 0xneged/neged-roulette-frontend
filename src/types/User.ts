@@ -3,4 +3,5 @@ export default interface User {
   fcPfpLink: string | undefined
   fcUsername: string | undefined
   bannedFromChat: boolean
+  balance: number
 }

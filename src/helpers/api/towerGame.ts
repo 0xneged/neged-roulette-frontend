@@ -21,7 +21,7 @@ export async function getLastTower(towerType: TowerType) {
     })
     return data
   } catch (e) {
-    handleError(e, 'Failed to fetch your tower 🗼🦖')
+    handleError({ e, toastMessage: 'Failed to fetch your tower 🗼🦖' })
     return null
   }
 }
@@ -48,7 +48,7 @@ export async function placeTowerBet({
       queryKey: [`towerGame-${towerType}`],
     })
   } catch (e) {
-    handleError(e, 'Failed to place bet 😥')
+    handleError({ e, toastMessage: 'Failed to place bet 😥' })
   }
 }
 
@@ -67,7 +67,7 @@ export async function guess(props: {
     )
     return data
   } catch (e) {
-    handleError(e, 'Failed to guess, please try again 😥')
+    handleError({ e, toastMessage: 'Failed to guess, please try again 😥' })
   }
 }
 
@@ -85,7 +85,10 @@ export async function exitTower(_id: string) {
     )
     return data.balance
   } catch (e) {
-    handleError(e, 'Failed to exit the tower, please try again 😥')
+    handleError({
+      e,
+      toastMessage: 'Failed to exit the tower, please try again 😥',
+    })
     throw e
   }
 }
@@ -108,7 +111,7 @@ export async function getTowerHistory({
     )
     return data
   } catch (e) {
-    handleError(e, 'Failed to fetch tower history 🗼🦖')
+    handleError({ e, toastMessage: 'Failed to fetch tower history 🗼🦖' })
     return null
   }
 }
