@@ -25,7 +25,7 @@ export default function ({ user1, user2, winner, endTime }: CoinFlipGame) {
       ? `-${(seconds * 1000 + milliSeconds) * 2}ms`
       : '0s'
 
-  const maskUser = !!(!winner && endTime && seconds < 3)
+  const maskUser = !!(!winner && endTime && seconds < 4)
 
   return (
     <>
