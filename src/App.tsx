@@ -101,6 +101,8 @@ export default function () {
             pauseOnHover
             stacked
             theme="dark"
+            closeOnClick
+            limit={3}
           />
         </WagmiProvider>
       </QueryClientProvider>
