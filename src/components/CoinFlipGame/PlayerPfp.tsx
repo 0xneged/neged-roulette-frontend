@@ -1,4 +1,3 @@
-import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import ImageWithFallback from 'components/ImageWithFallback'
 import User from 'types/User'
 
@@ -13,8 +12,6 @@ export default function ({
   isWinner?: boolean
   size?: number
 }) {
-  const [parent] = useAutoAnimate()
-
   if (!user)
     return (
       <div
@@ -27,10 +24,7 @@ export default function ({
     : ''
 
   return (
-    <div
-      className={`-mx-4 xs:-mx-2 ${border} transition-colors rounded-full`}
-      ref={parent}
-    >
+    <div className={`-mx-4 xs:-mx-2 ${border} transition-colors rounded-full`}>
       {maskUser ? (
         <span className="text-9xl">?</span>
       ) : (
