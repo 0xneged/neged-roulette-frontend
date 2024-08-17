@@ -22,7 +22,7 @@ export default function ({ room }: { room: CoinFlipGame }) {
   const onClick = useCallback(() => {
     setLoading(true)
     void joinRoom(room._id).finally(async () => {
-      await invalidateManyQueries([QueryKeys.coinFlip.toString()])
+      await invalidateManyQueries([QueryKeys.coinFlip])
       setTimeout(() => setLoading(false))
     })
   }, [room._id])

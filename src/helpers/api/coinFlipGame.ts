@@ -1,6 +1,7 @@
 import axios from 'axios'
 import env from 'helpers/env'
 import handleError from 'helpers/handleError'
+import { setHatsQueryData } from 'helpers/queryClient'
 import CoinFlipGame from 'types/CoinFlipGame'
 
 const backendUrl = env.VITE_BACKEND_URL + '/coinFlip'
@@ -54,6 +55,7 @@ export async function joinRoom(_id: string) {
     const { data } = await axios.post<CoinFlipGame>(backendUrl + '/joinRoom', {
       _id,
     })
+    if (data.user2) setHatsQueryData(data.user2.address, data.user2.balance)
     return data
   } catch (e) {
     handleError({
