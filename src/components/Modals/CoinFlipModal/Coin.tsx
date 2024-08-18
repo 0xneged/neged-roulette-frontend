@@ -5,7 +5,7 @@ import getAccountLink from 'helpers/getAccountLink'
 import useCountDown from 'helpers/hooks/useCountDown'
 import CoinFlipGame from 'types/CoinFlipGame'
 
-const edgeDetailLevel = 64
+const edgeDetailLevel = 20
 
 export default function ({ user1, user2, winner, endTime }: CoinFlipGame) {
   const { seconds, milliSeconds } = useCountDown(endTime, 1)
