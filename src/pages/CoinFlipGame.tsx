@@ -40,14 +40,14 @@ export default function ({ params }: { params: { roomId?: string } }) {
       <div className="sticky top-20 w-full z-30">
         <CreateCoinFlipRoom />
       </div>
-      <div
-        className="grid grid-cols-3 gap-2 align-middle justify-items-center my-4"
-        ref={parent}
-      >
-        {fetchingGames ? (
-          <HatIcon centered rotateAnimation />
-        ) : data ? (
-          data.map((props) => (
+      {fetchingGames ? (
+        <HatIcon centered rotateAnimation />
+      ) : (
+        <div
+          className="grid grid-cols-3 gap-2 align-middle justify-items-center my-4"
+          ref={parent}
+        >
+          {data?.map((props) => (
             <CoinFlipCard
               {...props}
               onClick={() => {
@@ -56,11 +56,9 @@ export default function ({ params }: { params: { roomId?: string } }) {
               }}
               key={props._id}
             />
-          ))
-        ) : (
-          <span className="text-center font-bold">No games yet :)</span>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
       <CoinFlipModal
         room={room}
