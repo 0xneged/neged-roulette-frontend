@@ -23,7 +23,16 @@ export default [
     symbol: 'NEGED',
     decimals: 18,
     logoURI:
-      'https://assets.coingecko.com/coins/images/36424/standard/neged.jpeg?1711429808',
+      'https://assets.coingecko.com/coins/images/36424/standard/neged.jpeg',
+  },
+  {
+    chainId: 8453,
+    address: '0x8c9037d1ef5c6d1f6816278c7aaf5491d24cd527',
+    name: 'moxie',
+    symbol: 'MOXIE',
+    decimals: 18,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/39451/standard/favicon_-_200_x_200.png',
   },
   {
     chainId: 8453,

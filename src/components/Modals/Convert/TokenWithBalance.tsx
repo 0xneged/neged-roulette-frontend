@@ -9,10 +9,12 @@ export default function ({
   setTokenIndex,
   isWithdraw,
   balance,
+  balanceLoading,
   setMax,
   disabled,
 }: BodyDropDownProps & {
   balance?: string | undefined | null
+  balanceLoading?: boolean
   setMax: (balance: number) => void
 }) {
   const opacity = disabled ? 'opacity-80' : 'opacity-100'
@@ -34,8 +36,10 @@ export default function ({
       </div>
       <span class="flex flex-col md:flex-row gap-1 text-xs opacity-75">
         <span className="hidden md:block">Balance: </span>
-        <span>{balance ? toFixedFloor(balance) : <DotsLoader />}</span>
-        {balance ? (
+        <span>
+          {balanceLoading ? <DotsLoader /> : toFixedFloor(balance || 0)}
+        </span>
+        {!balanceLoading && balance ? (
           <button
             className="text-secondary font-bold"
             onClick={() => setMax(Number(toFixedFloor(balance)))}

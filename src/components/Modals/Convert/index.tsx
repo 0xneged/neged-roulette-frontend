@@ -25,7 +25,7 @@ export default function ({ modalOpen, setModalOpen }: ModalProps) {
     useSwap(tokenIndex)
 
   const quotesLoading =
-    tokenInStatus === 'pending' && tokenOutStatus === 'pending'
+    tokenInStatus === 'pending' || tokenOutStatus === 'pending'
 
   const disabledWhenBalanceLow = isWithdraw
     ? (hats || 0) < minimumWithdrawal || amount < minimumWithdrawal

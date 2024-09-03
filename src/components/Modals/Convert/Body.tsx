@@ -106,6 +106,7 @@ export default function ({
               setTokenIndex={setTokenIndex}
               isWithdraw={isWithdraw}
               balance={isWithdraw ? String(hats || '0') : tokenInBalance}
+              balanceLoading={loading}
               setMax={setMax}
             />
           </div>

@@ -1,6 +1,7 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
 import CoinFlipCard from 'components/CoinFlipGame/CoinFlipCard'
 import CreateCoinFlipRoom from 'components/CoinFlipGame/CreateCoinFlipRoom'
+import HatIcon from 'components/icons/HatIcon'
 import CoinFlipModal from 'components/Modals/CoinFlipModal'
 import useCoinFlipGames from 'helpers/hooks/coinFlip/useCoinFlipGames'
 import { useCallback, useEffect, useState } from 'preact/hooks'
@@ -9,11 +10,13 @@ import { useLocation } from 'wouter-preact'
 
 export default function ({ params }: { params: { roomId?: string } }) {
   const [parent] = useAutoAnimate()
-  const { data } = useCoinFlipGames()
+  const { data, status } = useCoinFlipGames()
   const [modalOpen, setModalOpen] = useState(false)
   const [, setLocation] = useLocation()
 
   const [room, setRoom] = useState<CoinFlipGame>()
+
+  const fetchingGames = status === 'pending'
 
   const setDefaultLocation = useCallback(
     () => setLocation('/coin-flip'),
@@ -41,16 +44,22 @@ export default function ({ params }: { params: { roomId?: string } }) {
         className="grid grid-cols-3 gap-2 align-middle justify-items-center my-4"
         ref={parent}
       >
-        {data?.map((props) => (
-          <CoinFlipCard
-            {...props}
-            onClick={() => {
-              setLocation(`/coin-flip/${props._id}`)
-              setModalOpen(true)
-            }}
-            key={props._id}
-          />
-        ))}
+        {fetchingGames ? (
+          <HatIcon centered rotateAnimation />
+        ) : data ? (
+          data.map((props) => (
+            <CoinFlipCard
+              {...props}
+              onClick={() => {
+                setLocation(`/coin-flip/${props._id}`)
+                setModalOpen(true)
+              }}
+              key={props._id}
+            />
+          ))
+        ) : (
+          <span className="text-center font-bold">No games yet :)</span>
+        )}
       </div>
 
       <CoinFlipModal
