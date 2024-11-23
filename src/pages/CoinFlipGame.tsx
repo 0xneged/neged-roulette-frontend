@@ -41,7 +41,9 @@ export default function ({ params }: { params: { roomId?: string } }) {
         <CreateCoinFlipRoom />
       </div>
       {fetchingGames ? (
-        <HatIcon centered rotateAnimation />
+        <div className="my-4">
+          <HatIcon centered rotateAnimation />
+        </div>
       ) : (
         <div
           className="grid grid-cols-3 gap-2 align-middle justify-items-center my-4"

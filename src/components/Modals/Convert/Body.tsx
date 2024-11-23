@@ -80,7 +80,7 @@ export default function ({
         <span className="font-semibold opacity-70 text-center">
           <span>Minimum withdrawal amount is {minimumWithdrawal} HATs</span>
           <br />
-          <span>You can only withdrawal to negeD for now</span>
+          <span>You can only withdrawal to degen</span>
         </span>
       )}
       {isNative && (
@@ -130,7 +130,7 @@ export default function ({
           </div>
 
           <div className="flex items-center gap-x-2 w-32 justify-end">
-            <span>{isWithdraw ? 'negeD' : 'Hats'}</span>
+            <span>{isWithdraw ? 'degen' : 'Hats'}</span>
             <HatInCircle darkBg={isWithdraw} />
           </div>
         </div>

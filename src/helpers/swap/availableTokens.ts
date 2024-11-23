@@ -15,15 +15,14 @@ export const WETH_CONTRACT_ADDRESS =
 
 // WARNING: keep neged at 0 index
 // ipfs:// links are not supported
-export default [
+const allTokens = [
   {
     chainId: 8453,
-    address: '0x4229c271c19CA5F319fb67b4BC8A40761A6d6299',
-    name: 'negeD',
-    symbol: 'NEGED',
+    address: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed',
+    name: 'Degen',
+    symbol: 'DEGEN',
     decimals: 18,
-    logoURI:
-      'https://assets.coingecko.com/coins/images/36424/standard/neged.jpeg',
+    logoURI: 'https://basescan.org/token/images/degentips_32.png',
   },
   {
     chainId: 8453,
@@ -36,11 +35,12 @@ export default [
   },
   {
     chainId: 8453,
-    address: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed',
-    name: 'Degen',
-    symbol: 'DEGEN',
+    address: '0x4229c271c19CA5F319fb67b4BC8A40761A6d6299',
+    name: 'negeD',
+    symbol: 'NEGED',
     decimals: 18,
-    logoURI: 'https://basescan.org/token/images/degentips_32.png',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/36424/standard/neged.jpeg',
   },
   {
     name: 'Ether',
@@ -201,3 +201,5 @@ export default [
     },
   },
 ] as TokenWithLogo[]
+
+export default [allTokens[0]]

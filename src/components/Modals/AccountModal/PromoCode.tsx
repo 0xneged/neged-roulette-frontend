@@ -15,7 +15,10 @@ export default function () {
   })
 
   return (
-    <div className="flex flex-row gap-x-2 items-center justify-between">
+    <div
+      style={{ display: 'none' }}
+      className="flex flex-row gap-x-2 items-center justify-between"
+    >
       <span>Promo Code</span>
       <Input
         value={code}

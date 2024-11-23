@@ -5,7 +5,7 @@ export default function () {
   return (
     <HashLink href={baseUrl}>
       <p className="font-script text-hat text-3xl hover:hue-rotate-15 transition-all drop-shadow-md">
-        negeD Hat
+        DEGEN FLIP
       </p>
     </HashLink>
   )
