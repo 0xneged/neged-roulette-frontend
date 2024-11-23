@@ -8,7 +8,6 @@ import Lazy from 'components/Lazy'
 import env from 'helpers/env'
 import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
-import Main from 'pages/Main'
 import NotFound from 'pages/NotFound'
 import { lazy } from 'preact/compat'
 import { ToastContainer } from 'react-toastify'
@@ -16,10 +15,7 @@ import { base } from 'viem/chains'
 import { Route, Router, Switch } from 'wouter-preact'
 import { useHashLocation } from 'wouter-preact/use-hash-location'
 
-const HatGame = lazy(() => import('./pages/HatGame'))
-const TowerGame = lazy(() => import('./pages/TowerGame'))
 const CoinFlipGame = lazy(() => import('./pages/CoinFlipGame'))
-const Admin = lazy(() => import('./pages/Admin'))
 
 export default function () {
   return (
@@ -28,7 +24,7 @@ export default function () {
         appearance: {
           logo: 'logo.webp',
           accentColor: '#B66DFF',
-          landingHeader: "Let's a roll 🎲",
+          landingHeader: "Let's a roll 🪙",
           theme: 'dark',
         },
         supportedChains: [base as never],
@@ -50,26 +46,10 @@ export default function () {
             <Router hook={useHashLocation}>
               <Switch>
                 <Route
-                  path="/"
-                  component={() => (
+                  path="/:roomId?"
+                  component={(params) => (
                     <Lazy>
-                      <Main />
-                    </Lazy>
-                  )}
-                />
-                <Route
-                  path="/hat-game"
-                  component={() => (
-                    <Lazy>
-                      <HatGame />
-                    </Lazy>
-                  )}
-                />
-                <Route
-                  path="/tower-game"
-                  component={() => (
-                    <Lazy>
-                      <TowerGame />
+                      <CoinFlipGame {...params} />
                     </Lazy>
                   )}
                 />
@@ -78,14 +58,6 @@ export default function () {
                   component={(params) => (
                     <Lazy>
                       <CoinFlipGame {...params} />
-                    </Lazy>
-                  )}
-                />
-                <Route
-                  path="/admin"
-                  component={() => (
-                    <Lazy>
-                      <Admin />
                     </Lazy>
                   )}
                 />

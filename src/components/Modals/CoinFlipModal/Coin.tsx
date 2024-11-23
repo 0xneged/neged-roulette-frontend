@@ -1,6 +1,7 @@
 import 'components/Modals/CoinFlipModal/coin.css'
 
 import PlayerPfp from 'components/CoinFlipGame/PlayerPfp'
+import DegenIcon from 'components/icons/DegenIcon'
 import getAccountLink from 'helpers/getAccountLink'
 import useCountDown from 'helpers/hooks/useCountDown'
 import CoinFlipGame from 'types/CoinFlipGame'
@@ -63,7 +64,7 @@ export default function ({ user1, user2, winner, endTime }: CoinFlipGame) {
                   isWinner={!!winner}
                 />
               ) : (
-                <span className="text-9xl">?</span>
+                <DegenIcon />
               )}
             </div>
           </div>

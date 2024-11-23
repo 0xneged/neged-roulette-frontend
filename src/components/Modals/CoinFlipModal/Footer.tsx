@@ -59,7 +59,7 @@ export default function ({ room }: { room: CoinFlipGame }) {
           </p>
         </span>
       ) : isYours ? (
-        'Waiting for second player'
+        'Waiting for opponent'
       ) : notEnough ? (
         `You need ${difference} more to join`
       ) : (

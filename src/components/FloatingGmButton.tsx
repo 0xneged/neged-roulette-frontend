@@ -14,6 +14,7 @@ export default function () {
   return (
     <>
       <button
+        style={{ display: 'none' }}
         className="flex z-20 items-center justify-center rounded-full disabled:bg-opacity-40 bg-yellow-200 disabled:bg-yellow-500 fixed right-4 md:right-10 bottom-5 h-12 w-10 md:h-24 md:w-20 md:text-4xl gm-button"
         onClick={() => setModalOpen(true)}
       >
