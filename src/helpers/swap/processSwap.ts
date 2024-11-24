@@ -71,7 +71,8 @@ export default async function ({
         const hash = await writeContract(walletConfig, {
           address: currentToken.address as EthAddress,
           abi: bep20abi,
-          functionName: tokenIndex ? 'approve' : 'increaseAllowance', // negeD contract uses 'increaseAllowance'
+          functionName:
+            currentToken.name === 'negeD' ? 'increaseAllowance' : 'approve',
           args: [
             env.VITE_TOKEN_RECEIVER_CONTRACT as EthAddress,
             convertedAmount,

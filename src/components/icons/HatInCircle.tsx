@@ -12,7 +12,7 @@ export default function ({
 
   return (
     <div
-      className={`flex items-center justify-center rounded-3xl ${size} ${bg}`}
+      className={`flex items-center justify-center rounded-3xl rotate-180 ${size} ${bg}`}
     >
       <HatIcon small={small} />
     </div>
