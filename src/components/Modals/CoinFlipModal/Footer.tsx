@@ -38,14 +38,14 @@ export default function ({
   const canShare = isYours && roundPreparing
 
   const onClick = useCallback(async () => {
+    const roomId = room._id
     if (canShare) {
-      const shareUrl =
-        'https://warpcast.com/~/compose?text=I bet on heads, they have 60% chance to win!&embeds[]=https://degenflip.xyz'
+      const shareUrl = `https://warpcast.com/~/compose?text=I bet on heads, they have 60% chance to win!&embeds[]=https://degenflip.xyz/#/${roomId}`
 
       if (isAndroid) window.open(shareUrl, '_blank')
       else {
         await navigator.clipboard.writeText(
-          'I bet on heads, they have 60% chance to win! https://degenflip.xyz'
+          `I bet on heads, they have 60% chance to win! https://degenflip.xyz/#/${roomId}`
         )
         toast.success('Copied link!')
       }
