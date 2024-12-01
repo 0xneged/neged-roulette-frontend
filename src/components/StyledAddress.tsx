@@ -11,7 +11,7 @@ export default function ({
   isLoading?: boolean | undefined
 }) {
   return (
-    <div className="flex flex-row gap-x-2 justify-between items-center">
+    <div className="flex flex-col items-start">
       <span>{label}</span>
       {isLoading ? (
         <DotsLoader />

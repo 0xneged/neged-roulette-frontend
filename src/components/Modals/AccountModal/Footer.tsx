@@ -32,7 +32,7 @@ export default function ({
     })
 
   const ShareButton = () => (
-    <div className="flex flex-row gap-x-2">
+    <div className="hidden flex-row gap-x-2">
       <FaqIcon onClick={setOpenShareFaq} />
       <ShareRefButton address={address} />
     </div>

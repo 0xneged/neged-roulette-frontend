@@ -11,11 +11,13 @@ function YourReferrer({ address }: AddressProp) {
   const { data, status } = useReferrer(address)
 
   return (
-    <StyledAddress
-      label="Your referrer"
-      isLoading={status === 'pending'}
-      address={data}
-    />
+    <div className="hidden">
+      <StyledAddress
+        label="Your referrer"
+        isLoading={status === 'pending'}
+        address={data}
+      />
+    </div>
   )
 }
 
