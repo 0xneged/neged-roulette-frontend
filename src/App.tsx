@@ -1,3 +1,4 @@
+import sdk from '@farcaster/frame-sdk'
 import { PrivyProvider } from '@privy-io/react-auth'
 import { WagmiProvider } from '@privy-io/wagmi'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -9,7 +10,7 @@ import useSocket from 'helpers/hooks/useSocket'
 import queryClient from 'helpers/queryClient'
 import walletConfig from 'helpers/walletConfig'
 import NotFound from 'pages/NotFound'
-import { lazy } from 'preact/compat'
+import { lazy, useEffect } from 'preact/compat'
 import { ToastContainer } from 'react-toastify'
 import { Socket } from 'socket.io-client'
 import { base } from 'viem/chains'
@@ -69,6 +70,10 @@ function App() {
 }
 
 export default function AppWrapped() {
+  useEffect(() => {
+    void sdk.actions.ready()
+  }, [])
+
   return (
     <PrivyProvider
       config={{
