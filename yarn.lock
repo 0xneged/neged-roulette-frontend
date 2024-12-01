@@ -9400,6 +9400,7 @@ __metadata:
     postcss: "npm:^8.4.38"
     preact: "npm:^10.22.0"
     prettier: "npm:^3.3.2"
+    react-device-detect: "npm:^2.2.3"
     react-parallax-tilt: "npm:^1.7.234"
     react-promise-suspense: "npm:^0.3.4"
     react-timer-hook: "npm:^3.0.7"
@@ -10677,7 +10678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-device-detect@npm:^2.2.2":
+"react-device-detect@npm:^2.2.2, react-device-detect@npm:^2.2.3":
   version: 2.2.3
   resolution: "react-device-detect@npm:2.2.3"
   dependencies:

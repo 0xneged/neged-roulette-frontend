@@ -24,6 +24,7 @@
     "jotai": "^2.8.3",
     "js-confetti": "^0.12.0",
     "preact": "^10.22.0",
+    "react-device-detect": "^2.2.3",
     "react-parallax-tilt": "^1.7.234",
     "react-promise-suspense": "^0.3.4",
     "react-timer-hook": "^3.0.7",

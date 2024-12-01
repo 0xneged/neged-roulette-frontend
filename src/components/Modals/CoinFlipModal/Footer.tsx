@@ -1,4 +1,3 @@
-import sdk from '@farcaster/frame-sdk'
 import { usePrivy } from '@privy-io/react-auth'
 import BigButton from 'components/BigButton'
 import HatIcon from 'components/icons/HatIcon'
@@ -8,6 +7,8 @@ import handleError from 'helpers/handleError'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import roundNumber from 'helpers/numbers/roundNumber'
 import { useCallback, useState } from 'preact/hooks'
+import { isAndroid } from 'react-device-detect'
+import { toast } from 'react-toastify'
 import CoinFlipGame, { CoinFlipGameStatus } from 'types/CoinFlipGame'
 
 export default function ({
@@ -41,7 +42,13 @@ export default function ({
       const shareUrl =
         'https://warpcast.com/~/compose?text=I bet on heads, they have 60% chance to win!&embeds[]=https://degenflip.xyz'
 
-      window.open(shareUrl, '_blank')
+      if (isAndroid) window.open(shareUrl, '_blank')
+      else {
+        await navigator.clipboard.writeText(
+          'I bet on heads, they have 60% chance to win! https://degenflip.xyz'
+        )
+        toast.success('Copied link!')
+      }
       return
     }
 
