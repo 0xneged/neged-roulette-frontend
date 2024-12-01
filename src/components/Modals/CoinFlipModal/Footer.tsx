@@ -1,3 +1,4 @@
+import sdk from '@farcaster/frame-sdk'
 import { usePrivy } from '@privy-io/react-auth'
 import BigButton from 'components/BigButton'
 import HatIcon from 'components/icons/HatIcon'
@@ -20,11 +21,30 @@ export default function ({
   const userAddress = getUserAddress(user)
 
   const { data } = useHatsCounter(userAddress)
-  const userBalance = data || 0
-
   const [loading, setLoading] = useState(false)
 
+  const userBalance = data || 0
+
+  const isYours = userAddress === room.user1.address
+
+  const notEnough = userBalance < room.betAmount
+  const difference = roundNumber(room.betAmount - userBalance)
+
+  const roundPreparing = room.status === CoinFlipGameStatus.preparing
+  const roundOngoing = room.status === CoinFlipGameStatus.ongoing
+  const roundFinished = room.status === CoinFlipGameStatus.finished
+
+  const canShare = isYours && roundPreparing
+
   const onClick = useCallback(async () => {
+    if (canShare) {
+      const shareUrl =
+        'https://warpcast.com/~/compose?text=I bet on heads, they have 60% chance to win!&embeds[]=https://degenflip.xyz'
+
+      window.open(shareUrl, '_blank')
+      return
+    }
+
     setLoading(true)
     try {
       await onJoinRoom(room._id)
@@ -33,23 +53,13 @@ export default function ({
     } finally {
       setLoading(false)
     }
-  }, [onJoinRoom, room._id])
-
-  const isYours = userAddress === room.user1.address
-
-  const notEnough = userBalance < room.betAmount
-  const difference = roundNumber(room.betAmount - userBalance)
-
-  const roundOngoing = room.status === CoinFlipGameStatus.ongoing
-  const roundFinished = room.status === CoinFlipGameStatus.finished
-
-  console.log([loading, !ready, roundOngoing])
+  }, [canShare, onJoinRoom, room._id])
 
   return (
     <BigButton
       onClick={onClick}
       loading={loading || !ready || roundOngoing}
-      disabled={isYours || notEnough || roundFinished}
+      disabled={notEnough || roundFinished}
       exClassName="gap-x-2 w-full"
     >
       {roundFinished ? (
@@ -69,7 +79,7 @@ export default function ({
           </p>
         </span>
       ) : isYours ? (
-        'Waiting for opponent'
+        'Invite opponent 🔗'
       ) : notEnough ? (
         `You need ${difference} more to join`
       ) : (
