@@ -1,20 +1,24 @@
 import HatIcon from 'components/icons/HatIcon'
 
 export default function ({
-  darkBg,
+  isWithdrawal,
   small,
 }: {
-  darkBg?: boolean
+  isWithdrawal?: boolean
   small?: boolean
 }) {
-  const bg = darkBg ? 'bg-neged' : 'bg-hat'
+  const bg = isWithdrawal ? 'bg-neged' : 'bg-hat'
   const size = small ? 'w-5 h-5' : 'w-8 h-8'
 
   return (
     <div
-      className={`flex items-center justify-center rounded-3xl rotate-180 ${size} ${bg}`}
+      className={`flex items-center justify-center rounded-3xl ${size} ${bg}`}
     >
-      <HatIcon small={small} />
+      {isWithdrawal ? (
+        <img src="https://basescan.org/token/images/degentips_32.png" />
+      ) : (
+        <HatIcon rotate={180} small={small} />
+      )}
     </div>
   )
 }
