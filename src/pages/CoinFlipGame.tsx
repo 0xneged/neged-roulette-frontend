@@ -5,18 +5,23 @@ import HatIcon from 'components/icons/HatIcon'
 import CoinFlipModal from 'components/Modals/CoinFlipModal'
 import useCoinFlipGames from 'helpers/hooks/coinFlip/useCoinFlipGames'
 import { useCallback, useEffect, useState } from 'preact/hooks'
+import { Socket } from 'socket.io-client'
 import CoinFlipGame from 'types/CoinFlipGame'
 import { useLocation } from 'wouter-preact'
 
-export default function ({ params }: { params: { roomId?: string } }) {
+export default function ({
+  params,
+  socket,
+}: {
+  params: { roomId?: string }
+  socket: Socket
+}) {
   const [parent] = useAutoAnimate()
-  const { data, status } = useCoinFlipGames()
+  const { data, loading, onJoinRoom } = useCoinFlipGames(socket)
   const [modalOpen, setModalOpen] = useState(false)
   const [, setLocation] = useLocation()
 
   const [room, setRoom] = useState<CoinFlipGame>()
-
-  const fetchingGames = status === 'pending'
 
   const setDefaultLocation = useCallback(
     () => setLocation('/coin-flip'),
@@ -40,7 +45,7 @@ export default function ({ params }: { params: { roomId?: string } }) {
       <div className="sticky top-20 w-full z-30">
         <CreateCoinFlipRoom />
       </div>
-      {fetchingGames ? (
+      {loading ? (
         <div className="my-4">
           <HatIcon centered rotateAnimation />
         </div>
@@ -49,16 +54,19 @@ export default function ({ params }: { params: { roomId?: string } }) {
           className="grid grid-cols-3 gap-2 align-middle justify-items-center my-4"
           ref={parent}
         >
-          {data?.map((props) => (
-            <CoinFlipCard
-              {...props}
-              onClick={() => {
-                setLocation(`/coin-flip/${props._id}`)
-                setModalOpen(true)
-              }}
-              key={props._id}
-            />
-          ))}
+          {data
+            ?.sort((a, b) => +new Date(b.updatedAt) - +new Date(a.updatedAt))
+            ?.sort((a, b) => a.status - b.status)
+            .map((props, index) => (
+              <CoinFlipCard
+                {...props}
+                onClick={() => {
+                  setLocation(`/coin-flip/${props._id}`)
+                  setModalOpen(true)
+                }}
+                key={props._id + index}
+              />
+            ))}
         </div>
       )}
 
@@ -67,6 +75,7 @@ export default function ({ params }: { params: { roomId?: string } }) {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         onCloseEx={setDefaultLocation}
+        onJoinRoom={onJoinRoom}
       />
     </>
   )

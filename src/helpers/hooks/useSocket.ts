@@ -17,19 +17,13 @@ export default function () {
         ? { Authorization: `Bearer ${authToken}` }
         : {}
 
-      setSocket(io(env.VITE_BACKEND_URL, { extraHeaders }))
+      const newSocket = io(env.VITE_BACKEND_URL, { extraHeaders })
+      newSocket.connect()
+      setSocket(newSocket)
     }
 
     void connect()
   }, [ready, getAccessToken])
 
-  useEffect(() => {
-    socket?.connect()
-
-    return () => {
-      socket?.disconnect()
-    }
-  }, [socket])
-
-  return socket
+  return { socket }
 }

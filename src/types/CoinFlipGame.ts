@@ -11,6 +11,7 @@ export const maxCoinFlipEntry = 50000
 
 export default interface CoinFlipGame {
   _id: string
+  updatedAt: string
   status: CoinFlipGameStatus
   user1: User
   user2?: User

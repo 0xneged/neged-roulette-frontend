@@ -1,16 +1,21 @@
 import { usePrivy } from '@privy-io/react-auth'
 import BigButton from 'components/BigButton'
 import HatIcon from 'components/icons/HatIcon'
-import { joinRoom } from 'helpers/api/coinFlipGame'
 import getAccountLink from 'helpers/getAccountLink'
 import getUserAddress from 'helpers/getUserAddress'
+import handleError from 'helpers/handleError'
 import useHatsCounter from 'helpers/hooks/useHatsCounter'
 import roundNumber from 'helpers/numbers/roundNumber'
-import { invalidateManyQueries, QueryKeys } from 'helpers/queryClient'
 import { useCallback, useState } from 'preact/hooks'
 import CoinFlipGame, { CoinFlipGameStatus } from 'types/CoinFlipGame'
 
-export default function ({ room }: { room: CoinFlipGame }) {
+export default function ({
+  room,
+  onJoinRoom,
+}: {
+  room: CoinFlipGame
+  onJoinRoom: (_id: string) => Promise<void>
+}) {
   const { ready, user } = usePrivy()
   const userAddress = getUserAddress(user)
 
@@ -19,13 +24,16 @@ export default function ({ room }: { room: CoinFlipGame }) {
 
   const [loading, setLoading] = useState(false)
 
-  const onClick = useCallback(() => {
+  const onClick = useCallback(async () => {
     setLoading(true)
-    void joinRoom(room._id).finally(async () => {
-      await invalidateManyQueries([QueryKeys.coinFlip])
-      setTimeout(() => setLoading(false))
-    })
-  }, [room._id])
+    try {
+      await onJoinRoom(room._id)
+    } catch (e) {
+      handleError({ e, toastMessage: 'Failed to join the room' })
+    } finally {
+      setLoading(false)
+    }
+  }, [onJoinRoom, room._id])
 
   const isYours = userAddress === room.user1.address
 
@@ -34,6 +42,8 @@ export default function ({ room }: { room: CoinFlipGame }) {
 
   const roundOngoing = room.status === CoinFlipGameStatus.ongoing
   const roundFinished = room.status === CoinFlipGameStatus.finished
+
+  console.log([loading, !ready, roundOngoing])
 
   return (
     <BigButton

@@ -31,7 +31,7 @@ export default function ({
 
       <div className="flex items-center gap-x-2">
         {betAmount}
-        <HatIcon />
+        <HatIcon rotate={180} />
       </div>
     </div>
   )

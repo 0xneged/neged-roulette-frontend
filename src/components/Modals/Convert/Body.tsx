@@ -130,7 +130,7 @@ export default function ({
           </div>
 
           <div className="flex items-center gap-x-2 w-32 justify-end">
-            <span>{isWithdraw ? 'DEGEN' : 'Hats'}</span>
+            <span>{isWithdraw ? 'DEGEN' : 'HATs'}</span>
             <HatInCircle darkBg={isWithdraw} />
           </div>
         </div>

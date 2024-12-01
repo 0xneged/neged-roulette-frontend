@@ -20,7 +20,8 @@ export default function ({ address, setModalOpen }: HatsCounterProps) {
       disabled={!hasData}
       bgHat
     >
-      <HatIcon rotateAnimation={!hasData} /> {data && roundNumber(data)}
+      <HatIcon rotate={hasData ? 180 : 0} rotateAnimation={!hasData} />{' '}
+      {data && roundNumber(data)}
     </Button>
   )
 }

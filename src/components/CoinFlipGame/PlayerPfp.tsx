@@ -1,3 +1,4 @@
+import DegenIcon from 'components/icons/DegenIcon'
 import ImageWithFallback from 'components/ImageWithFallback'
 import User from 'types/User'
 
@@ -26,7 +27,7 @@ export default function ({
   return (
     <div className={`-mx-4 xs:-mx-2 ${border} transition-colors rounded-full`}>
       {maskUser ? (
-        <span className="text-9xl">?</span>
+        <DegenIcon />
       ) : (
         <ImageWithFallback
           address={user.address}

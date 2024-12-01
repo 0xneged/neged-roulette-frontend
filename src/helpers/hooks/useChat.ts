@@ -4,7 +4,7 @@ import ChatMessage from 'types/ChatMessage'
 
 export default function () {
   const [messages, setMessages] = useState<ChatMessage[]>([])
-  const socket = useSocket()
+  const { socket } = useSocket()
 
   useEffect(() => {
     if (!socket) return

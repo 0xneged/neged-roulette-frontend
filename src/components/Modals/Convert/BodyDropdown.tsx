@@ -46,16 +46,18 @@ function DropDownLabel({
   )
 }
 
+const onlyOneToken = true
+
 export default function ({
   setTokenIndex,
   tokenIndex,
   isWithdraw,
   disabled,
 }: BodyDropDownProps) {
-  const sizes = isWithdraw ? 'w-fit' : 'w-fit md:w-32'
+  const sizes = onlyOneToken ? 'w-fit' : 'w-fit md:w-32'
   tokenIndex = isWithdraw ? 0 : tokenIndex
 
-  if (isWithdraw)
+  if (onlyOneToken)
     return (
       <DropDownLabel
         logoURI={
@@ -65,7 +67,7 @@ export default function ({
         }
         symbol={isWithdraw ? 'HAT' : availableTokens[tokenIndex].symbol}
         disabled={disabled}
-        isWithdraw={isWithdraw}
+        isWithdraw={onlyOneToken}
       />
     )
 

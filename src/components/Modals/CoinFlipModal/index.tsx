@@ -9,9 +9,11 @@ export default function ({
   modalOpen,
   setModalOpen,
   onCloseEx,
+  onJoinRoom,
 }: ModalProps & {
   room: CoinFlipGame | undefined
   onCloseEx: () => void
+  onJoinRoom: (_id: string) => Promise<void>
 }) {
   if (!room) return null
 
@@ -19,7 +21,7 @@ export default function ({
     <DefaultModal
       header={`room-${room._id}`}
       bodyContent={<Body room={room} />}
-      footerContent={<Footer room={room} />}
+      footerContent={<Footer room={room} onJoinRoom={onJoinRoom} />}
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
       onCloseEx={onCloseEx}
